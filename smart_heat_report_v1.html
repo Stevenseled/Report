@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vivosun vs AC Infinity 智能加热器对比</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap');
+  
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #12121a;
+    --bg-card: #1a1a28;
+    --bg-card-hover: #222236;
+    --border: #2a2a40;
+    --text-primary: #e8e8f0;
+    --text-secondary: #9090a8;
+    --text-muted: #606078;
+    --accent-vivosun: #00c853;
+    --accent-vivosun-dim: rgba(0,200,83,0.15);
+    --accent-acinf: #ff9100;
+    --accent-acinf-dim: rgba(255,145,0,0.15);
+    --accent-gold: #ffd54f;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    font-family: 'Noto Sans SC', -apple-system, system-ui, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+    background: 
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,200,83,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 100%, rgba(255,145,0,0.06) 0%, transparent 50%),
+      var(--bg-primary);
+    overflow: hidden;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    );
+    pointer-events: none;
+  }
+  
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 18px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+  
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  
+  .hero h1 .vs { color: var(--text-muted); font-weight: 300; font-size: 0.6em; padding: 0 8px; }
+  .hero h1 .vivosun-text { background: linear-gradient(135deg, #00e676, #00c853); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero h1 .acinf-text { background: linear-gradient(135deg, #ffab40, #ff6d00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  
+  .hero p {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text-secondary);
+    max-width: 640px;
+    font-weight: 300;
+  }
+  
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .hero-meta span {
+    font-size: 13px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .hero-meta span::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .hero-meta span:nth-child(1)::before { background: var(--accent-vivosun); }
+  .hero-meta span:nth-child(2)::before { background: var(--accent-acinf); }
+  
+  /* ===== SCROLL INDICATOR ===== */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.5;
+    animation: bob 2s ease-in-out infinite;
+  }
+  .scroll-indicator span { font-size: 11px; letter-spacing: 0.1em; color: var(--text-muted); }
+  .scroll-indicator .chevron { width: 20px; height: 20px; border-right: 2px solid var(--text-muted); border-bottom: 2px solid var(--text-muted); transform: rotate(45deg); }
+  @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+  
+  /* ===== CONTAINER ===== */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+  
+  /* ===== SECTION ===== */
+  .section { padding: 80px 0; }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .section-sub {
+    color: var(--text-secondary);
+    font-weight: 300;
+    max-width: 600px;
+    margin-bottom: 48px;
+  }
+  
+  /* ===== BRAND INTRO CARDS ===== */
+  .brand-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  
+  .brand-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 40px;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .brand-card:hover { background: var(--bg-card-hover); transform: translateY(-4px); }
+  
+  .brand-card.vivosun { border-top: 3px solid var(--accent-vivosun); }
+  .brand-card.acinf { border-top: 3px solid var(--accent-acinf); }
+  
+  .brand-card .brand-logo {
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .brand-card .brand-logo.acinf-logo {
+  }
+  
+  .brand-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+  .brand-card p { color: var(--text-secondary); font-size: 14px; font-weight: 300; line-height: 1.8; }
+  .brand-card .tag {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .brand-card.vivosun .tag { background: var(--accent-vivosun-dim); color: var(--accent-vivosun); }
+  .brand-card.acinf .tag { background: var(--accent-acinf-dim); color: var(--accent-acinf); }
+  
+  /* ===== PRODUCT SHOWCASE ===== */
+  .product-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  
+  .product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .product-card:hover { border-color: rgba(255,255,255,0.15); }
+  
+  .product-card .product-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    background: var(--bg-secondary);
+  }
+  
+  .product-card .product-body { padding: 28px; }
+  .product-card .product-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 100px;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .product-card.vivosun .product-badge { background: var(--accent-vivosun-dim); color: var(--accent-vivosun); }
+  .product-card.acinf .product-badge { background: var(--accent-acinf-dim); color: var(--accent-acinf); }
+  
+  .product-card h4 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+  .product-card .product-price {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .product-card.vivosun .product-price { color: var(--accent-vivosun); }
+  .product-card.acinf .product-price { color: var(--accent-acinf); }
+  
+  .product-card .product-desc { color: var(--text-secondary); font-size: 13px; font-weight: 300; margin-bottom: 20px; line-height: 1.7; }
+  
+  .spec-list { list-style: none; }
+  .spec-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+  .spec-list li:last-child { border-bottom: none; }
+  .spec-list .spec-label { color: var(--text-muted); font-size: 13px; }
+  .spec-list .spec-value { color: var(--text-primary); font-weight: 500; text-align: right; }
+  
+  /* ===== COMPARISON TABLE ===== */
+  .comparison-table-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  
+  .comparison-table th {
+    padding: 20px 24px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  .comparison-table th:first-child { width: 200px; color: var(--text-muted); font-weight: 400; }
+  .comparison-table th:nth-child(2) { color: var(--accent-vivosun); }
+  .comparison-table th:nth-child(3) { color: var(--accent-acinf); }
+  .comparison-table th:nth-child(4) { color: var(--accent-acinf); }
+  
+  .comparison-table td {
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: top;
+  }
+  .comparison-table tr:last-child td { border-bottom: none; }
+  
+  .comparison-table .param-name {
+    color: var(--text-muted);
+    font-weight: 400;
+    font-size: 13px;
+  }
+  
+  .comparison-table .winner {
+    font-weight: 600;
+  }
+  .comparison-table .winner::after {
+    content: ' ✓';
+    font-size: 11px;
+    color: var(--accent-gold);
+    font-weight: 700;
+  }
+  
+  .comparison-table .na { color: var(--text-muted); font-style: italic; }
+  
+  /* ===== VERDICT ===== */
+  .verdict-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  
+  .verdict-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px;
+    position: relative;
+  }
+  .verdict-card.vivosun { border-left: 4px solid var(--accent-vivosun); }
+  .verdict-card.acinf { border-left: 4px solid var(--accent-acinf); }
+  
+  .verdict-card .emoji-big { font-size: 36px; margin-bottom: 16px; display: block; }
+  .verdict-card h4 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .verdict-card .verdict-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 14px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .verdict-card.vivosun .verdict-score { background: var(--accent-vivosun-dim); color: var(--accent-vivosun); }
+  .verdict-card.acinf .verdict-score { background: var(--accent-acinf-dim); color: var(--accent-acinf); }
+  
+  .verdict-card ul { list-style: none; }
+  .verdict-card ul li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .verdict-card ul li::before {
+    content: '→';
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 48px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .brand-grid,
+    .product-showcase,
+    .verdict-grid { grid-template-columns: 1fr; }
+    
+    .comparison-table-wrap { overflow-x: auto; }
+    .comparison-table { min-width: 600px; }
+    
+    .brand-card { padding: 28px; }
+    .product-card .product-body { padding: 20px; }
+    
+    .hero { min-height: 60vh; padding: 60px 20px 40px; }
+    .section { padding: 48px 0; }
+  }
+  
+  /* ===== WINNER TAG ===== */
+  .winner-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    background: rgba(255,213,79,0.12);
+    color: var(--accent-gold);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+  
+  /* ===== ANIMATIONS ===== */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+  
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.2s; }
+  .fade-up:nth-child(3) { animation-delay: 0.3s; }
+  
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-badge">2026 智能加热器对决</div>
+  <h1>
+    <span class="vivosun-text">Vivosun</span>
+    <span class="vs">VS</span>
+    <span class="acinf-text">AC Infinity</span>
+  </h1>
+  <p>智能种植加热器横向对比 —— 从功率、智能控制、价格到安全设计，帮你找到最适合的装备</p>
+  <div class="hero-meta">
+    <span>Vivosun AeroFlux &middot; $109.99</span>
+    <span>AC Infinity THERMOFORGE T7 &middot; $159+</span>
+    <span>数据采集于 2026.07</span>
+  </div>
+  <div class="scroll-indicator">
+    <span>SCROLL</span>
+    <div class="chevron"></div>
+  </div>
+</section>
+
+<!-- ===== BRAND INTRO ===== -->
+<section class="section">
+  <div class="container fade-up">
+    <div class="section-label">品牌概览</div>
+    <h2 class="section-title">两大种植装备巨头</h2>
+    <p class="section-sub">Vivosun 和 AC Infinity 都是全球领先的室内种植设备品牌，近年来在智能环境控制领域竞争激烈</p>
+    
+    <div class="brand-grid">
+      <div class="brand-card vivosun">
+        <div class="tag">挑战者 · 性价比之王</div>
+        <div class="brand-logo" style="font-size:28px;font-weight:900;color:var(--accent-vivosun);letter-spacing:-0.02em;margin-bottom:8px;">VIVOSUN</div>
+        <p>以高性价比和快速迭代著称。AeroFlux Smart Grow Tent Heater 是其最新力作，主打 700W PTC 速热 + 智能 VPD 控制 + App 联动，定价仅 $109.99，对种植者非常友好。</p>
+      </div>
+
+      <div class="brand-card acinf">
+        <div class="tag">行业标杆 · AI 先驱</div>
+        <div class="brand-logo acinf-logo" style="font-size:28px;font-weight:900;color:var(--accent-acinf);letter-spacing:-0.02em;margin-bottom:8px;">AC INFINITY</div>
+        <p>AC Infinity 是行业技术标杆。THERMOFORGE T7 搭载 AI 驱动 VPD 控制器和 1000W PTC 加热，配备 10 级 PWM 调节和远程探头，是市场上最先进的种植加热器之一。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== PRODUCT SHOWCASE ===== -->
+<section class="section">
+  <div class="container fade-up">
+    <div class="section-label">主力产品</div>
+    <h2 class="section-title">王牌对决</h2>
+    <p class="section-sub">我们选取两家最具代表性的智能加热器进行深度对比</p>
+    
+    <div class="product-showcase">
+      <!-- Vivosun -->
+      <div class="product-card vivosun">
+        <img class="product-image" src="https://image.next.vivosun.com/asset/width-1000/picture/2fe0736630f7f5771700835745e4526a.jpg" alt="Vivosun AeroFlux Smart Grow Tent Heater" loading="lazy">
+        <div class="product-body">
+          <span class="product-badge">Vivosun</span>
+          <h4>AeroFlux Smart Grow Tent Heater</h4>
+          <div class="product-price">$109.99</div>
+          <p class="product-desc">
+            700W PTC 陶瓷加热 · 5 级 PWM 功率 · WiFi App 控制 · 智能 VPD 调控 · 过热&倾倒保护
+          </p>
+          <ul class="spec-list">
+            <li><span class="spec-label">加热功率</span><span class="spec-value">700W (PTC 陶瓷)</span></li>
+            <li><span class="spec-label">加热档位</span><span class="spec-value">5 级 PWM 精度调节</span></li>
+            <li><span class="spec-label">智能控制</span><span class="spec-value">VPD 目标 + App 远程</span></li>
+            <li><span class="spec-label">传感器</span><span class="spec-value">高精度远程探头 (独立，附延长线)</span></li>
+            <li><span class="spec-label">安全保护</span><span class="spec-value">V0 阻燃 · 倾倒断电 · 过热保护</span></li>
+            <li><span class="spec-label">App 功能</span><span class="spec-value">WiFi · 昼夜模式 · 自定义 Recipe</span></li>
+            <li><span class="spec-label">兼容生态</span><span class="spec-value">Vivosun SGS 智能系统</span></li>
+            <li><span class="spec-label">价格</span><span class="spec-value" style="color:var(--accent-vivosun);font-size:16px;">$109.99</span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- AC Infinity T7 -->
+      <div class="product-card acinf">
+        <div class="product-image" style="background:linear-gradient(135deg,#1a2a1e,#0d2818);display:flex;align-items:center;justify-content:center;padding:20px;">
+          <div style="text-align:center;">
+            <div style="font-size:36px;margin-bottom:8px;color:#ff9100;font-weight:700;">T7</div>
+            <div style="color:#ff9100;font-weight:500;font-size:14px;">THERMOFORGE T7</div>
+            <div style="font-size:12px;margin-top:4px;color:#9090a8;">1000W &middot; AI 驱动 &middot; 10 级加热</div>
+          </div>
+        </div>
+        <div class="product-body">
+          <span class="product-badge">AC Infinity</span>
+          <h4>THERMOFORGE T7</h4>
+          <div class="product-price">~$159-179</div>
+          <p class="product-desc">
+            1000W PTC 加热 · AI 智能 VPD 控制 · 10 级加热+进风 · 双导管定向送风 · UIS 生态
+          </p>
+          <ul class="spec-list">
+            <li><span class="spec-label">加热功率</span><span class="spec-value">1000W (PTC 陶瓷)</span></li>
+            <li><span class="spec-label">加热档位</span><span class="spec-value">10 级 PWM 精度调节</span></li>
+            <li><span class="spec-label">进风档位</span><span class="spec-value">10 级独立控制</span></li>
+            <li><span class="spec-label">智能控制</span><span class="spec-value">AI VPD + UIS 控制器联动</span></li>
+            <li><span class="spec-label">传感器</span><span class="spec-value">高精度远程探头 (独立)</span></li>
+            <li><span class="spec-label">安全保护</span><span class="spec-value">倾倒断电 · 过热保护 · V0 阻燃</span></li>
+            <li><span class="spec-label">送风系统</span><span class="spec-value">双导管定向送风 (可延长)</span></li>
+            <li><span class="spec-label">兼容生态</span><span class="spec-value">AC Infinity UIS 全平台</span></li>
+            <li><span class="spec-label">价格</span><span class="spec-value" style="color:var(--accent-acinf);font-size:16px;">~$159-179</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- S7 第三选择 -->
+    <div class="product-card" style="margin-top:32px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;max-width:600px;margin-left:auto;margin-right:auto;">
+      <div class="product-image" style="background:linear-gradient(135deg,#1a2a1e,#0d2818);display:flex;align-items:center;justify-content:center;padding:20px;">
+        <div style="text-align:center;">
+          <div style="font-size:36px;margin-bottom:8px;color:#ff9100;font-weight:700;">S7</div>
+          <div style="color:#ff9100;font-weight:500;font-size:14px;">THERMOFORGE S7</div>
+          <div style="font-size:12px;margin-top:4px;color:#9090a8;">1000W &middot; 10 级加热 &middot; 高性价比</div>
+        </div>
+      </div>
+      <div class="product-body">
+        <span class="product-badge" style="background:var(--accent-acinf-dim);color:var(--accent-acinf);">AC Infinity · 性价比之选</span>
+        <h4>THERMOFORGE S7</h4>
+        <div class="product-price" style="color:var(--accent-acinf);">~$139-159</div>
+        <p class="product-desc">
+          1000W PTC 加热 · 10 级加热+进风 · 双导管定向送风 · UIS 生态 · 无 AI VPD
+        </p>
+        <ul class="spec-list">
+          <li><span class="spec-label">加热功率</span><span class="spec-value">1000W (PTC 陶瓷)</span></li>
+          <li><span class="spec-label">加热档位</span><span class="spec-value">10 级 PWM 精度调节</span></li>
+          <li><span class="spec-label">进风档位</span><span class="spec-value">10 级独立控制</span></li>
+          <li><span class="spec-label">智能控制</span><span class="spec-value">基础 UIS 控制器</span></li>
+          <li><span class="spec-label">VPD 管理</span><span class="spec-value">需外接 UIS 控制器实现</span></li>
+          <li><span class="spec-label">传感器</span><span class="spec-value">高精度远程探头 (独立)</span></li>
+          <li><span class="spec-label">送风系统</span><span class="spec-value">双导管定向送风</span></li>
+          <li><span class="spec-label">兼容生态</span><span class="spec-value">AC Infinity UIS 全平台</span></li>
+          <li><span class="spec-label">价格</span><span class="spec-value" style="color:var(--accent-acinf);font-size:16px;">~$139-159</span></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== COMPARISON TABLE ===== -->
+<section class="section">
+  <div class="container fade-up">
+    <div class="section-label">详细对比</div>
+    <h2 class="section-title">参数全面对比</h2>
+    <p class="section-sub">覆盖加热性能、智能功能、安全设计、生态系统和价格维度</p>
+    
+    <div class="comparison-table-wrap">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>参数</th>
+            <th>Vivosun AeroFlux</th>
+            <th>AC Infinity T7</th>
+            <th>AC Infinity S7</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="param-name">加热类型</td>
+            <td>PTC 陶瓷加热</td>
+            <td>PTC 陶瓷加热</td>
+            <td>PTC 陶瓷加热</td>
+          </tr>
+          <tr>
+            <td class="param-name">最大功率</td>
+            <td>700W <span class="winner-tag">性价比之选</span></td>
+            <td class="winner">1000W</td>
+            <td class="winner">1000W</td>
+          </tr>
+          <tr>
+            <td class="param-name">加热档位</td>
+            <td>5 级</td>
+            <td class="winner">10 级</td>
+            <td class="winner">10 级</td>
+          </tr>
+          <tr>
+            <td class="param-name">进风档位</td>
+            <td class="na">N/A</td>
+            <td class="winner">10 级独立控制</td>
+            <td class="winner">10 级独立控制</td>
+          </tr>
+          <tr>
+            <td class="param-name">PWM 精度控制</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>✓</td>
+          </tr>
+          <tr>
+            <td class="param-name">智能调节方式</td>
+            <td>VPD 目标 + App 远程</td>
+            <td class="winner">AI 驱动 VPD + UIS 编程</td>
+            <td>基础 UIS 控制器</td>
+          </tr>
+          <tr>
+            <td class="param-name">温度传感器</td>
+            <td>独立远程探头 (附延长线)</td>
+            <td>独立远程探头</td>
+            <td>独立远程探头</td>
+          </tr>
+          <tr>
+            <td class="param-name">WiFi / App 控制</td>
+            <td>✓</td>
+            <td>✓ (UIS App)</td>
+            <td>✓ (UIS App)</td>
+          </tr>
+          <tr>
+            <td class="param-name">昼夜模式</td>
+            <td>✓ Recipe 编程</td>
+            <td>✓ UIS 编程</td>
+            <td>✓ UIS 编程</td>
+          </tr>
+          <tr>
+            <td class="param-name">VPD 管理</td>
+            <td>✓ 目标设定</td>
+            <td class="winner">✓ AI 自动优化</td>
+            <td>✗ 需外接控制器</td>
+          </tr>
+          <tr>
+            <td class="param-name">送风导管</td>
+            <td>单导管 (带延长管)</td>
+            <td class="winner">双导管定向送风</td>
+            <td>双导管定向送风</td>
+          </tr>
+          <tr>
+            <td class="param-name">倾倒保护</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>✓</td>
+          </tr>
+          <tr>
+            <td class="param-name">过热保护</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>✓</td>
+          </tr>
+          <tr>
+            <td class="param-name">V0 阻燃材料</td>
+            <td>✓</td>
+            <td>✓</td>
+            <td>✓</td>
+          </tr>
+          <tr>
+            <td class="param-name">兼容生态</td>
+            <td>Vivosun SGS</td>
+            <td class="winner">AC Infinity UIS (更成熟)</td>
+            <td>AC Infinity UIS</td>
+          </tr>
+          <tr>
+            <td class="param-name">适用面积</td>
+            <td>4×4 及以下帐篷</td>
+            <td class="winner">最大 8×8 帐篷</td>
+            <td class="winner">最大 8×8 帐篷</td>
+          </tr>
+          <tr style="border-top:2px solid var(--border);">
+            <td class="param-name" style="font-weight:600;">价格</td>
+            <td style="font-size:18px;font-weight:700;color:var(--accent-vivosun);">$109.99</td>
+            <td style="font-size:18px;font-weight:700;color:var(--accent-acinf);">~$159-179</td>
+            <td style="font-size:18px;font-weight:700;color:var(--accent-acinf);">~$139-159</td>
+          </tr>
+          <tr>
+            <td class="param-name" style="font-weight:600;">性价比</td>
+            <td style="font-size:18px;font-weight:700;color:var(--accent-vivosun);">★★★★★</td>
+            <td style="font-size:18px;font-weight:700;color:var(--accent-acinf);">★★★★</td>
+            <td style="font-size:18px;font-weight:700;color:var(--accent-acinf);">★★★★☆</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== AC INFINITY FULL LINEUP ===== -->
+<section class="section">
+  <div class="container fade-up">
+    <div class="section-label">产品线一览</div>
+    <h2 class="section-title">AC Infinity 全系列加热器</h2>
+    <p class="section-sub">AC Infinity 拥有更丰富的产品矩阵，覆盖不同预算和使用场景</p>
+    
+    <style>
+      .lineup-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+      }
+      .lineup-item {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 24px;
+        transition: all 0.3s ease;
+      }
+      .lineup-item:hover { background: var(--bg-card-hover); transform: translateY(-2px); }
+      .lineup-item .model { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--accent-acinf); }
+      .lineup-item .model-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+      .lineup-item .model-specs { font-size: 12px; color: var(--text-secondary); line-height: 1.8; }
+      .lineup-item .model-price { font-size: 16px; font-weight: 700; margin-top: 12px; color: var(--text-primary); }
+      .lineup-item .best-tag {
+        display: inline-block;
+        font-size: 9px;
+        padding: 1px 8px;
+        background: var(--accent-acinf-dim);
+        color: var(--accent-acinf);
+        border-radius: 100px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+    </style>
+    
+    <div class="lineup-grid">
+      <div class="lineup-item">
+        <div class="model">THERMOFORGE T7 <span class="best-tag">旗舰</span></div>
+        <div class="model-desc">AI 驱动 · 顶配之选</div>
+        <div class="model-specs">
+          1000W PTC · AI VPD 控制器<br>
+          10 级加热 + 10 级进风<br>
+          远程探头 · 双导管送风<br>
+          支持 UIS 生态
+        </div>
+        <div class="model-price">~$159-179</div>
+      </div>
+      
+      <div class="lineup-item">
+        <div class="model">THERMOFORGE S7</div>
+        <div class="model-desc">1000W · 性价比</div>
+        <div class="model-specs">
+          1000W PTC · 10 级加热<br>
+          10 级进风 · 无 AI VPD<br>
+          基础 UIS 控制
+        </div>
+        <div class="model-price">~$139-159</div>
+      </div>
+      
+      <div class="lineup-item">
+        <div class="model">THERMOFORGE T3</div>
+        <div class="model-desc">530W · 小型帐篷</div>
+        <div class="model-specs">
+          530W PTC · VPD 控制<br>
+          延长导管 · 紧凑设计<br>
+          适合 2×2 / 2×4 帐篷
+        </div>
+        <div class="model-price">~$129-149</div>
+      </div>
+      
+      <div class="lineup-item">
+        <div class="model">Environmental VPD Heater</div>
+        <div class="model-desc">AI 编程 · 环境控制</div>
+        <div class="model-specs">
+          10 级 PTC · AI 驱动编程<br>
+          远程探头 · 双导管<br>
+          新风/加热双模式
+        </div>
+        <div class="model-price">~$149-169</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== VERDICT ===== -->
+<section class="section">
+  <div class="container fade-up">
+    <div class="section-label">购买建议</div>
+    <h2 class="section-title">最终结论</h2>
+    <p class="section-sub">根据你的预算和需求选择最适合的加热器</p>
+    
+    <div class="verdict-grid">
+      <div class="verdict-card vivosun">
+        <span class="emoji-big">💰</span>
+        <h4>选 Vivosun AeroFlux</h4>
+        <div class="verdict-score">适合：预算有限 · 中小帐篷 · 入门到中级</div>
+        <ul>
+          <li>价格仅为 AC Infinity T7 的 60%，性价比极高</li>
+          <li>独立远程探头 · App 控制 + VPD 管理</li>
+          <li>V0 阻燃 + 倾倒 + 过热三重安全保护</li>
+          <li>700W 对 4×4 及以下帐篷完全够用</li>
+          <li>但只有 5 级调节，精度不如 10 级</li>
+          <li>缺少 AI 自动 VPD 优化</li>
+        </ul>
+      </div>
+      
+      <div class="verdict-card" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:36px;position:relative;border-left:4px solid var(--accent-acinf);">
+        <span class="emoji-big">⚖️</span>
+        <h4>选 AC Infinity S7</h4>
+        <div class="verdict-score" style="display:inline-flex;align-items:center;gap:4px;padding:4px 14px;border-radius:100px;font-size:13px;font-weight:600;margin-bottom:16px;background:var(--accent-acinf-dim);color:var(--accent-acinf);">适合：追求功率 · 预算适中 · 大帐篷</div>
+        <ul style="list-style:none;">
+          <li style="padding:6px 0;font-size:14px;color:var(--text-secondary);display:flex;gap:10px;align-items:flex-start;">1000W 大功率，与 T7 持平但价格更低 ($139-159)</li>
+          <li style="padding:6px 0;font-size:14px;color:var(--text-secondary);display:flex;gap:10px;align-items:flex-start;">10 级加热 + 10 级进风 + 双导管，硬件与 T7 一致</li>
+          <li style="padding:6px 0;font-size:14px;color:var(--text-secondary);display:flex;gap:10px;align-items:flex-start;">独立远程探头</li>
+          <li style="padding:6px 0;font-size:14px;color:var(--text-secondary);display:flex;gap:10px;align-items:flex-start;">但无 AI VPD，需外接 UIS 控制器实现智能环境调控</li>
+          <li style="padding:6px 0;font-size:14px;color:var(--text-secondary);display:flex;gap:10px;align-items:flex-start;">T7 和 S7 的中间平衡点，适合预算有限但想要大功率的用户</li>
+        </ul>
+      </div>
+      
+      <div class="verdict-card acinf">
+        <span class="emoji-big">🏆</span>
+        <h4>选 AC Infinity T7</h4>
+        <div class="verdict-score">适合：预算充足 · 大型帐篷 · 追求极致</div>
+        <ul>
+          <li>1000W 超大功率，适合 4×4 到 8×8 大型帐篷</li>
+          <li>AI 驱动 VPD 实现全自动环境优化</li>
+          <li>10 级加热 + 10 级进风，精密控制无出其右</li>
+          <li>独立远程探头，测温更精准</li>
+          <li>双导管定向送风，热分布更均匀</li>
+          <li>UIS 生态成熟，配件的丰富度行业第一</li>
+          <li>价格较高，约为 Vivosun 的 1.5-1.6 倍</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div style="margin-top:48px;padding:32px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-align:center;">
+      <div style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">💡 总结</div>
+      <p style="font-size:16px;line-height:1.8;color:var(--text-primary);max-width:700px;margin:0 auto;">
+        <strong style="color:var(--accent-vivosun);">Vivosun AeroFlux</strong> 是 <strong>2026 年性价比之王</strong> —— 
+        用 AC Infinity T7 约 60% 的价格，覆盖了 80% 的核心功能。 
+        如果你是中小帐篷种植者、预算敏感或刚入门，它是最佳选择。
+      </p>
+      <p style="font-size:16px;line-height:1.8;color:var(--text-primary);max-width:700px;margin:20px auto 0;">
+        <strong style="color:var(--accent-acinf);">AC Infinity S7</strong> 是 <strong>最佳平衡之选</strong> —— 
+        拥有 T7 同款 1000W + 10 级硬件，价格更低。 
+        适合想要大功率但不需要 AI VPD 自动优化的用户。
+      </p>
+      <p style="font-size:16px;line-height:1.8;color:var(--text-primary);max-width:700px;margin:20px auto 0;">
+        <strong style="color:var(--accent-acinf);">AC Infinity THERMOFORGE T7</strong> 是 <strong>2026 年技术标杆</strong> —— 
+        AI VPD + 1000W + 10 级精细控制 + 双导管送风， 
+        为大帐篷和追求极致稳定环境的专业人士而生。
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <p>数据来源：Vivosun 官网 (vivosun.com) · AC Infinity 官网 (acinfinity.com)</p>
+  <p style="margin-top:4px;">采集日期：2026年7月 | 价格可能浮动，以实际官网为准</p>
+  <p style="margin-top:12px;opacity:0.5;">Made with Huashu-Design</p>
+</footer>
+
+</body>
+</html>
