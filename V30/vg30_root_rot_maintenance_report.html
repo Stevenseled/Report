@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>根腐病与维护 · VG30 专题分析报告</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #ffffff; --bg-card: #f6f7f9; --bg-card-hover: #eef0f3;
+    --border: #e0e2e8; --border-light: #eef0f3;
+    --text: #1a1b26; --text-secondary: #555770; --text-tertiary: #8a8ca0;
+    --accent-green: #1a8a4a; --accent-blue: #1a6bb0; --accent-red: #c0392b;
+    --accent-gold: #b8860b; --accent-purple: #6c3fa0; --accent-orange: #c96a0e;
+    --radius: 14px; --radius-sm: 8px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans SC', -apple-system, system-ui, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7;
+  }
+  h1, h2, h3, h4, .serif { font-family: 'Noto Serif SC', Georgia, serif; font-weight: 700; }
+  .slide {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 48px; position: relative;
+  }
+  .slide-number { position: absolute; bottom: 24px; right: 40px; font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.02em; }
+  .container { max-width: 1060px; margin: 0 auto; width: 100%; }
+  .nav-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 32px; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .nav-bar .brand { font-size: 12px; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.04em; }
+  .nav-bar .page-indicator { font-size: 12px; color: var(--text-tertiary); font-weight: 500; }
+  .nav-bar .nav-arrows button {
+    background: var(--bg-card); border: 1px solid var(--border-light);
+    color: var(--text-secondary); padding: 4px 12px; border-radius: 6px;
+    cursor: pointer; font-size: 14px; margin-left: 4px; transition: all 0.15s;
+  }
+  .nav-bar .nav-arrows button:hover { background: var(--bg-card-hover); border-color: var(--border); color: var(--text); }
+  .cover {
+    background: radial-gradient(ellipse 60% 30% at 50% 20%, rgba(192,57,43,0.03) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 30% at 80% 80%, rgba(26,107,176,0.02) 0%, transparent 50%), var(--bg);
+  }
+  .cover-badge {
+    display: inline-flex; padding: 5px 16px; background: var(--bg-card); border: 1px solid var(--border-light);
+    border-radius: 100px; font-size: 11px; letter-spacing: 0.1em; color: var(--text-tertiary); margin-bottom: 28px; font-weight: 500;
+  }
+  .cover-title { font-size: clamp(36px, 5vw, 54px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; }
+  .cover-sub { font-size: clamp(15px, 1.8vw, 18px); color: var(--text-secondary); font-weight: 300; max-width: 600px; }
+  .section-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; font-weight: 600; }
+  .section-title { font-size: clamp(26px, 3.2vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .section-sub { color: var(--text-secondary); font-weight: 300; margin-bottom: 36px; max-width: 650px; font-size: 14px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .card { background: var(--bg-card); border-radius: var(--radius); padding: 28px; }
+  .card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .card p, .card li { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 5px 0; padding-left: 18px; position: relative; }
+  .card ul li::before { content: '—'; position: absolute; left: 0; color: var(--text-tertiary); }
+  .insight-box { background: var(--bg-card); border-left: 3px solid var(--accent-blue); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 20px; }
+  .insight-box h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--accent-blue); }
+  .insight-box p { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+  .insight-box.red { border-left-color: var(--accent-red); }
+  .insight-box.red h4 { color: var(--accent-red); }
+  .insight-box.green { border-left-color: var(--accent-green); }
+  .insight-box.green h4 { color: var(--accent-green); }
+  .user-quote {
+    background: rgba(255,255,255,0.5); border-radius: var(--radius-sm);
+    padding: 14px 18px; margin: 8px 0; font-size: 13px; color: var(--text); line-height: 1.8;
+    border-left: 2px solid var(--accent-purple);
+  }
+  .user-quote .source { font-size: 11px; color: var(--text-tertiary); margin-top: 6px; display: block; }
+  .table-wrap { overflow-x: auto; margin-bottom: 24px; }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.cmp th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 12px; background: var(--bg-card); border-bottom: 1px solid var(--border); white-space: nowrap; }
+  table.cmp td { padding: 10px 16px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+  .rec-box { background: var(--bg-card); border-radius: var(--radius); padding: 24px; margin-bottom: 16px; border-left: 3px solid var(--accent-green); }
+  .rec-box h4 { color: var(--accent-green); font-size: 14px; margin-bottom: 8px; }
+  .rec-box .priority { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; display: inline-block; margin-bottom: 6px; }
+  .pri-high { background: rgba(192,57,43,0.1); color: var(--accent-red); }
+  .pri-mid { background: rgba(201,106,14,0.1); color: var(--accent-orange); }
+  .pri-low { background: rgba(26,107,176,0.1); color: var(--accent-blue); }
+  @media (max-width: 768px) {
+    .slide { padding: 60px 20px; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .nav-bar { padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <span class="brand">VG30 · 根腐病与维护专题分析</span>
+  <span class="page-indicator" id="pageIndicator">1 / 12</span>
+  <div class="nav-arrows">
+    <button onclick="nav(-1)">‹</button>
+    <button onclick="nav(1)">›</button>
+  </div>
+</nav>
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<section class="slide cover" data-slide="1">
+  <div class="container" style="text-align:center;">
+    <div class="cover-badge" style="margin:0 auto 28px;">ROOT ROT & MAINTENANCE · 专题分析</div>
+    <h1 class="cover-title" style="margin-bottom:12px;">
+      根腐病与维护<br>
+      <span style="color:var(--accent-red);">行业痛点</span> · <span style="color:var(--accent-blue);">用户原声</span> · <span style="color:var(--accent-green);">VG30 解决方案</span>
+    </h1>
+    <p class="cover-sub" style="margin:16px auto 36px;">
+      基于 Reddit、博客评测、PRD 的真实用户反馈，分析根腐病和清洁维护两大行业难题，提出 VG30 的具体改进方案
+    </p>
+    <div class="cover-meta" style="justify-content:center;gap:28px;font-size:13px;color:var(--text-tertiary);display:flex;flex-wrap:wrap;">
+      <span>数据来源: pullpush.io Reddit · 博客评测</span>
+      <span>Gardyn · AeroGarden · 水培社区</span>
+      <span>2026 年 7 月</span>
+    </div>
+  </div>
+  <div class="slide-number">1 / 12</div>
+</section>
+
+<!-- ===== SLIDE 2: WHY THIS MATTERS ===== -->
+<section class="slide" data-slide="2">
+  <div class="container">
+    <div class="section-label">BACKGROUND</div>
+    <h2 class="section-title">为什么这两个问题如此关键</h2>
+    <p class="section-sub">来自用户访谈和 Reddit 社区的真实声音</p>
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid var(--accent-red);">
+        <h4 style="color:var(--accent-red);">🧑‍🌾 用户 #1 的原话</h4>
+        <div class="user-quote">
+          "None of the bells and whistles are worth it to me if it's difficult to clean. So long as that process is relatively easy, I'm good."
+          <span class="source">— 25年种植经验，7年 Gardyn/AeroGarden 用户</span>
+        </div>
+        <p style="margin-top:8px;">清洗便利性是<b>决定购买的第一因素</b>。所有 AI 功能、自动化、App——如果清洗麻烦，一切免谈。</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-purple);">
+        <h4 style="color:var(--accent-purple);">🔬 Reddit 用户 "Why I Sold My Gardyn 4.0"</h4>
+        <div class="user-quote">
+          "The biggest flaw with Gardyn is the design of their system. Cleaning the entire system is a real pain. You will have to disassemble the pipes and clean each one on its own."
+          <span class="source">— r/Gardyn 帖子 (4赞, 2评)</span>
+        </div>
+        <p style="margin-top:8px;">清洗困难是导致<b>用户流失的核心原因</b>——甚至让用户卖掉整个系统。</p>
+      </div>
+    </div>
+    <div class="insight-box red" style="margin-top:8px;">
+      <h4>核心结论</h4>
+      <p><strong>根腐病</strong>— 水培行业的"癌症"，Gardyn 用户多篇帖子讨论。不解决，植物死。<br>
+      <strong>清洗困难</strong>— 从 Reddit 到博客评测到用户访谈，这是所有竞品的阿喀琉斯之踵。做好了就是口碑护城河，做不好就是流失漏斗。</p>
+    </div>
+  </div>
+  <div class="slide-number">2 / 12</div>
+</section>
+
+<!-- ===== SLIDE 3: ROOT ROT 101 ===== -->
+<section class="slide" data-slide="3">
+  <div class="container">
+    <div class="section-label">01 · ROOT ROT</div>
+    <h2 class="section-title">根腐病：水培行业的"癌症"</h2>
+    <p class="section-sub">根腐病（通常由 Pythium 引起）是水培系统中最常见、最致命的植物病害</p>
+
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid var(--accent-red);">
+        <h4 style="color:var(--accent-red);">🔬 根腐病的成因</h4>
+        <p>根据 Reddit r/hydroponics 社区的技术分析：</p>
+        <ul>
+          <li><strong>根区温度高于 72°F (22°C)</strong> — 暖水是真菌的温床</li>
+          <li><strong>溶氧不足或水体停滞</strong> — 根系缺氧，抵抗力下降</li>
+          <li><strong>死掉的有机物</strong> — 腐烂的根系碎片在系统中腐败</li>
+          <li><strong>受污染的工具或清洁不当</strong> — 病菌交叉感染</li>
+          <li><strong>光照进入根区/水箱</strong> — 藻类繁殖消耗氧气，产生腐败环境</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-orange);">
+        <h4 style="color:var(--accent-orange);">🚩 用户真实反馈</h4>
+        <div class="user-quote">
+          "I have noticed EC measurement gradually increases over time. This appears to have a correlation to increasing algae problems."
+          <span class="source">— r/hydroponics</span>
+        </div>
+        <div class="user-quote">
+          "Still getting root rot, even with aeration 24/7. Also dealing with algae."
+          <span class="source">— r/hydroponics DWC 用户</span>
+        </div>
+        <div class="user-quote">
+          "Fuzz on roots... is this root rot and will it make my lettuce unsafe to eat?"
+          <span class="source">— r/hydroponics 新手用户</span>
+        </div>
+        <p style="margin-top:8px;font-size:12px;color:var(--text-tertiary);">Gardyn 子版块同样有大量 "Root Control"、"Fuzz on roots" 相关讨论</p>
+      </div>
+    </div>
+
+    <div class="grid-3" style="margin-top:16px;">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:var(--accent-red);">&gt;72°F</div>
+        <div style="font-size:11px;color:var(--text-tertiary);">根区温度红线</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:var(--accent-orange);">每天</div>
+        <div style="font-size:11px;color:var(--text-tertiary);">pH 可能崩溃</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:var(--accent-red);">数小时内</div>
+        <div style="font-size:11px;color:var(--text-tertiary);">根腐可致死植物</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">3 / 12</div>
+</section>
+
+<!-- ===== SLIDE 4: ROOT ROT USER STORIES ===== -->
+<section class="slide" data-slide="4">
+  <div class="container">
+    <div class="section-label">01 · USER STORIES</div>
+    <h2 class="section-title">根腐病：用户真实案例</h2>
+    <p class="section-sub">来自 Reddit 社区的真实经历</p>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h4>案例 1：新手的第一课 — "Will my plants survive from root rot?"</h4>
+      <div class="user-quote">
+        "First hydro (Kratke) Lettuce – is this root rot and will it make my lettuce unsafe to eat? I'm paranoid about food safety."
+        <span class="source">— r/hydroponics</span>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);">种植新手最怕的就是"种出来的东西能不能吃"。根腐病不仅影响植物健康，还引发食品安全焦虑。</p>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h4>案例 2：根腐病反复发作 — "Help! Mold inside Gardyn?"</h4>
+      <div class="user-quote">
+        "I found mold growing inside the columns after being gone for 2 weeks. I deep cleaned with citric acid, soaked for hours. After germinating new seeds, the mold came back within days! It seems to grow mostly directly under the ypods... I've been using hydrogen peroxide but can't get rid of it completely."
+        <span class="source">— r/Gardyn 用户 (1赞, 1评)</span>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);">根腐病和霉菌一旦在系统中扎根，会反复发作。即使用柠檬酸深度清洁 + 双氧水消毒，仍难以根除。这是行业共性难题。</p>
+    </div>
+
+    <div class="card">
+      <h4>案例 3：连续 pH 崩溃 — "pH crashes almost every day"</h4>
+      <div class="user-quote">
+        "I check pH in morning it's 6.0, by evening it's dropped to 4.5. This happens almost every day. Is this normal? I don't even know what to do."
+        <span class="source">— r/hydroponics (1赞, 13评)</span>
+      </div>
+      <p style="font-size:12px;color:var(--text-secondary);">pH 每日剧烈波动是根腐病/水质失衡的典型信号。用户需要每天多次检测和调整，完全违背了"省心"的承诺。</p>
+    </div>
+
+    <div class="insight-box red" style="margin-top:12px;">
+      <h4>根腐病的心理影响</h4>
+      <p>根腐病不仅仅是植物健康问题——它在用户心里种下了<b>"我不擅长这个"</b>的自我怀疑。每次植物死掉都让用户离放弃更近一步。让用户<b>看不到根腐</b>（不透明的管道/种植杯）反而加剧了焦虑，因为用户不知道根系状态如何。</p>
+    </div>
+  </div>
+  <div class="slide-number">4 / 12</div>
+</section>
+
+<!-- ===== SLIDE 5: ROOT ROT SOLUTIONS ===== -->
+<section class="slide" data-slide="5">
+  <div class="container">
+    <div class="section-label">01 · SOLUTIONS</div>
+    <h2 class="section-title">根腐病的行业解决方案</h2>
+    <p class="section-sub">Reddit 社区和行业公认的预防与治理方案</p>
+
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th style="width:20%;">方案</th>
+            <th style="width:25%;">原理</th>
+            <th style="width:20%;">用户评价</th>
+            <th style="width:35%;">成本 & 适用性</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">Hydroguard</td>
+            <td>含 Bacillus 菌株的微生物制剂，抑制有害菌</td>
+            <td style="color:var(--accent-orange);">"Overpriced" — 浓度仅 0.038%</td>
+            <td>$30-50/瓶 · 行业常用但社区认为性价比低</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Southern Ag GFF</td>
+            <td>同种菌株，浓度高 100 倍以上</td>
+            <td style="color:var(--accent-green);">社区推荐首选</td>
+            <td>$15-20/瓶 · 0.05mL/加仑，极低用量</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">双氧水 H₂O₂</td>
+            <td>强氧化剂，直接杀灭病菌</td>
+            <td style="color:var(--accent-gold);">有效但需要谨慎</td>
+            <td>便宜 · 但浓度和使用时机至关重要</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">柠檬酸清洗</td>
+            <td>酸性清洗，去除 biofilm 和水垢</td>
+            <td style="color:var(--accent-gold);">Gardyn 官方推荐</td>
+            <td>便宜 · 需要拆机浸泡数小时</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">控制水温 65-70°F</td>
+            <td>低温抑制 Pythium 繁殖</td>
+            <td style="color:var(--accent-green);">最有效的预防</td>
+            <td>需要冷水机或环境控温 · 较难实现</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">改善溶氧（气石/文丘里）</td>
+            <td>高溶氧抑制厌氧病原菌</td>
+            <td style="color:var(--accent-green);">基础必备</td>
+            <td>低 · 但即使 24/7 曝气也不保证（用户反馈）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight-box">
+      <h4>关键发现</h4>
+      <p>Reddit 社区的共识是：<strong>根腐病重在预防，不在治疗。</strong>一旦发生，很难彻底清除。预防的核心是<b>保持根区低温、高溶氧、无菌环境</b>——这正是自动化和 AI 控制能发挥最大价值的地方。</p>
+    </div>
+  </div>
+  <div class="slide-number">5 / 12</div>
+</section>
+
+<!-- ===== SLIDE 6: MAINTENANCE ===== -->
+<section class="slide" data-slide="6">
+  <div class="container">
+    <div class="section-label">02 · MAINTENANCE</div>
+    <h2 class="section-title">清洗与维护：用户的真实痛苦</h2>
+    <p class="section-sub">Why I Sold My Gardyn 4.0 — 一位用户的完整自述</p>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h4>📕 用户自述：我为什么卖掉了 Gardyn 4.0</h4>
+      <div class="user-quote" style="border-left-color:var(--accent-red);">
+        <strong>"The biggest flaw with Gardyn is the design of their system."</strong>
+        <span class="source">— r/Gardyn 帖子全文</span>
+      </div>
+      <p style="margin-top:8px;">这位用户从 0 经验开始，同时买了 Gardyn 4.0 和 Rise Garden 做对比。以下是他的详细吐槽：</p>
+      <ul style="margin-top:8px;">
+        <li><strong>根系空间严重不足</strong> — "Gardyn 只提供了极其有限的根系空间。像薄荷、白菜这类植物<b>每周都需要修剪根系</b>，否则会迅速堵塞管道。"</li>
+        <li><strong>清洗水箱很麻烦</strong> — "你必须把整个顶部抬起来放在毛巾上，以免损坏底部的泵/电路板。如果小孩往水箱里掉了东西，你得先拆顶才能取出来。"</li>
+        <li><strong>管道清洗极其痛苦</strong> — "就算你及时修剪根系，总有一些会钻进管道里。<b>你得拆开每一根管道单独清洗。</b>而对比之下 Rise Garden 每层只有 1 个开口，3 层也就 3 个地方需要修剪，非常简单。"</li>
+        <li><strong>对比结果</strong> — 他最终保留了 Rise Garden，卖掉了 Gardyn。</li>
+      </ul>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid var(--accent-red);">
+        <h4 style="color:var(--accent-red);">Gardyn 的维护负担</h4>
+        <ul>
+          <li>每周：修剪根系</li>
+          <li>每 4-6 周：清洗水箱（需拆顶）</li>
+          <li>每 1-2 月：全系统深度清洁（拆管道、泡柠檬酸）</li>
+          <li>日常：加水、加营养液、检查 pH</li>
+          <li>清洗需要用到：柠檬酸、刷子套装、毛巾、大量时间</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-green);">
+        <h4 style="color:var(--accent-green);">用户期望的理想状态</h4>
+        <ul>
+          <li>单次清洗 <strong>15 分钟内</strong></li>
+          <li>不需要拆管道</li>
+          <li>不需要特殊工具或化学品</li>
+          <li>水箱能看到、能打开、能伸手进去擦</li>
+          <li>根系不会钻进管道系统</li>
+          <li>"Set it and forget it" 越接近越好</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">6 / 12</div>
+</section>
+
+<!-- ===== SLIDE 7: MAINTENANCE USER QUOTES ===== -->
+<section class="slide" data-slide="7">
+  <div class="container">
+    <div class="section-label">02 · USER QUOTES</div>
+    <h2 class="section-title">维护问题：更多用户原声</h2>
+    <p class="section-sub">来自 Reddit 各社区的真实反馈</p>
+
+    <div class="user-quote" style="border-left-color:var(--accent-orange);margin-bottom:12px;">
+      "I have a Gardyn 4 since November and I love it. Now the 3 has known problems that the seals on the columns isn't great so you get buildup. Any recommendations to how to clean keep this 3 clean?"
+      <span class="source">— r/Gardyn · Gardyn 3 因密封圈缺陷导致水垢积聚</span>
+    </div>
+
+    <div class="user-quote" style="border-left-color:var(--accent-orange);margin-bottom:12px;">
+      "Deep clean with dishwasher, but there's some algae left. I ran all the plastic pieces through the washer on the China setting and there's still some faint staining in green. Is this normal?"
+      <span class="source">— r/Gardyn · 二手 Gardyn 新买家，洗了 2 遍还有藻渍</span>
+    </div>
+
+    <div class="user-quote" style="border-left-color:var(--accent-orange);margin-bottom:12px;">
+      "Sorta dreading the deep clean but... it's time. I'm ordering my citric acid today. Any advice for the right bottle brush set to get in the nooks & crannies of the tubes?"
+      <span class="source">— r/Gardyn · 用户"畏惧"深度清洁，需要专门的刷子套装清洁管道</span>
+    </div>
+
+    <div class="user-quote" style="border-left-color:var(--accent-orange);margin-bottom:12px;">
+      "Took apart garden tower and black water pump to deep clean and forgot how to put back together."
+      <span class="source">— r/Gardyn · 用户拆开后忘了怎么装回去</span>
+    </div>
+
+    <div class="user-quote" style="border-left-color:var(--accent-purple);margin-bottom:12px;">
+      "I have a tower hydroponic system and after cleaning it I get small flies in the water reservoir that seem to eat the green algae."
+      <span class="source">— r/hydroponics · 清洗后仍有飞虫问题</span>
+    </div>
+
+    <div class="insight-box red">
+      <h4>模式识别：六个反复出现的清洁痛点</h4>
+      <p>① <strong>管道清理</strong> — 根系钻入管道，必须拆开逐个清洗<br>
+      ② <strong>水箱清洗</strong> — 需要拆顶、抬重物、垫毛巾保护电路<br>
+      ③ <strong>藻类/霉菌</strong> — 透明/半透明管道导致光照进入，滋生藻类<br>
+      ④ <strong>密封圈失效</strong> — 导致水垢和杂物在连接处堆积<br>
+      ⑤ <strong>特殊工具需求</strong> — 需要柠檬酸、刷子套装等非日常工具<br>
+      ⑥ <strong>拆装复杂</strong> — 零件多、结构复杂，拆开后可能装不回去</p>
+    </div>
+  </div>
+  <div class="slide-number">7 / 12</div>
+</section>
+
+<!-- ===== SLIDE 8: GARDYN VS RISE VS VG30 ===== -->
+<section class="slide" data-slide="8">
+  <div class="container">
+    <div class="section-label">02 · COMPARISON</div>
+    <h2 class="section-title">竞品维护设计对比</h2>
+    <p class="section-sub">从清洗便利性角度对比 Gardyn、Rise Garden 和 VG30</p>
+
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th style="width:22%;">维护维度</th>
+            <th style="width:26%;">Gardyn</th>
+            <th style="width:26%;">Rise Garden</th>
+            <th style="width:26%;">VG30 设计方向</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">根系管理</td>
+            <td style="color:var(--accent-red);">❌ 根钻入各段管道，需全拆</td>
+            <td style="color:var(--accent-green);">✅ 每层 1 个开口，3 处修剪</td>
+            <td style="color:var(--accent-gold);">⚠️ 需确认种植杯设计是否防根钻入</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">水箱清洗</td>
+            <td style="color:var(--accent-red);">❌ 需抬整个顶部，垫毛巾</td>
+            <td style="color:var(--accent-green);">✅ 设计更简洁</td>
+            <td style="color:var(--accent-green);">✅ 水箱独立可拆卸</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">管道清洁</td>
+            <td style="color:var(--accent-red);">❌ 必须拆开逐个清洗</td>
+            <td style="color:var(--accent-green);">✅ 每层统一开口</td>
+            <td style="color:var(--accent-gold);">⚠️ 垂直塔式结构需要验证清洗便利性</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">藻类防护</td>
+            <td style="color:var(--accent-red);">❌ 透光结构导致藻类</td>
+            <td style="color:var(--accent-gold);">🔄 一般</td>
+            <td style="color:var(--accent-green);">✅ PRD 要求不透光材料</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">深度清洁频率</td>
+            <td>每 4-6 周</td>
+            <td>更长周期</td>
+            <td>目标：更长周期</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">特殊工具</td>
+            <td style="color:var(--accent-red);">需要柠檬酸+刷子套装</td>
+            <td style="color:var(--accent-gold);">较少</td>
+            <td style="color:var(--accent-green);">✅ 仅需基本清洁</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight-box">
+      <h4>Rise Garden 的启示</h4>
+      <p>Reddit 用户明确表示：虽然同时买了 Gardyn 和 Rise，最终<b>选择了 Rise</b>，核心原因是 Rise 的维护设计更简单——每层 1 个开口，3 层只需 3 处修剪。这说明 <strong>"维护便利性"可以成为消费者在功能相近时的决策因素</strong>。VG30 的垂直塔式设计天然有优势——种植杯独立可拆，如果能在管道和根系管理上做得比 Gardyn 好，这就是一个差异化卖点。</p>
+    </div>
+  </div>
+  <div class="slide-number">8 / 12</div>
+</section>
+
+<!-- ===== SLIDE 9: VG30 SOLUTIONS OVERVIEW ===== -->
+<section class="slide" data-slide="9">
+  <div class="container">
+    <div class="section-label">03 · VG30 SOLUTIONS</div>
+    <h2 class="section-title">VG30 的根腐病解决方案</h2>
+    <p class="section-sub">基于 PRD 已有功能和行业最佳实践的改进建议</p>
+
+    <div class="rec-box">
+      <span class="priority pri-high">高优先级</span>
+      <h4>1. Root Guard 自动滴定 — 从源头预防</h4>
+      <p>PRD 已规划两路滴定系统：一路 Plant Food（肥料），一路 <strong>Root Guard（水质稳定剂）</strong>。这是竞品没有的功能。</p>
+      <p><strong>改进建议：</strong></p>
+      <ul>
+        <li>Root Guard 的配方应包含类似 Southern Ag GFF 的 Bacillus 菌株或类似 Hydroguard 的微生物制剂</li>
+        <li>AI 系统应根据水温、使用时长、pH 变化自动调整 Root Guard 的投放频率和剂量</li>
+        <li>在 App 中展示"水质健康指数"，让用户看到 Root Guard 在起作用——消除"不知道根有没有烂"的焦虑</li>
+        <li><strong>验证需求：</strong>需实测数据验证 Root Guard 是否能在 65-80°F 水温范围内有效抑制 Pythium</li>
+      </ul>
+    </div>
+
+    <div class="rec-box">
+      <span class="priority pri-high">高优先级</span>
+      <h4>2. 根区温度管理 — 预防根腐的第一道防线</h4>
+      <p>Reddit 社区共识：根区温度 >72°F 是根腐的主要诱因。大多数室内种植环境在夏季会超过这个温度。</p>
+      <p><strong>改进建议：</strong></p>
+      <ul>
+        <li>水箱内集成温度传感器，实时监控水温</li>
+        <li>当水温接近 72°F 时，App 发出预警并建议用户采取措施（加冰、调低室温等）</li>
+        <li>AI 自动调整灯光功率和风扇速度，降低系统整体温度</li>
+        <li><strong>加分项：</strong>如果硬件允许，可考虑小型 Peltier 冷水模块（但需要评估成本和功率）</li>
+      </ul>
+    </div>
+
+    <div class="rec-box">
+      <span class="priority pri-mid">中优先级</span>
+      <h4>3. 溶氧优化 — 让根系呼吸</h4>
+      <p>高溶氧是抑制根腐的第二道防线。PRD 已规划通风设计"植物周围有微风流"。</p>
+      <p><strong>改进建议：</strong></p>
+      <ul>
+        <li>如果使用水泵循环水，考虑增加文丘里管或曝气装置提高溶氧</li>
+        <li>在 App 中显示溶氧水平（或间接通过水泵状态反馈）</li>
+      </ul>
+    </div>
+  </div>
+  <div class="slide-number">9 / 12</div>
+</section>
+
+<!-- ===== SLIDE 10: VG30 CLEANING SOLUTIONS ===== -->
+<section class="slide" data-slide="10">
+  <div class="container">
+    <div class="section-label">03 · VG30 CLEANING</div>
+    <h2 class="section-title">VG30 的清洗维护解决方案</h2>
+    <p class="section-sub">六项具体改进建议，让 VG30 成为"最好洗的种菜机"</p>
+
+    <div class="rec-box">
+      <span class="priority pri-high">高优先级</span>
+      <h4>1. 种植杯防根设计 — 解决 Gardyn 最致命的缺陷</h4>
+      <p>Gardyn 的最大设计缺陷：根系会从种植杯底部钻入管道系统，导致必须拆开清洗。</p>
+      <p><strong>建议：</strong>每个种植杯底部设计<b>防根格栅或根系隔离结构</b>，引导根系在杯内盘绕而不向下侵入管道。参考 Rise Garden 的"每层 1 个开口"的理念，但做得更好——每个杯独立管理。</p>
+    </div>
+
+    <div class="rec-box">
+      <span class="priority pri-high">高优先级</span>
+      <h4>2. 水箱设计：真·可拆洗</h4>
+      <p>Gardyn 用户抱怨：清洗水箱必须抬整个顶部，担心压坏电路板。</p>
+      <p><strong>建议：</strong>
+      PRD 已规划水箱"方便清洗，减少藏污纳垢的结构"。建议做到：① 水箱<b>独立可拆卸</b>，不需要拆机器其他部分 ② 水箱开口足够大，手能伸进去擦 ③ 内壁光滑无死角 ④ 底部有排水口，不用倒水</p>
+    </div>
+
+    <div class="rec-box">
+      <span class="priority pri-mid">中优先级</span>
+      <h4>3. 管道系统：直通式设计，无死角</h4>
+      <p><strong>建议：</strong>水路尽量采用内壁光滑的直通管道，减少弯头和死角。如果需要直角转弯，使用可拆卸接头。内部管道直径应足够大（>20mm），即使有少量根系进入也不影响水流。</p>
+    </div>
+
+    <div class="rec-box">
+      <span class="priority pri-mid">中优先级</span>
+      <h4>4. 不透光材料（PRD 已有）+ 防藻涂层</h4>
+      <p>PRD 已要求水箱和种植杯使用不透光材料防止长藻。<strong>建议：</strong>在关键部位（种植杯内壁、管道内壁）考虑添加防藻涂层，进一步降低清洁频率。</p>
+    </div>
+
+    <div class="rec-box">
+      <span class="priority pri-low">低优先级</span>
+      <h4>5. 内置清洁提醒和引导</h4>
+      <p><strong>建议：</strong>App 集成清洗指南：当根系需要修剪、水箱需要清洗时，App 自动提醒并播放 30 秒视频教程。用户#2（草药学家）也提到了"beginner's introduction to ag"的需求——清洗指南可以作为入门教育的一部分。</p>
+    </div>
+
+    <div class="rec-box">
+      <span class="priority pri-low">低优先级</span>
+      <h4>6. 能耗透明化 — 用户#2 和 #3 的交叉需求</h4>
+      <p>虽然不是直接的清洗问题，但两位用户（草药学家和种植新手）都提到了<b>能耗管理</b>。建议在 App 中增加"能耗档位 1-5"功能，让用户根据电费/日照/离家情况调节功率。这是 Gardyn 和 Lettuce Grow 都没有的功能。</p>
+    </div>
+  </div>
+  <div class="slide-number">10 / 12</div>
+</section>
+
+<!-- ===== SLIDE 11: VERIFICATION CHECKLIST ===== -->
+<section class="slide" data-slide="11">
+  <div class="container">
+    <div class="section-label">04 · VERIFICATION</div>
+    <h2 class="section-title">访谈中需要验证的问题</h2>
+    <p class="section-sub">针对根腐病和清洗维护的专门验证问题</p>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h4>清洗流程验证</h4>
+      <p style="margin-top:8px;font-size:13px;">准备一个 VG30 的清洗视频或实物演示，让用户看完后回答：</p>
+      <ul>
+        <li><strong>Q1:</strong> "这个清洗流程你感觉需要多久？"（预期 &lt;15min）</li>
+        <li><strong>Q2:</strong> "哪里你觉得会麻烦？"（识别设计缺陷）</li>
+        <li><strong>Q3:</strong> "跟 Gardyn 比，你觉得哪个更好洗？"（如有竞品经验）</li>
+        <li><strong>Q4:</strong> "多久洗一次你能接受？"（验证每 30 天的频率）</li>
+      </ul>
+    </div>
+
+    <div class="card" style="margin-bottom:16px;">
+      <h4>根腐病感知验证</h4>
+      <ul>
+        <li><strong>Q5:</strong> "种菜时你最担心什么问题？"（看看根腐是否自然出现）</li>
+        <li><strong>Q6:</strong> "如果系统自动添加 Root Guard 防止根腐，你会在意吗？"</li>
+        <li><strong>Q7:</strong> "App 显示'水质健康指数'，告诉你根系状态是否良好，这个功能你有兴趣吗？"</li>
+      </ul>
+    </div>
+
+    <div class="insight-box">
+      <h4>访谈后的关键判断</h4>
+      <p>访谈后根据用户的清洗时间感知、操作流畅度反馈、与 Gardyn 的对比评价，决定 VG30 的清洗设计是否需要调整。如果 3 位用户都表示"可以接受"或"比我想象的简单"，那就是绿灯。</p>
+    </div>
+  </div>
+  <div class="slide-number">11 / 12</div>
+</section>
+
+<!-- ===== SLIDE 12: SUMMARY ===== -->
+<section class="slide" data-slide="12">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">SUMMARY</div>
+    <h2 class="section-title">总结 & 行动建议</h2>
+    <p class="section-sub" style="margin:12px auto 32px;">根腐病和清洗维护不是"加分项"，而是"必须过关项"</p>
+
+    <div class="grid-2" style="margin-bottom:24px;text-align:left;">
+      <div class="card" style="border-left:3px solid var(--accent-green);">
+        <h4 style="color:var(--accent-green);">VG30 已有的优势</h4>
+        <ul>
+          <li>✅ Root Guard 自动滴定 — 行业首创</li>
+          <li>✅ 不透光水箱/种植杯 — 防藻</li>
+          <li>✅ 双泵冗余 — 减少因水泵故障导致的系统打开维修</li>
+          <li>✅ 垂直塔式设计 — 天然比 Gardyn 的管道网络更易拆装</li>
+          <li>✅ AI 自适应控制 — 减少用户手动调整营养/pH</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-red);">
+        <h4 style="color:var(--accent-red);">需要设计验证</h4>
+        <ul>
+          <li>⚠️ 种植杯防根设计 — 根系是否会钻入管道？</li>
+          <li>⚠️ 水箱清洗流程 — 是否真的 15 分钟能搞定？</li>
+          <li>⚠️ 管道清洁难易度 — 需要拆多少零件？</li>
+          <li>⚠️ Root Guard 实际效果 — 需实验室和用户测试数据</li>
+          <li>⚠️ 水温管理 — 是否需要主动降温方案？</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insight-box green" style="max-width:800px;margin:0 auto;text-align:left;">
+      <h4>一句话结论</h4>
+      <p><strong>根腐病和清洗维护是水培行业的"及格线"——不是做到就能赢，但做不到一定输。</strong> Gardyn 在这两项上都没做好，这是它 Trustpilot 2.4 分的核心原因之一。VG30 的自动滴定 Root Guard、双泵冗余、垂直塔式设计已经在正确的方向上。如果能在这个报告中提到的防根设计、水箱可拆洗、15 分钟清洁流程上做到位，VG30 就可以在行业最痛的环节上建立真正的竞争壁垒。</p>
+    </div>
+
+    <p style="margin-top:24px;font-size:12px;color:var(--text-tertiary);">
+      数据来源: pullpush.io Reddit API · r/Gardyn · r/hydroponics · r/aerogarden · Keane & Coastal 评测 · Sypnotix 评测 · PRD V1.2
+    </p>
+  </div>
+  <div class="slide-number">12 / 12</div>
+</section>
+
+<script>
+  let cur = 1;
+  const total = 12;
+  function show(n) {
+    if (n < 1 || n > total) return;
+    cur = n;
+    document.querySelectorAll('.slide').forEach(s => {
+      s.style.display = s.dataset.slide == n ? 'flex' : 'none';
+    });
+    document.getElementById('pageIndicator').textContent = `${n} / ${total}`;
+  }
+  function nav(dir) { show(cur + dir); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nav(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nav(-1);
+  });
+  show(1);
+</script>
+
+</body>
+</html>
