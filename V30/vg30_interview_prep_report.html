@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MayGrove VG30 · 用户访谈前分析报告</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #ffffff; --bg-card: #f6f7f9; --bg-card-hover: #eef0f3;
+    --border: #e0e2e8; --border-light: #eef0f3;
+    --text: #1a1b26; --text-secondary: #555770; --text-tertiary: #8a8ca0;
+    --accent-green: #1a8a4a; --accent-orange: #c96a0e; --accent-blue: #1a6bb0;
+    --accent-gold: #b8860b; --accent-red: #c0392b; --accent-purple: #6c3fa0;
+    --radius: 14px; --radius-sm: 8px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans SC', -apple-system, system-ui, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.7;
+  }
+  h1, h2, h3, h4, .serif { font-family: 'Noto Serif SC', Georgia, serif; font-weight: 700; }
+  .slide {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 48px; position: relative;
+  }
+  .slide-number {
+    position: absolute; bottom: 24px; right: 40px;
+    font-size: 11px; color: var(--text-tertiary); letter-spacing: 0.02em;
+  }
+  .container { max-width: 1060px; margin: 0 auto; width: 100%; }
+
+  .nav-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 32px;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .nav-bar .brand { font-size: 12px; font-weight: 600; color: var(--text-secondary); letter-spacing: 0.04em; }
+  .nav-bar .page-indicator { font-size: 12px; color: var(--text-tertiary); font-weight: 500; }
+  .nav-bar .nav-arrows button {
+    background: var(--bg-card); border: 1px solid var(--border-light);
+    color: var(--text-secondary); padding: 4px 12px; border-radius: 6px;
+    cursor: pointer; font-size: 14px; margin-left: 4px; transition: all 0.15s;
+  }
+  .nav-bar .nav-arrows button:hover { background: var(--bg-card-hover); border-color: var(--border); color: var(--text); }
+
+  .cover {
+    background: radial-gradient(ellipse 60% 30% at 50% 20%, rgba(26,107,176,0.025) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 30% at 80% 80%, rgba(26,138,74,0.02) 0%, transparent 50%), var(--bg);
+  }
+  .cover-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 5px 16px; background: var(--bg-card); border: 1px solid var(--border-light);
+    border-radius: 100px; font-size: 11px; letter-spacing: 0.1em;
+    color: var(--text-tertiary); margin-bottom: 28px; font-weight: 500;
+  }
+  .cover-title { font-size: clamp(36px, 5vw, 54px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 12px; }
+  .cover-sub { font-size: clamp(16px, 1.8vw, 20px); color: var(--text-secondary); font-weight: 300; max-width: 650px; margin-bottom: 36px; }
+  .cover-meta { display: flex; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--text-tertiary); }
+  .cover-meta span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+  .cover-meta span:nth-child(1)::before { background: var(--accent-blue); }
+  .cover-meta span:nth-child(2)::before { background: var(--accent-green); }
+  .cover-meta span:nth-child(3)::before { background: var(--accent-gold); }
+
+  .section-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; font-weight: 600; }
+  .section-title { font-size: clamp(26px, 3.2vw, 36px); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .section-sub { color: var(--text-secondary); font-weight: 300; margin-bottom: 36px; max-width: 650px; font-size: 14px; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .card {
+    background: var(--bg-card); border-radius: var(--radius); padding: 28px;
+  }
+  .card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; font-family: 'Noto Serif SC', serif; }
+  .card p, .card li { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { padding: 4px 0; padding-left: 18px; position: relative; }
+  .card ul li::before { content: '—'; position: absolute; left: 0; color: var(--text-tertiary); }
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+  .stat-card { background: var(--bg-card); border-radius: var(--radius); padding: 24px; text-align: center; }
+  .stat-card .num { font-size: 28px; font-weight: 900; }
+  .stat-card .lbl { font-size: 11px; color: var(--text-tertiary); margin-top: 4px; }
+
+  .insight-box {
+    background: var(--bg-card); border-left: 3px solid var(--accent-blue);
+    border-radius: var(--radius); padding: 24px 28px; margin-bottom: 20px;
+  }
+  .insight-box h4 { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: var(--accent-blue); }
+  .insight-box p { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+  .insight-box.warn { border-left-color: var(--accent-red); }
+  .insight-box.warn h4 { color: var(--accent-red); }
+  .insight-box.ok { border-left-color: var(--accent-green); }
+  .insight-box.ok h4 { color: var(--accent-green); }
+
+  .user-card {
+    background: var(--bg-card); border-radius: var(--radius); padding: 28px; margin-bottom: 20px;
+    border-left: 3px solid var(--accent-purple);
+  }
+  .user-card .user-header { font-size: 14px; font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .user-card .user-header .badge { font-size: 10px; padding: 2px 8px; border-radius: 4px; background: rgba(108,63,160,0.1); color: var(--accent-purple); font-weight: 500; }
+  .user-card .user-quote { font-size: 13px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; padding: 12px 16px; background: rgba(255,255,255,0.5); border-radius: 8px; }
+  .user-card .analysis { font-size: 13px; color: var(--text); line-height: 1.8; }
+  .user-card .analysis strong { color: var(--accent-blue); }
+  .user-card .analysis .risk { color: var(--accent-red); font-weight: 600; }
+  .user-card .analysis .strength { color: var(--accent-green); font-weight: 600; }
+
+  .table-wrap { overflow-x: auto; margin-bottom: 24px; }
+  table.cmp { width: 100%; border-collapse: collapse; font-size: 13px; }
+  table.cmp th { padding: 12px 16px; text-align: left; font-weight: 600; font-size: 12px; background: var(--bg-card); border-bottom: 1px solid var(--border); white-space: nowrap; }
+  table.cmp td { padding: 10px 16px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+  table.cmp tr:last-child td { border-bottom: none; }
+  table.cmp .win { color: var(--accent-green); font-weight: 600; }
+  table.cmp .lose { color: var(--accent-red); font-weight: 600; }
+  table.cmp .tie { color: var(--accent-gold); font-weight: 600; }
+  .highlight-box {
+    background: var(--bg-card); border-radius: var(--radius); padding: 32px; margin-bottom: 24px;
+  }
+  .highlight-box h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; color: var(--accent-gold); }
+  .highlight-box p, .highlight-box li { font-size: 13px; color: var(--text-secondary); line-height: 1.9; }
+  .highlight-box ul { list-style: none; padding: 0; }
+  .highlight-box ul li { padding: 4px 0; padding-left: 20px; position: relative; }
+  .highlight-box ul li::before { content: '→'; position: absolute; left: 0; color: var(--text-tertiary); }
+
+  .question-section { margin-bottom: 28px; }
+  .question-section h4 { font-size: 15px; font-weight: 600; margin-bottom: 12px; font-family: 'Noto Serif SC', serif; color: var(--accent-blue); }
+  .q-item { background: var(--bg-card); border-radius: var(--radius-sm); padding: 16px 20px; margin-bottom: 10px; }
+  .q-item .q-label { font-size: 12px; color: var(--text-tertiary); margin-bottom: 4px; font-weight: 500; }
+  .q-item .q-cn { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .q-item .q-en { font-size: 13px; color: var(--text-secondary); }
+  .q-item .q-options { font-size: 12px; color: var(--text-tertiary); margin-top: 6px; padding: 6px 10px; background: rgba(255,255,255,0.5); border-radius: 6px; }
+
+  @media (max-width: 768px) {
+    .slide { padding: 60px 20px; }
+    .grid-2, .grid-3, .stat-row { grid-template-columns: 1fr; }
+    .nav-bar { padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <span class="brand">VG30 · 用户访谈前分析报告</span>
+  <span class="page-indicator" id="pageIndicator">1 / 16</span>
+  <div class="nav-arrows">
+    <button onclick="nav(-1)">‹</button>
+    <button onclick="nav(1)">›</button>
+  </div>
+</nav>
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<section class="slide cover" data-slide="1">
+  <div class="container" style="text-align:center;">
+    <div class="cover-badge" style="margin:0 auto 28px;">用户访谈前 · 全面分析报告</div>
+    <h1 class="cover-title">
+      <span style="font-weight:900;">MayGrove VG30</span><br>
+      访谈准备 · 竞品分析 · 竞争力评估
+    </h1>
+    <p class="cover-sub" style="margin:16px auto 36px;">
+      结合 PRD、用户访谈反馈、竞品痛点、定价策略，为下周用户访谈提供完整分析框架与问题清单
+    </p>
+    <div class="cover-meta" style="justify-content:center;">
+      <span>2026 年 7 月</span>
+      <span>3 位用户预反馈分析</span>
+      <span>竞品：Gardyn / Lettuce Grow</span>
+    </div>
+  </div>
+  <div class="slide-number">1 / 16</div>
+</section>
+
+<!-- ===== SLIDE 2: AGENDA ===== -->
+<section class="slide" data-slide="2">
+  <div class="container">
+    <div class="section-label">AGENDA</div>
+    <h2 class="section-title">报告目录</h2>
+    <p class="section-sub">本次分析覆盖的五个核心板块</p>
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid var(--accent-blue);">
+        <h4>01 · 竞品痛点分析</h4>
+        <p>Gardyn Home 4.0 / Lettuce Grow 的核心用户投诉、行业共性问题</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-purple);">
+        <h4>02 · 三位用户反馈深度剖析</h4>
+        <p>逐条分析用户原声，映射到 VG30 产品能力，识别风险与机会</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-gold);">
+        <h4>03 · 定价竞争力评估</h4>
+        <p>$700 vs Gardyn、$1.5/pod 无会员、总拥有成本对比</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-green);">
+        <h4>04 · 产品匹配度总评</h4>
+        <p>VG30 能否真正满足用户需求？风险点与改进建议</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:16px; border-left:3px solid var(--accent-orange);">
+      <h4>05 · 访谈问题清单（中英文）</h4>
+      <p>结构化问题含选项，便于后续量化分析</p>
+    </div>
+  </div>
+  <div class="slide-number">2 / 16</div>
+</section>
+
+<!-- ===== SLIDE 3: COMPETITOR PAIN POINTS ===== -->
+<section class="slide" data-slide="3">
+  <div class="container">
+    <div class="section-label">01 · COMPETITOR ANALYSIS</div>
+    <h2 class="section-title">竞品核心痛点图谱</h2>
+    <p class="section-sub">基于 PRD 竞品调研、Trustpilot 评分、行业用户反馈的汇总分析</p>
+
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="num" style="color:var(--accent-red);">2.4</div>
+        <div class="lbl">Gardyn Trustpilot 评分</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" style="color:var(--accent-orange);">$1,600+</div>
+        <div class="lbl">Gardyn 年总拥有成本</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" style="color:var(--accent-gold);">$1,200+</div>
+        <div class="lbl">Lettuce Grow 年总拥有成本</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" style="color:var(--accent-blue);">6大</div>
+        <div class="lbl">行业共性痛点分类</div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid var(--accent-red);">
+        <h4 style="color:var(--accent-red);">Gardyn Home 4.0</h4>
+        <ul>
+          <li>水泵 6 个月内多次故障，植物全死</li>
+          <li>Trustpilot 评分 2.4——客服是核心原因</li>
+          <li>强制会员订阅，年成本 $1600+</li>
+          <li>清洁过程复杂，用户抱怨"太难清理"</li>
+          <li>根腐病/pH 失衡——行业通病</li>
+          <li>"傻瓜式"宣传落差：用户反馈比预期复杂得多</li>
+          <li>pH 调节、营养液监控门槛高</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-orange);">
+        <h4 style="color:var(--accent-orange);">Lettuce Grow Farmstand</h4>
+        <ul>
+          <li>加水频率高，维护负担重</li>
+          <li>虫害问题（室内种植的常见痛点）</li>
+          <li>智能连接不稳定，App 体验不佳</li>
+          <li>年总拥有成本 $1,200+</li>
+          <li>移动不便，占空间大</li>
+          <li>清洁困难，结构复杂</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insight-box" style="margin-top:16px;">
+      <h4>行业共性痛点（竞品都没解决好的）</h4>
+      <p><strong>① 清洗困难</strong> — 所有竞品用户都在抱怨。结构越复杂越难洗。<br>
+      <strong>② 水泵可靠性</strong> — 单水泵设计，坏了整批植物无法存活。<br>
+      <strong>③ 耗材/订阅成本</strong> — Gardyn 强制会员年费，用户感觉被"锁定"。<br>
+      <strong>④ 根腐病</strong> — 水培行业的"癌症"，所有品牌都未根治。<br>
+      <strong>⑤ 心理落差</strong> — 宣传"简单"但实际需要 pH/EC 调整，用户失望。<br>
+      <strong>⑥ App 与客服</strong> — Gardyn Trustpilot 2.4 分的核心原因。</p>
+    </div>
+  </div>
+  <div class="slide-number">3 / 16</div>
+</section>
+
+<!-- ===== SLIDE 4: COMPETITOR MAPPING ===== -->
+<section class="slide" data-slide="4">
+  <div class="container">
+    <div class="section-label">01 · GAP ANALYSIS</div>
+    <h2 class="section-title">VG30 竞品痛点解决对照</h2>
+    <p class="section-sub">VG30 的设计是否能有效解决竞品的核心投诉？</p>
+
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th style="width:25%;">竞品痛点</th>
+            <th style="width:20%;">Gardyn</th>
+            <th style="width:20%;">Lettuce Grow</th>
+            <th style="width:35%;">VG30 解决方案</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">清洗困难</td>
+            <td class="lose">❌ 严重投诉</td>
+            <td class="lose">❌ 复杂难洗</td>
+            <td><span class="tie">⚠️ PRD 提了"方便清洗"需求，但用户反馈第一位就说"难洗就不值得买"——需重点验证</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">水泵故障</td>
+            <td class="lose">6个月内多次坏</td>
+            <td class="lose">有投诉</td>
+            <td><span class="win">✅ 双泵冗余设计——一个坏了另一个继续工作</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">高订阅成本</td>
+            <td class="lose">强制会员 ~$600/yr</td>
+            <td class="lose">耗材偏高</td>
+            <td><span class="win">✅ 无强制订阅，种子 $1.5/pod，耗材透明</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">根腐病/pH失衡</td>
+            <td class="lose">行业共性</td>
+            <td class="lose">行业共性</td>
+            <td><span class="tie">⚠️ 自动滴定 Root Guard，但效果需实测数据支撑</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">宣传落差</td>
+            <td class="lose">说简单但实际复杂</td>
+            <td class="lose">维护比预期多</td>
+            <td><span class="win">✅ AI 自适应控制 + 自动营养，真正降低门槛</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">客服体验</td>
+            <td class="lose">2.4 分核心原因</td>
+            <td class="lose">有投诉</td>
+            <td><span class="tie">⚠️ 尚未有充足证据证明客服体系已准备好</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">App 稳定性</td>
+            <td class="lose">有投诉</td>
+            <td class="lose">连接不稳定</td>
+            <td><span class="tie">⚠️ 需要用户测试验证</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight-box ok">
+      <h4>初步判断</h4>
+      <p>VG30 在 <strong>双泵冗余、无强制订阅、自动营养、AI 自适应控制</strong> 四个维度上对竞品有明确优势。<br>
+      最大的不确定性在 <strong>清洗便利性</strong>——第一位用户已明确这是她的"deal breaker"。</p>
+    </div>
+  </div>
+  <div class="slide-number">4 / 16</div>
+</section>
+
+<!-- ===== SLIDE 5: USER 1 ANALYSIS ===== -->
+<section class="slide" data-slide="5">
+  <div class="container">
+    <div class="section-label">02 · USER FEEDBACK</div>
+    <h2 class="section-title">用户 #1 · 25年种植经验者</h2>
+    <p class="section-sub">AeroGarden + Gardyn 用户，7年水培经验</p>
+
+    <div class="user-card">
+      <div class="user-header">
+        <span>🧑‍🌾 Gardyn/AeroGarden 老用户</span>
+        <span class="badge">高价值用户</span>
+      </div>
+      <div class="user-quote">
+        "None of the bells and whistles are worth it to me if it's difficult to clean. So long as that process is relatively easy, I'm good."
+      </div>
+      <div class="analysis">
+        <p><strong>身份验证：</strong>25年种植经验，7年水培（AeroGarden + Gardyn），是典型的核心竞品转化目标。</p>
+        <p><strong>核心诉求：</strong><span class="risk">清洗便利性是决定性因素</span>——"花里胡哨的功能都没用，如果难洗的话"。</p>
+        <p><strong>深层解读：</strong></p>
+        <p>她不是否定 AI 功能的价值，而是表达了一个<b>老用户的优先级排序</b>：经历过 Gardyn 清洗的麻烦后，她清楚地知道<b>日常维护体验</b>决定了这个产品能否长期用下去。如果 VG30 在清洗上跟 Gardyn 一样复杂，再多的 AI 功能也留不住她。</p>
+        <p><strong style="color:var(--accent-blue);">对 VG30 的启示：</strong></p>
+        <p><span class="strength">优势</span> — 垂直塔式设计，结构上比 Gardyn 的复杂水路更易清洗；种植杯独立可拆。</p>
+        <p><span class="risk">风险</span> — PRD 提到了"方便清洗"但没有展示具体的清洗流程设计。访谈时需重点验证她对清洗步骤的接受度。</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid var(--accent-green);">
+        <h4 style="color:var(--accent-green);">已有的匹配点</h4>
+        <ul>
+          <li>双泵冗余——Gardyn 水泵问题她有体会</li>
+          <li>自动营养——不用手动调 pH/EC</li>
+          <li>42 株 / 2sqft——空间效率高</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-red);">
+        <h4 style="color:var(--accent-red);">需要验证的风险点</h4>
+        <ul>
+          <li><strong>清洗难度</strong>——她的"deal breaker"</li>
+          <li>她是否愿意为 AI 功能付溢价</li>
+          <li>她对 Gardyn 的会员模式有多不满</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">5 / 16</div>
+</section>
+
+<!-- ===== SLIDE 6: USER 2 ANALYSIS ===== -->
+<section class="slide" data-slide="6">
+  <div class="container">
+    <div class="section-label">02 · USER FEEDBACK</div>
+    <h2 class="section-title">用户 #2 · 草药学家/科研创业者</h2>
+    <p class="section-sub">正在部署国家土壤 R&D 项目，想用 AI agent 做数据分类</p>
+
+    <div class="user-card">
+      <div class="user-header">
+        <span>🔬 专业级草药学家 + 科技创业者</span>
+        <span class="badge">边缘用户</span>
+      </div>
+      <div class="user-quote">
+        "The starter experience should be accompanied by a 'beginners' introduction to ag. Also, consider building more compact units that have the same features but can easily fit a tiny house/micro apartment. Lastly, energy efficiency is key. There's no real mention about average energy use and whether solar powered options are available."
+      </div>
+      <div class="analysis">
+        <p><strong>身份验证：</strong>专业级用户（草药学家），但需求偏工业/科研方向。不是典型的目标消费者。</p>
+        <p><strong>核心诉求：</strong>3 个具体反馈——① 新手入门教育内容 ② 更紧凑的户型 ③ 能耗透明度和太阳能选项。</p>
+        <p><strong>深层解读：</strong></p>
+        <p>这位用户的专业背景使他与 VG30 的<b>核心目标人群（家庭消费者）</b>有偏差。他的反馈依然有价值——<b>能耗透明度</b>是竞品几乎不提的维度，如果 VG30 能在营销中主动展示功率数据和能耗成本，可以形成差异化。但他对"更紧凑户型"的需求可能不适合 VG30 现有设计。</p>
+        <p><strong style="color:var(--accent-blue);">对 VG30 的启示：</strong></p>
+        <p><span class="strength">优势</span> — 能耗透明度的建议很有价值，可纳入营销材料。</p>
+        <p><span class="risk">风险</span> — 他的需求偏向专业/科研场景，不代表主流消费者。</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid var(--accent-green);">
+        <h4 style="color:var(--accent-green);">可采纳的反馈</h4>
+        <ul>
+          <li>新手农业入门指南——好的内容营销方向</li>
+          <li>能耗透明化——可做成卖点</li>
+          <li>AI agent 数据分类——专业场景的延伸</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-orange);">
+        <h4 style="color:var(--accent-orange);">不太匹配的诉求</h4>
+        <ul>
+          <li>"更紧凑的微公寓版本"——不是 VG30 的定位</li>
+          <li>太阳能选项——家用产品现阶段不现实</li>
+          <li>科研级数据需求——超出消费级产品范围</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">6 / 16</div>
+</section>
+
+<!-- ===== SLIDE 7: USER 3 ANALYSIS ===== -->
+<section class="slide" data-slide="7">
+  <div class="container">
+    <div class="section-label">02 · USER FEEDBACK</div>
+    <h2 class="section-title">用户 #3 · 种植新手/Youtube 学习者</h2>
+    <p class="section-sub">从未用过种植系统，只在 YouTube 上看过</p>
+
+    <div class="user-card">
+      <div class="user-header">
+        <span>🌱 完全新手 · 潜在高价值用户</span>
+        <span class="badge">核心目标用户</span>
+      </div>
+      <div class="user-quote">
+        "Always wanted a garden but with your product is offering the best solution for perfect controlled results. The app should also manage power consumption. Have the options for users to select like power levels. 1 through 5 levels of power usage."
+      </div>
+      <div class="analysis">
+        <p><strong>身份验证：</strong>一直想种但没开始，在 YouTube 上研究过各类系统。这是 VG30 的<b>理想目标用户</b>——有需求但被传统种植的门槛劝退。</p>
+        <p><strong>核心诉求：</strong>他非常认可产品定位（"你的产品提供了完美的受控结果"），但希望 App 增加<b>能耗管理</b>功能，设定 1-5 级功率档位。</p>
+        <p><strong>深层解读：</strong></p>
+        <p>他的反馈非常积极——<b>核心价值主张已被接受</b>（受控、完美结果）。能耗分档的建议是一个<b>很好的差异化功能</b>：用户可以根据电费/日照/离家时间动态调节功率。"AI 自动识别日照并降低功率"的需求更是锦上添花。</p>
+        <p><strong style="color:var(--accent-blue);">对 VG30 的启示：</strong></p>
+        <p><span class="strength">优势</span> — 产品定位与他的需求高度匹配。"想要但不敢种"的人群故事可直接用在营销素材中。</p>
+        <p><span class="strength">机会</span> — 能耗分档功能如果加入 App，是 Gardyn/Lettuce Grow 都没有的差异化卖点。</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="border-left:3px solid var(--accent-green);">
+        <h4 style="color:var(--accent-green);">已有的匹配点</h4>
+        <ul>
+          <li>AI 自动化——他不需要学习种植知识</li>
+          <li>"完美受控结果"——与他的期望一致</li>
+          <li>30 天免维护——解决"怕麻烦"的痛点</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-blue);">
+        <h4 style="color:var(--accent-blue);">功能机会</h4>
+        <ul>
+          <li><strong>能耗管理 1-5 级</strong>——App 新增功能点</li>
+          <li>AI 自动识别日照调整功率</li>
+          <li>低功率模式下只预警不干预</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">7 / 16</div>
+</section>
+
+<!-- ===== SLIDE 8: PRICING ===== -->
+<section class="slide" data-slide="8">
+  <div class="container">
+    <div class="section-label">03 · PRICING ANALYSIS</div>
+    <h2 class="section-title">定价竞争力评估</h2>
+    <p class="section-sub">$699 vs Gardyn，$1.5/pod 无会员——是否足够有竞争力？</p>
+
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th>对比维度</th>
+            <th style="text-align:center;">VG30</th>
+            <th style="text-align:center;">Gardyn Home 4.0</th>
+            <th style="text-align:center;">Lettuce Grow Farmstand</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">设备售价</td>
+            <td style="text-align:center;color:var(--accent-green);font-weight:700;">~$699</td>
+            <td style="text-align:center;">$899-$999</td>
+            <td style="text-align:center;">$799+</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">种植位</td>
+            <td style="text-align:center;">30 穴 + 12 育苗</td>
+            <td style="text-align:center;">~30 株</td>
+            <td style="text-align:center;">30-60 株</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">订阅模式</td>
+            <td style="text-align:center;color:var(--accent-green);font-weight:600;">无强制订阅</td>
+            <td style="text-align:center;color:var(--accent-red);">强制会员 ~$600/yr</td>
+            <td style="text-align:center;color:var(--accent-orange);">建议订阅</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">种子/种植单元价格</td>
+            <td style="text-align:center;color:var(--accent-green);font-weight:600;">~$1.5/pod</td>
+            <td style="text-align:center;">~$3-5/pod</td>
+            <td style="text-align:center;">~$2-4/pod</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">第一年总成本</td>
+            <td style="text-align:center;color:var(--accent-green);font-weight:700;">~$720</td>
+            <td style="text-align:center;color:var(--accent-red);">~$1,500-$1,600</td>
+            <td style="text-align:center;color:var(--accent-orange);">~$1,000-$1,200</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">第二年总成本</td>
+            <td style="text-align:center;color:var(--accent-green);font-weight:700;">~$20-50（仅耗材）</td>
+            <td style="text-align:center;color:var(--accent-red);">~$600+（强制会员）</td>
+            <td style="text-align:center;color:var(--accent-orange);">~$200-400（耗材）</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">双泵冗余</td>
+            <td style="text-align:center;color:var(--accent-green);">✅ 有</td>
+            <td style="text-align:center;color:var(--accent-red);">❌ 单泵</td>
+            <td style="text-align:center;color:var(--accent-red);">❌ 单泵</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">自动营养</td>
+            <td style="text-align:center;color:var(--accent-green);">✅ 双路滴定</td>
+            <td style="text-align:center;color:var(--accent-orange);">⚠️ 基础</td>
+            <td style="text-align:center;color:var(--accent-red);">❌ 手动</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="insight-box ok">
+      <h4>定价结论</h4>
+      <p><strong>$699 定价在设备端优势明显</strong>——比 Gardyn 低 $200-300，比 Lettuce Grow 低 $100+。<br>
+      <strong>$1.5/pod 无会员是核武器级别的差异化</strong>——第一年总成本比 Gardyn 低一半以上（$720 vs $1,500+），第二年起差距更大。<br>
+      关键是：<strong>这个价值主张能不能在营销中被清晰传达</strong>——用户需要算这笔账才能感受到差距。</p>
+    </div>
+
+    <div class="insight-box warn">
+      <h4>风险提示</h4>
+      <p>优惠券数据（GTM 报告）显示：核心人群（55+退休）的 <strong>good deal 中位数仅 $200-250</strong>，$699 对他们来说是 3 倍心理价位。需要用"长期省钱"计算器和产量价值论证来跨越这个心理门槛。</p>
+    </div>
+  </div>
+  <div class="slide-number">8 / 16</div>
+</section>
+
+<!-- ===== SLIDE 9: PRODUCT READINESS ===== -->
+<section class="slide" data-slide="9">
+  <div class="container">
+    <div class="section-label">04 · PRODUCT READINESS</div>
+    <h2 class="section-title">产品匹配度总评</h2>
+    <p class="section-sub">VG30 能否真正解决用户需求？6 个关键维度评估</p>
+
+    <div class="table-wrap">
+      <table class="cmp">
+        <thead>
+          <tr>
+            <th>评估维度</th>
+            <th style="text-align:center;">评分</th>
+            <th>说明</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">清洗便利性</td>
+            <td style="text-align:center;"><span class="lose">⚠️ 待验证</span></td>
+            <td>PRD 提到但未详细展示清洗流程。用户#1 明确这是"deal breaker"。</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">自动化程度</td>
+            <td style="text-align:center;"><span class="win">✅ 强</span></td>
+            <td>双泵冗余 + 自动滴定 + AI 控制，明显领先竞品。</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">定价竞争力</td>
+            <td style="text-align:center;"><span class="win">✅ 强</span></td>
+            <td>$699 + $1.5/pod 无会员，第一年成本仅为 Gardyn 的 45%。</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">新手友好度</td>
+            <td style="text-align:center;"><span class="tie">🔄 中</span></td>
+            <td>AI 自动控制降低门槛，但用户#2 建议需要"农业入门教育"。新手引导内容待补。</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">能耗透明化</td>
+            <td style="text-align:center;"><span class="lose">⚠️ 待补充</span></td>
+            <td>用户#2 和 #3 都提到能耗问题。PRD 未提及能耗数据。这是竞品没做的差异化机会。</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">vs 竞品差异化</td>
+            <td style="text-align:center;"><span class="win">✅ 强</span></td>
+            <td>双泵、自动营养、AI 控制、无订阅 四大差异点明确。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight-box">
+      <h3>整体评估</h3>
+      <p><strong>VG30 在产品力上确实有竞争力，不是"自嗨"。</strong></p>
+      <p>从对比分析来看，VG30 在<b>自动化、可靠性、长期成本</b>三个维度上对 Gardyn/Lettuce Grow 有明确优势。最大的变量在于<b>清洗体验</b>——这是竞品都没做好的地方，做好了就是口碑护城河，做不好就是流失漏斗。</p>
+      <p>下周访谈的核心任务不是验证"产品好不好"，而是验证<b>三个关键假设</b>：</p>
+      <p>1️⃣ 清洗流程是否足够简单（用户#1 的标准）<br>
+      2️⃣ $699 的价格感知是否合理（用户会不会觉得贵）<br>
+      3️⃣ 新手用户是否能真正"不用学习就会用"（用户#3 的期望）</p>
+    </div>
+  </div>
+  <div class="slide-number">9 / 16</div>
+</section>
+
+<!-- ===== SLIDE 10: INTERVIEW QUESTIONS OVERVIEW ===== -->
+<section class="slide" data-slide="10">
+  <div class="container">
+    <div class="section-label">05 · INTERVIEW GUIDE</div>
+    <h2 class="section-title">访谈问题清单总览</h2>
+    <p class="section-sub">6 个模块，覆盖产品验证的完整维度</p>
+
+    <div class="grid-3">
+      <div class="card" style="border-left:3px solid var(--accent-blue); text-align:center;">
+        <div style="font-size:28px;font-weight:900;color:var(--accent-blue);">A</div>
+        <h4>种植习惯与痛点</h4>
+        <p style="font-size:12px;">了解用户当前的种植方式和最大困扰</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-purple); text-align:center;">
+        <div style="font-size:28px;font-weight:900;color:var(--accent-purple);">B</div>
+        <h4>清洗与维护</h4>
+        <p style="font-size:12px;">验证清洗流程设计是否能满足用户标准</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-green); text-align:center;">
+        <div style="font-size:28px;font-weight:900;color:var(--accent-green);">C</div>
+        <h4>功能优先级</h4>
+        <p style="font-size:12px;">AI 功能 vs 基础功能，用户真正在意什么</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-gold); text-align:center;">
+        <div style="font-size:28px;font-weight:900;color:var(--accent-gold);">D</div>
+        <h4>定价感知</h4>
+        <p style="font-size:12px;">$699 是否合理，与竞品对比的价值认知</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-orange); text-align:center;">
+        <div style="font-size:28px;font-weight:900;color:var(--accent-orange);">E</div>
+        <h4>购买决策</h4>
+        <p style="font-size:12px;">什么因素让他们下单/放弃</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-red); text-align:center;">
+        <div style="font-size:28px;font-weight:900;color:var(--accent-red);">F</div>
+        <h4>对比 Gardyn</h4>
+        <p style="font-size:12px;">有竞品经验的用户如何看待 VG30</p>
+      </div>
+    </div>
+
+    <div class="insight-box" style="margin-top:16px;">
+      <h4>使用方法</h4>
+      <p>每个问题都有中文 + 英文原文 + 选项。访谈员可根据节奏选择核心问题和追问问题。<br>
+      建议每场访谈到最后让用户对 VG30 做<b>综合评分（1-10）</b>和<b>一句话总结</b>，便于后续量化对比。</p>
+    </div>
+  </div>
+  <div class="slide-number">10 / 16</div>
+</section>
+
+<!-- ===== SLIDE 11: QUESTIONS MODULE A-B ===== -->
+<section class="slide" data-slide="11">
+  <div class="container">
+    <div class="section-label">05 · INTERVIEW QUESTIONS</div>
+    <h2 class="section-title">模块 A-B：种植习惯 · 清洗维护</h2>
+    <p class="section-sub">开场问题和核心验证问题</p>
+
+    <div class="question-section">
+      <h4>A · 种植习惯与痛点 Growing Habits & Pain Points</h4>
+      <div class="q-item">
+        <div class="q-label">A1 · 核心问题 Core Question</div>
+        <div class="q-cn">你目前用什么方式种植植物？最大的困扰是什么？</div>
+        <div class="q-en">What's your current growing setup? What frustrates you most about it?</div>
+        <div class="q-options">选项: ① 传统户外/土培 ② 室内传统盆种 ③ 智能种植系统（Gardyn/AeroGarden/其他）④ 不种但想种 ⑤ 其他</div>
+      </div>
+      <div class="q-item">
+        <div class="q-label">A2 · 痛点优先级 Pain Point Priority</div>
+        <div class="q-cn">以下痛点中，你最想解决的是哪一个？</div>
+        <div class="q-en">Which of these pain points would you most want solved?</div>
+        <div class="q-options">① 忘记浇水/植物枯死 ② 需要手动调营养液/pH ③ 空间不够 ④ 受季节/天气限制 ⑤ 虫害问题 ⑥ 清洗/维护太麻烦</div>
+      </div>
+      <div class="q-item">
+        <div class="q-label">A3 · 自动化的期望 Automation Expectations</div>
+        <div class="q-cn">你希望种植系统帮你自动管理到什么程度？</div>
+        <div class="q-en">How much automation do you expect from a smart growing system?</div>
+        <div class="q-options">① 全自动（只需要种和收） ② 半自动（自动浇水+灯，我自己管营养） ③ 只需要提醒（App告诉我什么时候做什么） ④ 不确定</div>
+      </div>
+    </div>
+
+    <div class="question-section">
+      <h4>B · 清洗与维护 Cleaning & Maintenance</h4>
+      <div class="q-item">
+        <div class="q-label">B1 · 核心问题 Core Question</div>
+        <div class="q-cn">你怎么看"每 2 周检查根系 + 每 30 天清洗一次水箱"的维护节奏？</div>
+        <div class="q-en">How do you feel about checking roots every 2 weeks and cleaning the tank every 30 days?</div>
+        <div class="q-options">① 完全可以接受 ② 有点频繁但可以 ③ 太麻烦了 ④ 取决于清洗需要多久时间</div>
+      </div>
+      <div class="q-item">
+        <div class="q-label">B2 · 清洗容忍度 Cleaning Tolerance</div>
+        <div class="q-cn">你能接受的单次清洗时间是多久？</div>
+        <div class="q-en">What's the maximum time you'd spend on a single cleaning session?</div>
+        <div class="q-options">① 15 分钟以内 ② 15-30 分钟 ③ 30-60 分钟 ④ 超过 60 分钟就不行</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">11 / 16</div>
+</section>
+
+<!-- ===== SLIDE 12: QUESTIONS MODULE C-D ===== -->
+<section class="slide" data-slide="12">
+  <div class="container">
+    <div class="section-label">05 · INTERVIEW QUESTIONS</div>
+    <h2 class="section-title">模块 C-D：功能优先级 · 定价</h2>
+
+    <div class="question-section">
+      <h4>C · 功能优先级 Feature Priority</h4>
+      <div class="q-item">
+        <div class="q-label">C1 · 排序题 Ranking</div>
+        <div class="q-cn">请给以下功能按重要性排序（1 最重要 → 6 最不重要）：</div>
+        <div class="q-en">Please rank these features by importance:</div>
+        <div class="q-options">① AI 自动调节灯光/水/营养 ② 双泵冗余（一个坏了还有备用）③ 30 天免维护 ④ App 远程监控和延时摄影 ⑤ 自动添加营养液 ⑥ 42 株大容量</div>
+      </div>
+      <div class="q-item">
+        <div class="q-label">C2 · 能耗管理 Energy Management</div>
+        <div class="q-cn">如果 App 可以设置能耗档位（1-5 级），你会用吗？</div>
+        <div class="q-en">If the app had power level settings (1-5), would you use it?</div>
+        <div class="q-options">① 肯定会，电费是我的关注点 ② 可能会，偶尔调一下 ③ 不太需要，让 AI 自动管理就好 ④ 无所谓</div>
+      </div>
+      <div class="q-item">
+        <div class="q-label">C3 · 必备功能 Must-Have Check</div>
+        <div class="q-cn">如果去掉摄像头和 AI 助手，价格降低 $100，你还会考虑购买吗？</div>
+        <div class="q-en">If we removed the camera and AI assistant, reducing the price by $100, would you still consider buying?</div>
+        <div class="q-options">① 会，核心功能更重要 ② 不会，摄像头和 AI 是我选择的原因 ③ 不确定</div>
+      </div>
+    </div>
+
+    <div class="question-section">
+      <h4>D · 定价感知 Price Perception</h4>
+      <div class="q-item">
+        <div class="q-label">D1 · 价格接受度 Price Acceptability</div>
+        <div class="q-cn">一台全自动智能种菜机（30 穴 + AI 控制 + 42 株容量），你觉得合理的价格是多少？</div>
+        <div class="q-en">What do you think is a fair price for a fully automated indoor garden (30 pods + AI control + 42 plant capacity)?</div>
+        <div class="q-options">① $400-500 ② $500-600 ③ $600-700 ④ $700-800 ⑤ $800+</div>
+      </div>
+      <div class="q-item">
+        <div class="q-label">D2 · 种子价格 Pod Pricing</div>
+        <div class="q-cn">种植杯价格 $1.5/个（无会员费），对比 Gardyn 的 $3-5/个 + 年费，你感觉如何？</div>
+        <div class="q-en">Pods at $1.5 each with no membership, vs Gardyn's $3-5/pod + annual fee. What's your take?</div>
+        <div class="q-options">① 非常有吸引力 ② 还可以，但希望更便宜 ③ 差不多，我没算过总成本 ④ 我更喜欢用自己种子</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">12 / 16</div>
+</section>
+
+<!-- ===== SLIDE 13: QUESTIONS MODULE E-F ===== -->
+<section class="slide" data-slide="13">
+  <div class="container">
+    <div class="section-label">05 · INTERVIEW QUESTIONS</div>
+    <h2 class="section-title">模块 E-F：购买决策 · 竞品对比</h2>
+
+    <div class="question-section">
+      <h4>E · 购买决策 Purchase Decision</h4>
+      <div class="q-item">
+        <div class="q-label">E1 · 决定因素 Decision Factor</div>
+        <div class="q-cn">你决定购买/不购买一个智能种菜机的第一因素是什么？</div>
+        <div class="q-en">What's the #1 factor that would make you buy or not buy a smart indoor garden?</div>
+        <div class="q-options">① 价格 ② 是否容易维护/清洗 ③ 种植效果（能不能真的种好菜）④ 品牌可信度 ⑤ 外观是否好看 ⑥ 耗材成本</div>
+      </div>
+      <div class="q-item">
+        <div class="q-label">E2 · 购买场景 Purchase Scenario</div>
+        <div class="q-cn">在什么场景下你会下单购买？</div>
+        <div class="q-en">In what scenario would you actually make the purchase?</div>
+        <div class="q-options">① Kickstarter 早鸟折扣 ② 看到朋友家用效果好 ③ 有促销/节日折扣 ④ 搬新家/装修时 ⑤ 我不会在线上买超过 $500 的东西</div>
+      </div>
+      <div class="q-item">
+        <div class="q-label">E3 · 顾虑 Concerns</div>
+        <div class="q-cn">你对这个产品最大的顾虑是什么？</div>
+        <div class="q-en">What's your biggest concern about this product?</div>
+        <div class="q-options">① 清洗/维护太麻烦 ② 种出来的菜不够吃/不好吃 ③ 设备故障没人修 ④ 后续耗材太贵 ⑤ 占地方 ⑥ 用几个月就吃灰了</div>
+      </div>
+    </div>
+
+    <div class="question-section">
+      <h4>F · 竞品对比（对 Gardyn/Lettuce Grow 用户）</h4>
+      <div class="q-item">
+        <div class="q-label">F1 · 满意度 Satisfaction</div>
+        <div class="q-cn">你对你现在用的系统（Gardyn/Lettuce Grow）最满意和最不满意的地方是？</div>
+        <div class="q-en">What do you like most and least about your current system?</div>
+        <div class="q-options">开放回答</div>
+      </div>
+      <div class="q-item">
+        <div class="q-label">F2 · 切换意愿 Switching Intent</div>
+        <div class="q-cn">如果有一款新系统：双泵保障不坏、自动加营养、无强制年费、$699，你愿意换吗？</div>
+        <div class="q-en">If a new system offered: dual pump, auto nutrients, no membership, $699 — would you switch?</div>
+        <div class="q-options">① 愿意，这些正是我想要的 ② 可能，需要看实物和评价 ③ 不愿意，我懒得换系统 ④ 需要用了才知道</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">13 / 16</div>
+</section>
+
+<!-- ===== SLIDE 14: INTERVIEW SUMMARY TEMPLATE ===== -->
+<section class="slide" data-slide="14">
+  <div class="container">
+    <div class="section-label">05 · POST-INTERVIEW</div>
+    <h2 class="section-title">访谈后记录模板</h2>
+    <p class="section-sub">每场访谈后统一记录，便于跨用户对比分析</p>
+
+    <div class="card">
+      <h4>用户评分表（1-10 分）</h4>
+      <div class="table-wrap" style="margin-top:12px;">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th>评估维度</th>
+              <th style="text-align:center;">评分 (1-10)</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600;">购买意向 Purchase Intent</td>
+              <td style="text-align:center;font-size:18px;font-weight:700;">___/10</td>
+              <td>1 = 完全不考虑 · 10 = 一定会买</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">产品理解度 Understanding</td>
+              <td style="text-align:center;font-size:18px;font-weight:700;">___/10</td>
+              <td>用户是否清楚 VG30 是什么、能做什么</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">价格接受度 Price Acceptance</td>
+              <td style="text-align:center;font-size:18px;font-weight:700;">___/10</td>
+              <td>$699 在他们看来是否合理</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">清洗接受度 Cleaning Acceptance</td>
+              <td style="text-align:center;font-size:18px;font-weight:700;">___/10</td>
+              <td>维护流程是否超出预期</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">vs 竞品优势 Perceived Advantage</td>
+              <td style="text-align:center;font-size:18px;font-weight:700;">___/10</td>
+              <td>相比他们用过的/知道的系统</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:16px;">
+      <div class="card" style="border-left:3px solid var(--accent-green);">
+        <h4 style="color:var(--accent-green);">一句话总结 What's the one-line takeaway?</h4>
+        <p style="margin-top:8px;font-size:14px;">___________________________</p>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-red);">
+        <h4 style="color:var(--accent-red);">最大的风险点 Biggest Risk Flagged</h4>
+        <p style="margin-top:8px;font-size:14px;">___________________________</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-number">14 / 16</div>
+</section>
+
+<!-- ===== SLIDE 15: VERDICT ===== -->
+<section class="slide" data-slide="15">
+  <div class="container">
+    <div class="section-label">CONCLUSION</div>
+    <h2 class="section-title">综合判断：不是"自嗨"</h2>
+    <p class="section-sub">基于现有资料的分析结论</p>
+
+    <div class="grid-2" style="margin-bottom:24px;">
+      <div class="card" style="border-left:3px solid var(--accent-green);">
+        <h4 style="color:var(--accent-green);">✅ 有竞争力的维度</h4>
+        <ul>
+          <li><strong>双泵冗余</strong> — Gardyn 的致命弱点，我们直接解决了</li>
+          <li><strong>自动营养滴定</strong> — Plant Food + Root Guard，竞品需要手动</li>
+          <li><strong>无强制订阅</strong> — $1.5/pod vs Gardyn $3-5/pod + $600/yr 会费</li>
+          <li><strong>定价 $699</strong> — 同价位段比 Gardyn 便宜 $200-300</li>
+          <li><strong>第一年总成本 $720</strong> — 不到 Gardyn $1,500+ 的一半</li>
+          <li><strong>AI 自适应控制</strong> — 不是定时器，是真正懂生长的系统</li>
+        </ul>
+      </div>
+      <div class="card" style="border-left:3px solid var(--accent-red);">
+        <h4 style="color:var(--accent-red);">⚠️ 需要验证的维度</h4>
+        <ul>
+          <li><strong>清洗体验</strong> — 用户#1 的"deal breaker"，必须亲眼看过实物清洗流程才能确认</li>
+          <li><strong>$699 价格感知</strong> — 问卷显示退休人群 good deal 中位数仅 $200-250，需要看访谈中的实际反应</li>
+          <li><strong>能耗透明度</strong> — 两个用户都不约而同提到了，PRD 没覆盖</li>
+          <li><strong>新手引导内容</strong> — "农业入门"内容待补，影响第一印象</li>
+          <li><strong>App 体验</strong> — 用户#3 期待 App 有能耗管理，这是竞品没有的功能</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="insight-box ok">
+      <h4>核心结论</h4>
+      <p><strong>VG30 不只是在"自嗨"——它在关键维度上确实有真实竞争力。</strong> 双泵冗余和自动营养两个功能直接回应了 Gardyn 用户的核心投诉，无订阅定价模式更是直击竞品命门。如果清洗体验能过关，$699 的定位在市场上站得住脚。</p>
+      <p>下周访谈的核心任务是：<strong>验证三个假设</strong>——清洗不难、价格合理、新手能用。三个都绿了，就放心冲。</p>
+    </div>
+  </div>
+  <div class="slide-number">15 / 16</div>
+</section>
+
+<!-- ===== SLIDE 16: NEXT STEPS ===== -->
+<section class="slide" data-slide="16">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">NEXT STEPS</div>
+    <h2 class="section-title">访谈后的工作</h2>
+    <p class="section-sub" style="margin:12px auto 32px;">访谈完成后，我做以下事情</p>
+
+    <div class="card" style="max-width:700px;margin:0 auto;text-align:left;">
+      <ul style="font-size:15px;line-height:2.2;">
+        <li><strong>汇总评分</strong> — 每位用户的 5 维度评分录入对比表</li>
+        <li><strong>识别模式</strong> — 3 位用户共同的肯定点和顾虑点</li>
+        <li><strong>更新分析</strong> — 根据访谈实际反馈，更新产品建议</li>
+        <li><strong>输出报告</strong> — 最终版 VG30 用户验证报告（HTML）</li>
+        <li><strong>更新定价建议</strong> — 如必要，基于反馈调整定价策略</li>
+        <li><strong>生成演讲版</strong> — 供内部讨论的简洁版</li>
+      </ul>
+    </div>
+
+    <p style="margin-top:32px;font-size:12px;color:var(--text-tertiary);">
+      分析基于 · PRD V1.2 · GTM 前测报告 · Facebook Ads 数据 · 用户手册 · 3 位用户预反馈
+    </p>
+  </div>
+  <div class="slide-number">16 / 16</div>
+</section>
+
+<script>
+  let cur = 1;
+  const total = 16;
+  function show(n) {
+    if (n < 1 || n > total) return;
+    cur = n;
+    document.querySelectorAll('.slide').forEach(s => {
+      s.style.display = s.dataset.slide == n ? 'flex' : 'none';
+    });
+    document.getElementById('pageIndicator').textContent = `${n} / ${total}`;
+  }
+  function nav(dir) { show(cur + dir); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nav(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') nav(-1);
+  });
+  show(1);
+</script>
+
+</body>
+</html>
