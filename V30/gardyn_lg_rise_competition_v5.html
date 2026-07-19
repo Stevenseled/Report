@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>室内水培种植系统 · 竞品分析 | Gardyn vs Lettuce Grow vs Rise Gardens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-page: #f6f4ef;
+  --bg-card: #ffffff;
+  --bg-alt: #f0ede6;
+  --border: #e3dfd6;
+  --text: #2a2823;
+  --text-secondary: #6b6860;
+  --text-muted: #9c988e;
+  --accent: #2d6a3f;
+  --accent-gardyn: #2d6a3f;
+  --accent-lettuce: #c95a0e;
+  --accent-rise: #4a3a86;
+  --accent-gold: #a37a0e;
+  --accent-trend: #007680;
+  --shadow: rgba(0,0,0,0.05);
+}
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg-page);
+  color: var(--text);
+  line-height: 1.7;
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ===== TOP NAV ===== */
+.slide-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 52px;
+  background: rgba(246, 244, 239, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  z-index: 100;
+  user-select: none;
+}
+.slide-nav button {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.slide-nav button:hover { background: var(--bg-alt); border-color: #ccc8be; }
+.slide-nav button:disabled { opacity: 0.3; cursor: default; background: transparent; }
+.slide-nav .indicator {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  min-width: 56px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* ===== SLIDE CONTAINER ===== */
+.slide-container {
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== SLIDE ===== */
+.slide {
+  position: absolute;
+  top: 52px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 60px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  overflow-y: auto;
+}
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+.slide-inner {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ===== PAGE NUMBER (bottom-right) ===== */
+.page-num {
+  position: fixed;
+  bottom: 24px;
+  right: 32px;
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 400;
+  letter-spacing: 1px;
+  z-index: 50;
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===== COVER ===== */
+.cover-slide .slide-inner {
+  text-align: center;
+  max-width: 700px;
+}
+.cover-tag {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 16px;
+  border-radius: 14px;
+  letter-spacing: 1.5px;
+  margin-bottom: 24px;
+}
+.cover-slide h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 46px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  margin-bottom: 14px;
+  color: var(--text);
+}
+.cover-slide .sub {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 28px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cover-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.cover-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.cover-footnote {
+  margin-top: 40px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== SECTION LABEL ===== */
+.slide-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.slide-title {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.slide-desc {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+/* ===== BRAND CARDS (Slide 2) ===== */
+.brand-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.brand-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px 22px;
+  box-shadow: 0 2px 6px var(--shadow);
+}
+.brand-hdr { display: flex; align-items: baseline; gap: 10px; margin-bottom: 14px; }
+.brand-dot {
+  width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px;
+}
+.brand-name { font-family: 'Noto Serif SC', serif; font-size: 19px; font-weight: 700; }
+.price-line { font-size: 26px; font-weight: 800; margin-left: auto; }
+.price-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
+.brand-card ul { list-style: none; }
+.brand-card ul li {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+}
+.brand-card ul li:last-child { border-bottom: none; }
+.spec-l { color: var(--text-muted); }
+.spec-v { font-weight: 600; }
+
+/* ===== COMPARISON TABLE (Slide 3) ===== */
+.cmp-wrap {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: auto;
+  box-shadow: 0 1px 4px var(--shadow);
+}
+table.cmp {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+table.cmp th {
+  padding: 12px 14px;
+  text-align: left;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+table.cmp th:first-child { color: var(--text-muted); width: 15%; }
+table.cmp td {
+  padding: 9px 14px;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  vertical-align: middle;
+}
+table.cmp tr:last-child td { border-bottom: none; }
+table.cmp .pn { color: var(--text-muted); font-weight: 600; white-space: nowrap; }
+table.cmp .w { font-weight: 600; }
+table.cmp .w::after { content: ' *'; color: var(--accent-gold); font-size: 11px; }
+table.cmp .tag {
+  display: inline-block;
+  padding: 1px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  margin-left: 6px;
+}
+.tag-g { background: #e6f0e6; color: var(--accent-gardyn); }
+.tag-o { background: #f5e6d6; color: var(--accent-lettuce); }
+.tag-p { background: #eae6f0; color: var(--accent-rise); }
+
+/* ===== INSIGHT CARDS (Slide 4) ===== */
+.insight-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.insight-c {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 22px 24px;
+  box-shadow: 0 1px 4px var(--shadow);
+}
+.insight-c h4 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.insight-c p { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+.insight-c strong { color: var(--text); }
+.insight-c.g { border-left: 3px solid var(--accent-gardyn); }
+.insight-c.o { border-left: 3px solid var(--accent-lettuce); }
+.insight-c.p { border-left: 3px solid var(--accent-rise); }
+.insight-c.y { border-left: 3px solid var(--accent-gold); }
+
+/* ===== TREND METRICS (Slide 5) ===== */
+.mtr-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.mtr {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 14px;
+  text-align: center;
+  box-shadow: 0 1px 4px var(--shadow);
+}
+.mtr .mv {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent-trend);
+  margin-bottom: 3px;
+}
+.mtr .ml { font-size: 12px; color: var(--text-secondary); }
+.mtr .ms { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+.tl {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px;
+  box-shadow: 0 1px 4px var(--shadow);
+}
+.tl h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--accent-trend);
+}
+.tl ol { list-style: none; counter-reset: tc; }
+.tl ol li {
+  counter-increment: tc;
+  padding: 7px 0 7px 32px;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.tl ol li:last-child { border-bottom: none; }
+.tl ol li::before {
+  content: counter(tc);
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 22px; height: 22px;
+  background: #dce8ea;
+  color: var(--accent-trend);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+}
+.tl ol li strong { color: var(--text); }
+
+/* ===== LANDSCAPE TABLE (Slide 6) ===== */
+
+/* ===== VERDICT (Slide 7) ===== */
+.vrow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.vc {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 24px 22px;
+  box-shadow: 0 1px 4px var(--shadow);
+}
+.vc .vt {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.vc .vf { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
+.vc .pc { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.vc .pc h4 { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+.vc .pc .p-side h4 { color: var(--accent); }
+.vc .pc .c-side h4 { color: #b14141; }
+.vc .pc ul { list-style: none; }
+.vc .pc ul li { font-size: 12px; padding: 2px 0; color: var(--text-secondary); }
+.vc .vb {
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ===== FOOTNOTE DISCLAIMER ===== */
+.disclaimer {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .slide { padding: 36px 28px; }
+  .slide-title { font-size: 24px; }
+  .brand-row, .vrow { grid-template-columns: 1fr; }
+  .insight-row, .mtr-row { grid-template-columns: 1fr 1fr; }
+  .cover-slide h1 { font-size: 30px; }
+  .brand-row { gap: 14px; }
+}
+@media (max-width: 600px) {
+  .slide { padding: 32px 18px; }
+  .insight-row, .mtr-row { grid-template-columns: 1fr; }
+  .cover-slide h1 { font-size: 24px; }
+  .slide-title { font-size: 20px; }
+  .brand-row, .vrow { gap: 12px; }
+  .slide-nav .indicator { min-width: 44px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Fixed Top Nav -->
+<nav class="slide-nav">
+  <button id="prevBtn" disabled>←</button>
+  <span class="indicator" id="pageIndicator">1 / 7</span>
+  <button id="nextBtn">→</button>
+</nav>
+
+<!-- Page Number (bottom right) -->
+<div class="page-num" id="pageNum">01 / 07</div>
+
+<!-- Slide Container -->
+<div class="slide-container">
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<section class="slide cover-slide active" data-index="0">
+  <div class="slide-inner">
+    <div class="cover-tag">COMPETITIVE ANALYSIS</div>
+    <h1>室内水培种植系统<br>竞品分析报告</h1>
+    <p class="sub">Gardyn  ·  Lettuce Grow  ·  Rise Gardens<br>产品参数、价格、技术路线全面对比 + 行业趋势洞察</p>
+    <div class="cover-meta">
+      <span>MayGrove 产品团队 · 内部参考</span>
+      <span>2026 年 7 月</span>
+    </div>
+    <div class="cover-footnote">
+      数据来源：各品牌官网、Amazon 产品页、Reddit r/hydroponics 讨论、行业研报 (Grand View Research, Mordor Intelligence, Future Market Insights)。报告生成日期：2026-07-19
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 2: BRAND OVERVIEW ==================== -->
+<section class="slide" data-index="1">
+  <div class="slide-inner">
+    <div class="slide-label">01 — 品牌概览</div>
+    <h2 class="slide-title">三家核心竞品定位与关键参数</h2>
+    <p class="slide-desc">按价格、容量、技术路线、AI 能力、种子生态等维度横向对比</p>
+
+    <div class="brand-row">
+      <!-- Gardyn -->
+      <div class="brand-card">
+        <div class="brand-hdr">
+          <span class="brand-dot" style="background:var(--accent-gardyn);"></span>
+          <span class="brand-name" style="color:var(--accent-gardyn);">Gardyn</span>
+          <span class="price-line" style="color:var(--accent-gardyn);">$719</span>
+        </div>
+        <div class="price-sub">Home Kit 4.0 · 优惠价 · 含 LED 灯 + AI App</div>
+        <ul>
+          <li><span class="spec-l">种植容量</span><span class="spec-v">30 株</span></li>
+          <li><span class="spec-l">占地面积</span><span class="spec-v">1.5 sq ft</span></li>
+          <li><span class="spec-l">种植方式</span><span class="spec-v">NFT 水培</span></li>
+          <li><span class="spec-l">光照</span><span class="spec-v">54W LED（内置）</span></li>
+          <li><span class="spec-l">App / AI</span><span class="spec-v">Kelby AI（$19-39/月）</span></li>
+          <li><span class="spec-l">种子系统</span><span class="spec-v">专属 yCube（$3-4/个）</span></li>
+          <li><span class="spec-l">噪音</span><span class="spec-v">38 dB</span></li>
+          <li><span class="spec-l">评分</span><span class="spec-v">4.2 / 5</span></li>
+        </ul>
+      </div>
+
+      <!-- Lettuce Grow -->
+      <div class="brand-card">
+        <div class="brand-hdr">
+          <span class="brand-dot" style="background:var(--accent-lettuce);"></span>
+          <span class="brand-name" style="color:var(--accent-lettuce);">Lettuce Grow</span>
+          <span class="price-line" style="color:var(--accent-lettuce);">$749</span>
+        </div>
+        <div class="price-sub">Farmstand Nook · 含 20 株幼苗 + LED 灯</div>
+        <ul>
+          <li><span class="spec-l">种植容量</span><span class="spec-v">20-36 株（视型号）</span></li>
+          <li><span class="spec-l">占地面积</span><span class="spec-v">2.0 sq ft</span></li>
+          <li><span class="spec-l">种植方式</span><span class="spec-v">NFT 水培</span></li>
+          <li><span class="spec-l">光照</span><span class="spec-v">60W LED（另购 ~$200）</span></li>
+          <li><span class="spec-l">App / AI</span><span class="spec-v">基础定时器（无 AI）</span></li>
+          <li><span class="spec-l">种子系统</span><span class="spec-v">预发芽苗（$8-10/株）</span></li>
+          <li><span class="spec-l">首次收获</span><span class="spec-v">3 周（最快）</span></li>
+          <li><span class="spec-l">评分</span><span class="spec-v">4.0 / 5</span></li>
+        </ul>
+      </div>
+
+      <!-- Rise Gardens -->
+      <div class="brand-card">
+        <div class="brand-hdr">
+          <span class="brand-dot" style="background:var(--accent-rise);"></span>
+          <span class="brand-name" style="color:var(--accent-rise);">Rise Gardens</span>
+          <span class="price-line" style="color:var(--accent-rise);">$349-$1,449</span>
+        </div>
+        <div class="price-sub">Personal / Rise 3 / Loft 三系列</div>
+        <ul>
+          <li><span class="spec-l">种植容量</span><span class="spec-v">8-108 株（可扩展）</span></li>
+          <li><span class="spec-l">占地面积</span><span class="spec-v">4.0 sq ft（单层）</span></li>
+          <li><span class="spec-l">种植方式</span><span class="spec-v">深水培（DWC）</span></li>
+          <li><span class="spec-l">光照</span><span class="spec-v">65W LED/层（140 灯珠）</span></li>
+          <li><span class="spec-l">App / AI</span><span class="spec-v">Rise App（免费全功能）</span></li>
+          <li><span class="spec-l">种子系统</span><span class="spec-v">开放种子 / 自有种子荚</span></li>
+          <li><span class="spec-l">材质</span><span class="spec-v">实木框架 + 钢柜</span></li>
+          <li><span class="spec-l">保修</span><span class="spec-v">3 年电子元件</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 3: COMPARISON TABLE ==================== -->
+<section class="slide" data-index="2">
+  <div class="slide-inner">
+    <div class="slide-label">02 — 核心参数对比</div>
+    <h2 class="slide-title">18 项维度逐项 PK</h2>
+    <p class="slide-desc">标注 * 的为该维度优势方</p>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <thead>
+        <tr>
+          <th>参数维度</th>
+          <th>Gardyn<span class="tag tag-g">30株</span></th>
+          <th>Lettuce Grow<span class="tag tag-o">20株</span></th>
+          <th>Rise Gardens<span class="tag tag-p">8-108株</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="pn">起步价</td><td class="w">$719（优惠价）</td><td>$749</td><td>$349</td></tr>
+        <tr><td class="pn">满配价</td><td class="w">$719 + 月订阅</td><td>$949 + 灯 + 苗</td><td>$1,449</td></tr>
+        <tr><td class="pn">种植方式</td><td>NFT 水培</td><td>NFT 水培</td><td>深水培（DWC）</td></tr>
+        <tr><td class="pn">植株容量</td><td>30 株</td><td>20-36 株</td><td class="w">8-108 株可扩展</td></tr>
+        <tr><td class="pn">种植密度</td><td class="w">20 株/sqft</td><td>10-18 株/sqft</td><td>2-27 株/sqft</td></tr>
+        <tr><td class="pn">占地面积</td><td class="w">1.5 sqft</td><td>2.0 sqft</td><td>4.0 sqft（单层）</td></tr>
+        <tr><td class="pn">株高限制</td><td>柱式 — 受限</td><td>塔式 — 受限</td><td class="w">搁板 — 不限</td></tr>
+        <tr><td class="pn">LED 功率</td><td>54W 内置</td><td>60W 选配 ~$200</td><td class="w">65W/层 140灯珠</td></tr>
+        <tr><td class="pn">噪音</td><td class="w">38dB</td><td>30-45dB</td><td>35-50dB</td></tr>
+        <tr><td class="pn">首次收获</td><td>4-6 周</td><td class="w">3 周（预发芽苗）</td><td>4-6 周</td></tr>
+        <tr><td class="pn">App / AI</td><td class="w">Kelby AI（付费）</td><td>基础定时器</td><td>Rise App 免费</td></tr>
+        <tr><td class="pn">种子兼容性</td><td>仅 yCube 专属</td><td>仅预发芽苗</td><td class="w">开放种子 + 自有荚</td></tr>
+        <tr><td class="pn">持续花销/月</td><td>$20-40</td><td>$80-150</td><td class="w">$10-30</td></tr>
+        <tr><td class="pn">水容量</td><td>3.5 gal</td><td>6.0 gal</td><td>3.5 gal/层</td></tr>
+        <tr><td class="pn">材质</td><td>ABS 塑料</td><td>PE 塑料</td><td class="w">实木 + 钢柜</td></tr>
+        <tr><td class="pn">电源要求</td><td class="w">AC 适配器</td><td class="w">AC 适配器</td><td>三插座</td></tr>
+        <tr><td class="pn">保修</td><td>1 年</td><td>1 年</td><td class="w">3 年电子件</td></tr>
+        <tr><td class="pn">评分</td><td>4.2</td><td>4.0</td><td>4.3</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 4: KEY INSIGHTS ==================== -->
+<section class="slide" data-index="3">
+  <div class="slide-inner">
+    <div class="slide-label">03 — 关键洞察</div>
+    <h2 class="slide-title">对 MayGrove 的参考价值</h2>
+    <p class="slide-desc">四条核心结论，帮助锚定产品定位</p>
+
+    <div class="insight-row">
+      <div class="insight-c g">
+        <h4>Gardyn 的 Kelby AI 是最值得警惕的差异化</h4>
+        <p>Gardyn 的 AI 助手 (Kelby) 是其最核心的卖点——利用计算机视觉识别植物健康、自动调整光照和水泵周期。<strong>MayGrove 需要明确：是否要在首代产品中搭载视觉 AI？</strong>如果暂不上 AI，需在其他维度（如种植成功率、操作便捷性）建立不可绕过的优势。</p>
+      </div>
+      <div class="insight-c o">
+        <h4>Lettuce Grow 的预发芽苗降低了新手门槛</h4>
+        <p>Lettuce Grow 的"到手即种"体验（3 周即可收获）对家庭用户极具吸引力。但其<strong>持续花销极高</strong>（$80-150/月），且依赖专用苗盘。<strong>MayGrove 可考虑"新手盒"方案</strong>（含 6 颗已发芽苗 + 营养液），同时保持开放种子兼容性。</p>
+      </div>
+      <div class="insight-c p">
+        <h4>Rise 的模块化 + 开放种子策略降低了 TCO</h4>
+        <p>Rise Gardens 是三家中最具"发烧友"属性的品牌——支持楼式扩展、开放种子兼容、免费 App。其持续花销仅 $10-30/月，<strong>长期拥有成本最低</strong>。但起步价跨度大 ($349-$1,449)，入门级 Personal 系列仅 8 株。<strong>MayGrove 可在 15-20 株 / $400-500 的空白带建立产品定位。</strong></p>
+      </div>
+      <div class="insight-c y">
+        <h4>订阅模式是把双刃剑</h4>
+        <p>Gardyn 的 Kelby AI 订阅 ($19-39/月) 和 Lettuce Grow 的持续苗盘购买 ($80-150/月) 让用户产生了显著的"持续支出疲劳"。Reddit 用户对此抱怨众多。<strong>MayGrove 若在营养液 / 配件上采用合理定价的低频订阅（而非月付），将获得差异化优势。</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 5: INDUSTRY TRENDS ==================== -->
+<section class="slide" data-index="4">
+  <div class="slide-inner">
+    <div class="slide-label">04 — 行业趋势</div>
+    <h2 class="slide-title">室内水培种植市场数据总览</h2>
+    <p class="slide-desc">全球及细分市场规模、增长率、驱动力</p>
+
+    <div class="mtr-row">
+      <div class="mtr">
+        <div class="mv">$6.8B</div>
+        <div class="ml">全球水培市场</div>
+        <div class="ms">2026 年规模 · CAGR 10.3%</div>
+      </div>
+      <div class="mtr">
+        <div class="mv">$379.7M</div>
+        <div class="ml">智能室内种植系统</div>
+        <div class="ms">2026 年 · CAGR 13.8%</div>
+      </div>
+      <div class="mtr">
+        <div class="mv">$0.8B+</div>
+        <div class="ml">智能种植消费者市场</div>
+        <div class="ms">2026 年 · CAGR 12.9%</div>
+      </div>
+      <div class="mtr">
+        <div class="mv">$9.4B</div>
+        <div class="ml">垂直农业市场</div>
+        <div class="ms">2026 年 · CAGR 24.6%</div>
+      </div>
+    </div>
+
+    <div class="tl">
+      <h3>六大核心趋势</h3>
+      <ol>
+        <li><strong>AI + 计算机视觉成为下一代差异化壁垒</strong> — Gardyn 的 Kelby AI 已率先将 CV 落地到消费级种植。预计 2027 年前将有 2-3 家竞品跟进。</li>
+        <li><strong>订阅经济深度渗透种植赛道</strong> — "买机器 + 持续付费"已成行业默认模式。用户疲劳积累中，<strong>中低价位品牌可选择性地去订阅化</strong>以建立差异化。</li>
+        <li><strong>预发芽苗（"到手即种"）降低入门门槛</strong> — Lettuce Grow 验证了"无需育苗"的体验对新手有极高吸引力。新进入者应至少提供首月预发芽苗可选包。</li>
+        <li><strong>开放植物生态 vs 封闭锁定的路线分化</strong> — Rise 支持开放种子持续收到社区好评。Gardyn 和 Lettuce Grow 的封闭系统被部分用户批评为"植物版打印机墨盒"。</li>
+        <li><strong>城市公寓用户仍是最大的增量群体</strong> — 核心用户画像：25-45 岁、城市公寓住户、有健康饮食意识。疫情后"居家种菜"留存率仍超 60%。</li>
+        <li><strong>中国供应链优势 + 出海机会窗口</strong> — 当前头部竞品均为美国品牌，制造大多依赖中国 OEM。MayGrove 可利用供应链垂直整合优势在 $400-600 价位推出对标产品。</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 6: LANDSCAPE ==================== -->
+<section class="slide" data-index="5">
+  <div class="slide-inner">
+    <div class="slide-label">05 — 竞争格局</div>
+    <h2 class="slide-title">市场定位矩阵</h2>
+    <p class="slide-desc">按价格 × 容量 × 智能化程度梳理主要玩家</p>
+
+    <div class="cmp-wrap">
+    <table class="cmp">
+      <thead>
+        <tr>
+          <th>品牌</th>
+          <th>定位标签</th>
+          <th>起步价</th>
+          <th>容量</th>
+          <th>智能化</th>
+          <th>种子生态</th>
+          <th>核心优势</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Gardyn</strong></td>
+          <td><span class="tag tag-g">AI 先锋</span></td>
+          <td>$719</td><td>30 株</td><td>高（Kelby AI）</td><td>封闭</td>
+          <td>AI 视觉 + 密度最高</td>
+        </tr>
+        <tr>
+          <td><strong>Lettuce Grow</strong></td>
+          <td><span class="tag tag-o">新手友好</span></td>
+          <td>$749</td><td>20-36 株</td><td>低</td><td>封闭（苗盘）</td>
+          <td>预发芽苗体验最佳</td>
+        </tr>
+        <tr>
+          <td><strong>Rise Gardens</strong></td>
+          <td><span class="tag tag-p">模块发烧</span></td>
+          <td>$349</td><td>8-108 株</td><td>中</td><td>开放</td>
+          <td>扩展性 + 全栈 App</td>
+        </tr>
+        <tr>
+          <td><strong>Aerogarden</strong></td>
+          <td><span>入门经典</span></td>
+          <td>$50-600</td><td>3-24 株</td><td>低</td><td>封闭（胶囊）</td>
+          <td>品牌认知度最高</td>
+        </tr>
+        <tr>
+          <td><strong>Click & Grow</strong></td>
+          <td><span>桌面极简</span></td>
+          <td>$100-300</td><td>3-9 株</td><td>低</td><td>封闭（胶囊）</td>
+          <td>颜值 + 极简操作</td>
+        </tr>
+        <tr>
+          <td><strong>Tower Garden</strong></td>
+          <td><span>气雾培</span></td>
+          <td>$525</td><td>28 株</td><td>低</td><td>开放</td>
+          <td>气雾培 + 户外可用</td>
+        </tr>
+        <tr>
+          <td><strong>iDOO / 国产品</strong></td>
+          <td><span>平价普及</span></td>
+          <td>$50-200</td><td>6-18 株</td><td>极低</td><td>开放</td>
+          <td>极致性价比</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 7: VERDICT ==================== -->
+<section class="slide" data-index="6">
+  <div class="slide-inner">
+    <div class="slide-label">06 — 竞品启发</div>
+    <h2 class="slide-title">可借鉴 · 需规避 · 空白机会</h2>
+    <p class="slide-desc">对 MayGrove 产品定义的直接参考</p>
+
+    <div class="vrow">
+      <!-- Gardyn -->
+      <div class="vc">
+        <div class="vt" style="color:var(--accent-gardyn);">借鉴 Gardyn</div>
+        <div class="vf">AI 视觉方向正确，但定价需更亲民</div>
+        <div class="pc">
+          <div class="p-side">
+            <h4>可借鉴</h4>
+            <ul>
+              <li>CV 监测植物健康是未来方向</li>
+              <li>单柱高密度设计节省台面</li>
+              <li>App 内社区内容运营</li>
+            </ul>
+          </div>
+          <div class="c-side">
+            <h4>需规避</h4>
+            <ul>
+              <li>AI 订阅费过高 ($19-39/月)</li>
+              <li>仅 1 年保修引发信任危机</li>
+              <li>封闭种子被诟病为"植物墨盒"</li>
+            </ul>
+          </div>
+        </div>
+        <div class="vb">参考定位：AI Lite — 基础版无 AI，Pro 版含视觉模块（一次性买断）</div>
+      </div>
+
+      <!-- Lettuce Grow -->
+      <div class="vc">
+        <div class="vt" style="color:var(--accent-lettuce);">借鉴 Lettuce Grow</div>
+        <div class="vf">"到手即种"体验是新手转化的关键</div>
+        <div class="pc">
+          <div class="p-side">
+            <h4>可借鉴</h4>
+            <ul>
+              <li>预发芽苗降低新手门槛</li>
+              <li>YouTube 种植教程内容体系</li>
+              <li>高颜值外观设计（Nook 系列）</li>
+            </ul>
+          </div>
+          <div class="c-side">
+            <h4>需规避</h4>
+            <ul>
+              <li>持续花销 $80-150/月 过高</li>
+              <li>LED 灯作为选配反而增加决策成本</li>
+              <li>无 App / 无智能化</li>
+            </ul>
+          </div>
+        </div>
+        <div class="vb">参考定位：新手盒 — 首单含 6 颗预发芽苗 + 30 天营养液，之后开放种子自由</div>
+      </div>
+
+      <!-- Rise -->
+      <div class="vc">
+        <div class="vt" style="color:var(--accent-rise);">借鉴 Rise Gardens</div>
+        <div class="vf">开放生态 + 模块化是长期口碑的基石</div>
+        <div class="pc">
+          <div class="p-side">
+            <h4>可借鉴</h4>
+            <ul>
+              <li>开放种子兼容性（社区口碑）</li>
+              <li>模块化扩展（从家庭到阳台）</li>
+              <li>免费全功能 App</li>
+            </ul>
+          </div>
+          <div class="c-side">
+            <h4>需规避</h4>
+            <ul>
+              <li>占地面积偏大 (4.0 sqft/层)</li>
+              <li>入门款容量仅 8 株</li>
+              <li>材质成本高（实木框架）</li>
+            </ul>
+          </div>
+        </div>
+        <div class="vb">参考定位：开放种子 + 模块化结构，在 15-20 株/$400-500 空白区切入</div>
+      </div>
+    </div>
+
+    <div class="disclaimer">
+      <strong>数据来源</strong>：Gardyn Home Kit 4.0 官网参数页；Lettuce Grow Farmstand Nook 官网及 Amazon 产品页；Rise Gardens 官网三系列对比页；Reddit r/hydroponics、r/aerogarden、r/gardyn 讨论；Grand View Research (2026)；Mordor Intelligence (2026)；Future Market Insights (2026)。报告生成日期：2026-07-19。本报告仅供 MayGrove 产品团队内部参考，数据可能因地区促销、季节性折扣而有所变化。
+    </div>
+  </div>
+</section>
+
+</div><!-- /.slide-container -->
+
+<script>
+(function() {
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const pageIndicator = document.getElementById('pageIndicator');
+  const pageNum = document.getElementById('pageNum');
+  let current = 0;
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+  function goTo(index) {
+    if (index < 0 || index >= total) return;
+    slides[current].classList.remove('active');
+    slides[index].classList.add('active');
+    current = index;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    pageIndicator.textContent = (current + 1) + ' / ' + total;
+    pageNum.textContent = pad(current + 1) + ' / ' + pad(total);
+  }
+
+  prevBtn.addEventListener('click', function() { goTo(current - 1); });
+  nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', function(e) {
+    const diff = touchStartX - e.changedTouches[0].screenX;
+    if (Math.abs(diff) > 60) {
+      if (diff > 0) goTo(current + 1);
+      else goTo(current - 1);
+    }
+  });
+})();
+</script>
+</body>
+</html>
