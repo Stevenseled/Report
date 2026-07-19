@@ -1,0 +1,5 @@
+# V30 目录只上传 HTML 报告
+# 其他文件（PDF、Word 等）放在 /home/ubuntu/projects/V30/
+*
+!*/
+!*.html
