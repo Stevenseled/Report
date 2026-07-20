@@ -4,907 +4,800 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MayGrove AI Growbot 预发布用户调研报告</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
   --bg: #ffffff;
   --text: #1a1b26;
-  --text-secondary: #6b7280;
+  --text2: #6b7280;
+  --text3: #9ca3af;
   --border: #e5e7eb;
-  --accent: #1a6bb0;
-  --accent-light: #e8f0fe;
-  --accent-green: #1a8a4a;
-  --accent-orange: #c96a0e;
-  --accent-gold: #b8860b;
-  --card-bg: #f8f9fb;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06);
-  --section-gap: 60px;
+  --blue: #1a6bb0;
+  --green: #1a8a4a;
+  --orange: #c96a0e;
+  --gold: #b8860b;
+  --card: #f8f9fb;
+  --red: #c0392b;
 }
-
 body {
-  font-family: 'Noto Sans SC', -apple-system, sans-serif;
+  font-family: -apple-system, 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
   padding: 0;
+  font-size: 14px;
 }
-
-.container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 40px 20px 80px;
-}
+.container { max-width: 960px; margin: 0 auto; padding: 20px 16px 60px; }
 
 /* Header */
 .hero {
   text-align: center;
-  padding: 60px 20px 40px;
+  padding: 40px 16px 28px;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
-.hero h1 {
-  font-family: 'Noto Serif SC', serif;
-  font-weight: 900;
-  font-size: 32px;
-  margin-bottom: 8px;
-  color: var(--text);
-}
-.hero .subtitle {
-  color: var(--text-secondary);
-  font-size: 14px;
-  margin-bottom: 16px;
-}
-.hero .meta {
-  font-size: 13px;
-  color: #9ca3af;
-}
-.hero .meta span { margin: 0 12px; }
+.hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+.hero .sub { color: var(--text2); font-size: 13px; margin-bottom: 8px; }
+.hero .meta { font-size: 12px; color: var(--text3); }
 
-/* Filter Bar */
+/* Filter bar */
 .filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 40px;
-  padding: 20px;
-  background: var(--card-bg);
-  border-radius: 12px;
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+  padding: 14px 16px; background: var(--card); border-radius: 10px; margin-bottom: 28px;
 }
+.filter-label { font-size: 12px; color: var(--text3); align-self: center; margin-right: 2px; }
 .filter-btn {
-  padding: 8px 18px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  background: #fff;
-  cursor: pointer;
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--text-secondary);
-  transition: all 0.2s;
+  padding: 6px 14px; border: 1px solid var(--border); border-radius: 16px;
+  background: #fff; cursor: pointer; font-size: 12px; font-family: inherit;
+  color: var(--text2); transition: all 0.15s;
 }
-.filter-btn:hover { border-color: var(--accent); color: var(--accent); }
-.filter-btn.active {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
-}
-.filter-btn.target-btn {
-  border-color: var(--accent-gold);
-  color: var(--accent-gold);
-}
-.filter-btn.target-btn.active {
-  background: var(--accent-gold);
-  color: #fff;
-  border-color: var(--accent-gold);
-}
-.filter-label {
-  font-size: 12px;
-  color: #9ca3af;
-  margin-right: 4px;
-  align-self: center;
-}
+.filter-btn:hover { border-color: var(--blue); color: var(--blue); }
+.filter-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+.filter-btn.gold { border-color: var(--gold); color: var(--gold); }
+.filter-btn.gold.active { background: var(--gold); color: #fff; border-color: var(--gold); }
 
-/* Section */
-.section-title {
-  font-family: 'Noto Serif SC', serif;
-  font-weight: 700;
-  font-size: 22px;
-  margin-bottom: 4px;
-}
-.section-subtitle {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
-.section { margin-bottom: var(--section-gap); }
+/* Sections */
+.section { margin-bottom: 40px; }
+.s-title { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
+.s-sub { font-size: 13px; color: var(--text2); margin-bottom: 16px; }
 
-/* Stat Cards */
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 12px;
-  margin-bottom: 32px;
+/* Stats row */
+.stats {
+  display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;
 }
-.stat-card {
-  background: var(--card-bg);
-  border-radius: 10px;
-  padding: 16px;
-  text-align: center;
+.stat-c {
+  flex: 1; min-width: 120px; background: var(--card); border-radius: 8px; padding: 14px; text-align: center;
 }
-.stat-card .num {
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--accent);
-}
-.stat-card .num.gold { color: var(--accent-gold); }
-.stat-card .label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.stat-num { font-size: 22px; font-weight: 700; color: var(--blue); }
+.stat-lbl { font-size: 11px; color: var(--text2); margin-top: 2px; }
 
-/* Bar Chart row */
-.chart-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 24px;
-}
-@media (max-width: 700px) { .chart-row { grid-template-columns: 1fr; } }
-.chart-card {
-  background: var(--card-bg);
-  border-radius: 10px;
-  padding: 20px;
-}
-.chart-card h4 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: var(--text);
-}
-.chart-card .chart-wrap { height: 240px; }
+/* Bar table */
+.bar-table { display: flex; flex-direction: column; gap: 6px; }
+.bar-row { display: flex; align-items: center; gap: 8px; }
+.bar-lbl { width: 140px; font-size: 12px; text-align: right; flex-shrink: 0; color: var(--text); }
+.bar-lbl.wide { width: 180px; }
+.bar-bg { flex: 1; height: 22px; background: #eef0f4; border-radius: 4px; position: relative; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; position: absolute; left: 0; top: 0; transition: width 0.3s; }
+.bar-pct { width: 44px; font-size: 12px; font-weight: 600; text-align: right; flex-shrink: 0; }
+.bar-n { font-size: 11px; color: var(--text3); width: 30px; text-align: right; flex-shrink: 0; }
 
-/* Horizontal bar table */
-.bar-table {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.bar-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.bar-row .label {
-  width: 160px;
-  font-size: 13px;
-  text-align: right;
-  flex-shrink: 0;
-  color: var(--text);
-}
-.bar-row .bar-bg {
-  flex: 1;
-  height: 24px;
-  background: #eef0f4;
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-.bar-row .bar-fill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.4s ease;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.bar-row .pct {
-  width: 50px;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: right;
-  flex-shrink: 0;
-}
-.bar-row .count {
-  font-size: 11px;
-  color: var(--text-secondary);
-  width: 36px;
-  text-align: right;
-  flex-shrink: 0;
-}
+/* Chart row (2 cols) */
+.chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+@media (max-width: 640px) { .chart-row { grid-template-columns: 1fr; } }
+.chart-c { background: var(--card); border-radius: 8px; padding: 16px; }
+.chart-c h4 { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
 
-/* Feature rating table */
-.feature-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
-}
-.feature-table th {
-  text-align: left;
-  padding: 10px 8px;
-  border-bottom: 2px solid var(--border);
-  font-weight: 600;
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-.feature-table td {
-  padding: 10px 8px;
-  border-bottom: 1px solid var(--border);
-}
-.feature-table .score-cell { font-weight: 600; }
-.feature-table .score-bar {
-  height: 6px;
-  border-radius: 3px;
-  background: #eef0f4;
-  position: relative;
-  min-width: 80px;
-}
-.feature-table .score-fill {
-  height: 100%;
-  border-radius: 3px;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-
-/* Price distribution */
-.price-bar {
-  height: 8px;
-  border-radius: 4px;
-  background: #eef0f4;
-  position: relative;
-  margin: 4px 0;
-}
-.price-fill {
-  height: 100%;
-  border-radius: 4px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: var(--accent);
-}
-
-/* Open-ended */
-.open-list {
-  background: var(--card-bg);
-  border-radius: 10px;
-  padding: 20px;
-}
-.open-item {
-  padding: 10px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 13px;
-  line-height: 1.6;
-}
-.open-item:last-child { border-bottom: none; }
-.open-item .q { color: var(--accent); font-weight: 600; }
-
-/* Target segment highlight */
-.target-banner {
-  background: linear-gradient(135deg, #fef3c7, #fde68a);
-  border-radius: 12px;
-  padding: 24px 28px;
-  margin-bottom: 40px;
-  border-left: 4px solid var(--accent-gold);
-}
-.target-banner h3 {
-  font-family: 'Noto Serif SC', serif;
-  font-weight: 700;
-  font-size: 16px;
-  margin-bottom: 6px;
-}
-.target-banner p {
-  font-size: 13px;
-  color: #92400e;
-  line-height: 1.7;
-}
+/* Feature table */
+.tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+.tbl th { text-align: left; padding: 8px 6px; border-bottom: 2px solid var(--border); font-weight: 600; color: var(--text2); font-size: 11px; }
+.tbl td { padding: 7px 6px; border-bottom: 1px solid var(--border); }
 
 /* Insight callout */
 .insight {
-  background: var(--accent-light);
-  border-left: 3px solid var(--accent);
-  padding: 14px 18px;
-  border-radius: 0 8px 8px 0;
-  margin: 16px 0;
-  font-size: 13px;
-  line-height: 1.7;
+  background: #e8f0fe; border-left: 3px solid var(--blue);
+  padding: 12px 16px; border-radius: 0 6px 6px 0; margin: 12px 0; font-size: 13px; line-height: 1.7;
 }
-.insight strong { color: var(--accent); }
+.insight.gold { background: #fef3c7; border-color: var(--gold); }
+.insight.green { background: #e8f5e9; border-color: var(--green); }
+.insight strong { color: var(--blue); }
+.insight.gold strong { color: #92400e; }
 
-/* Tags */
-.tag {
-  display: inline-block;
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 4px;
-  margin-right: 6px;
-  margin-top: 4px;
+/* Target banner */
+.target-banner {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; border-left: 4px solid var(--gold);
+  display: none;
 }
-.tag-blue { background: #e3f2fd; color: #1565c0; }
-.tag-green { background: #e8f5e9; color: #2e7d32; }
-.tag-gold { background: #fef3c7; color: #92400e; }
+.target-banner h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.target-banner p { font-size: 13px; color: #92400e; line-height: 1.6; }
+
+/* Compare grid */
+.comp-grid {
+  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 0;
+  border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+}
+.comp-hdr {
+  background: var(--blue); color: #fff; padding: 10px 12px; font-weight: 600; font-size: 12px;
+}
+.comp-cell {
+  padding: 8px 12px; font-size: 12px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.comp-cell:last-child { border-bottom: none; }
+.comp-cell.t { background: #fffbeb; }
+
+.mini-bar { height: 12px; background: #eef0f4; border-radius: 3px; flex: 1; margin-left: 8px; position: relative; overflow: hidden; }
+.mini-fill { height: 100%; border-radius: 3px; position: absolute; left: 0; top: 0; }
+
+/* Open-ended */
+.open-list { background: var(--card); border-radius: 8px; padding: 14px; max-height: 500px; overflow-y: auto; }
+.open-item { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; line-height: 1.6; }
+.open-item:last-child { border-bottom: none; }
+.open-tag { color: var(--blue); font-weight: 600; }
 
 /* Tabs */
-.tab-bar {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 0;
-}
+.tab-bar { display: flex; gap: 2px; margin-bottom: 14px; border-bottom: 1px solid var(--border); }
 .tab-btn {
-  padding: 10px 18px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 13px;
-  font-family: inherit;
-  color: var(--text-secondary);
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s;
+  padding: 8px 14px; border: none; background: none; cursor: pointer;
+  font-size: 12px; font-family: inherit; color: var(--text2);
+  border-bottom: 2px solid transparent; transition: all 0.15s;
 }
-.tab-btn:hover { color: var(--accent); }
-.tab-btn.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-  font-weight: 600;
-}
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+.tab-btn:hover { color: var(--blue); }
+.tab-btn.active { color: var(--blue); border-bottom-color: var(--blue); font-weight: 600; }
+.tab-c { display: none; }
+.tab-c.active { display: block; }
 
-/* 32-column grid for comparison */
-.compare-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 0;
+/* Footer */
+.footer { text-align: center; padding: 30px 16px; font-size: 11px; color: var(--text3); border-top: 1px solid var(--border); }
+
+/* Scrollable compare */
+.scroll-box { max-height: 480px; overflow-y: auto; }
+
+/* Tags */
+.tag { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 3px; margin-right: 4px; }
+.tag-b { background: #e3f2fd; color: #1565c0; }
+.tag-g { background: #e8f5e9; color: #2e7d32; }
+
+/* Doughnut fallback */
+.donut { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; padding: 8px 0; }
+.donut-item { display: flex; align-items: center; gap: 4px; font-size: 11px; }
+.donut-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* Conclusion card */
+.conclusion-card {
+  background: var(--card); border-radius: 10px; padding: 20px; margin-bottom: 14px;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  overflow: hidden;
-  margin-bottom: 20px;
 }
-.compare-header {
-  background: var(--accent);
-  color: #fff;
-  padding: 12px 14px;
-  font-weight: 600;
-  font-size: 13px;
-}
-.compare-cell {
-  padding: 10px 14px;
-  font-size: 13px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.compare-cell:last-child { border-bottom: none; }
-.compare-cell .bar-mini {
-  height: 14px;
-  background: #eef0f4;
-  border-radius: 3px;
-  flex: 1;
-  margin-left: 10px;
-  position: relative;
-  overflow: hidden;
-}
-.compare-cell .bar-mini-fill {
-  height: 100%;
-  border-radius: 3px;
-  position: absolute;
-  left: 0;
-  top: 0;
-}
-.compare-cell.target-cell { background: #fffbeb; }
-/* Reset outer grid row borders */
-.compare-grid .compare-row:last-child .compare-cell { border-bottom: none; }
-
-.footer {
-  text-align: center;
-  padding: 40px 20px;
-  font-size: 12px;
-  color: var(--text-secondary);
-  border-top: 1px solid var(--border);
-  margin-top: 40px;
-}
+.conclusion-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.conclusion-card h4 .emoji { margin-right: 6px; }
+.conclusion-card p, .conclusion-card li { font-size: 13px; line-height: 1.7; color: var(--text); }
+.conclusion-card ul { padding-left: 18px; margin-top: 6px; }
+.conclusion-card li { margin-bottom: 4px; }
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <h1>MayGrove AI Growbot<br>预发布用户调研报告</h1>
-  <p class="subtitle">SurveyMonkey · 2026年7月 · 731份有效问卷</p>
-  <p class="meta"><span>🕐 2026-07-20</span><span>📋 数据版本 v1</span></p>
+  <h1>MayGrove AI Growbot 预发布用户调研</h1>
+  <p class="sub">SurveyMonkey · 2026年7月 · 731份有效问卷</p>
+  <p class="meta">2026-07-20 · 版本 v1</p>
 </div>
 
 <div class="container">
 
-<!-- Filter Bar -->
+<!-- ====== FILTER BAR ====== -->
 <div class="filter-bar">
-  <span class="filter-label">👤 年龄筛选：</span>
-  <button class="filter-btn active" data-filter="all">全部 (731)</button>
-  <button class="filter-btn" data-filter="18-34">18-34岁 (67)</button>
-  <button class="filter-btn" data-filter="35-44">35-44岁 (128)</button>
-  <button class="filter-btn" data-filter="45-54">45-54岁 (147)</button>
-  <button class="filter-btn" data-filter="55-64">55-64岁 (165)</button>
-  <button class="filter-btn" data-filter="65+">65岁以上 (223)</button>
-  <button class="filter-btn target-btn" data-filter="US_35_55">🎯 美国 35-55岁 (103)</button>
+  <span class="filter-label">👤 筛选：</span>
+  <button class="filter-btn active" onclick="setFilter('all')">全部 (731)</button>
+  <button class="filter-btn" onclick="setFilter('18-34')">18-34岁 (67)</button>
+  <button class="filter-btn" onclick="setFilter('35-44')">35-44岁 (128)</button>
+  <button class="filter-btn" onclick="setFilter('45-54')">45-54岁 (147)</button>
+  <button class="filter-btn" onclick="setFilter('55-64')">55-64岁 (165)</button>
+  <button class="filter-btn" onclick="setFilter('65+')">65岁以上 (223)</button>
+  <button class="filter-btn gold" onclick="setFilter('US_35_55')">🎯 美国35-55岁 (103)</button>
 </div>
 
-<!-- Target Banner -->
-<div class="target-banner" id="targetBanner" style="display:none;">
-  <h3>🎯 核心目标用户：美国 35-55 岁群体</h3>
-  <p>本产品最主要的战略目标市场。以下数据锁定了 <strong>美国地区、35-55 岁</strong> 的 103 位受访者。与全部受访者对比可见：该人群购买力更强（好价均值 $425 vs $317）、更看重现代设计与App连接、对AI相机容忍度略高。</p>
+<!-- ====== TARGET BANNER ====== -->
+<div id="targetBanner" class="target-banner">
+  <h3>🎯 核心目标用户：美国 35-55 岁</h3>
+  <p>锁定 <strong>美国地区、35-55 岁</strong> 的 103 份问卷。该群体购买力更强（好价均值 $425 vs $317），更看重现代设计与 App 连接，对 AI 功能接受度更高。</p>
 </div>
 
-<!-- Overview Stats -->
-<div class="section" id="section_overview">
-  <h2 class="section-title" data-section="overview">概览</h2>
-  <p class="section-subtitle">受访者人口统计概况</p>
-  <div class="stat-grid" id="overviewStats"></div>
+<!-- ====== SECTION 0: 概览 ====== -->
+<div class="section">
+  <div class="s-title">概览</div>
+  <div class="s-sub" id="overviewSub">受访者人口统计</div>
+  <div class="stats" id="overviewStats"></div>
 </div>
 
-<!-- Target vs All Comparison -->
-<div class="section" id="section_compare">
-  <h2 class="section-title">目标用户对比</h2>
-  <p class="section-subtitle">美国 35-55 岁目标用户 × 其他受访者 · 关键维度逐项对比</p>
-  <div id="compareCharts"></div>
+<!-- ====== SECTION 0.5: 核心结论 ====== -->
+<div class="section" id="section_conclusions">
+  <div class="s-title">核心结论与建议</div>
+  <div class="s-sub">基于731份调研数据的关键洞察与行动建议</div>
+  <div id="conclusionsContainer"></div>
 </div>
 
-<!-- Growing Methods -->
-<div class="section" id="section_growing">
-  <h2 class="section-title">种植方式</h2>
-  <p class="section-subtitle">当前如何种植植物（多选）</p>
-  <div id="growingChart"></div>
+<!-- ====== SECTION 1: 种植方式 ====== -->
+<div class="section">
+  <div class="s-title">种植方式</div>
+  <div class="s-sub">当前如何种植植物（多选）</div>
+  <div id="growingContent"></div>
 </div>
 
-<!-- What to Grow -->
-<div class="section" id="section_grow">
-  <h2 class="section-title">想要种植的品类</h2>
-  <p class="section-subtitle">对 AI Growbot 想种什么（多选）</p>
-  <div id="growItemsChart"></div>
+<!-- ====== SECTION 2: 想种品类 ====== -->
+<div class="section">
+  <div class="s-title">想种品类</div>
+  <div class="s-sub">对 AI Growbot 想种什么（多选）</div>
+  <div id="growContent"></div>
 </div>
 
-<!-- Important Aspects -->
-<div class="section" id="section_aspects">
-  <h2 class="section-title">购买决策因子</h2>
-  <p class="section-subtitle">哪些因素对购买 AI Growbot 重要（多选）</p>
-  <div id="aspectsChart"></div>
+<!-- ====== SECTION 3: 决策因子 ====== -->
+<div class="section">
+  <div class="s-title">购买决策因子</div>
+  <div class="s-sub">什么因素对购买 AI Growbot 重要（多选）</div>
+  <div id="aspectsContent"></div>
 </div>
 
-<!-- Feature Ratings -->
-<div class="section" id="section_features">
-  <h2 class="section-title">功能重要性评分</h2>
-  <p class="section-subtitle">按 Top-2（"非常重要"+ "最重要"）排序</p>
-  <div id="featuresChart"></div>
+<!-- ====== SECTION 4: 功能评分 ====== -->
+<div class="section">
+  <div class="s-title">功能重要性评分</div>
+  <div class="s-sub">按 Top-2（非常重要+最重要）占比排序</div>
+  <div id="featuresContent"></div>
 </div>
 
-<!-- Price -->
-<div class="section" id="section_price">
-  <h2 class="section-title">价格敏感度</h2>
-  <p class="section-subtitle">"好价" vs "仍愿考虑" 价格带分布</p>
-  <div class="chart-row" id="priceCharts"></div>
-  <div id="priceStats"></div>
+<!-- ====== SECTION 5: 价格 ====== -->
+<div class="section">
+  <div class="s-title">价格敏感度</div>
+  <div class="s-sub">"好价" vs "仍愿考虑"</div>
+  <div id="priceContent"></div>
 </div>
 
-<!-- Gift & Bundle -->
-<div class="section" id="section_gift">
-  <h2 class="section-title">赠品偏好 & 捆绑方案</h2>
+<!-- ====== SECTION 6: 赠品+捆绑+视频+众筹 ====== -->
+<div class="section">
+  <div class="s-title">赠品 · 捆绑 · 视频 · 众筹</div>
   <div class="chart-row">
-    <div id="giftChart" class="chart-card">
-      <h4>🎁 首选赠品</h4>
-      <div class="chart-wrap"><canvas id="giftCanvas"></canvas></div>
-    </div>
-    <div id="bundleChart" class="chart-card">
-      <h4>📦 全套捆绑偏好</h4>
-      <div class="chart-wrap"><canvas id="bundleCanvas"></canvas></div>
-    </div>
+    <div class="chart-c"><h4>🎁 首选赠品</h4><div id="giftContent"></div></div>
+    <div class="chart-c"><h4>📦 全套捆绑偏好</h4><div id="bundleContent"></div></div>
+  </div>
+  <div class="chart-row">
+    <div class="chart-c"><h4>🎬 视频偏好</h4><div id="videoContent"></div></div>
+    <div class="chart-c"><h4>🚀 众筹经验</h4><div id="crowdContent"></div></div>
   </div>
 </div>
 
-<!-- Video & Crowdfunding -->
-<div class="section" id="section_other">
-  <h2 class="section-title">视频偏好 & 众筹经验</h2>
-  <div class="chart-row">
-    <div id="videoChart" class="chart-card">
-      <h4>🎬 想看什么类型的视频</h4>
-      <div class="bar-table" id="videoList"></div>
-    </div>
-    <div id="crowdChart" class="chart-card">
-      <h4>🚀 众筹经验</h4>
-      <div class="bar-table" id="crowdList"></div>
-    </div>
-  </div>
+<!-- ====== SECTION 7: 目标用户对比 ====== -->
+<div class="section" id="sectionCompare">
+  <div class="s-title">目标用户对比</div>
+  <div class="s-sub">🎯 美国 35-55 岁目标用户 vs 其他受访者</div>
+  <div id="compareContent"></div>
 </div>
 
-<!-- Open-ended -->
-<div class="section" id="section_open">
-  <h2 class="section-title">开放反馈</h2>
-  <p class="section-subtitle">用户提出的附加功能需求与意见</p>
+<!-- ====== SECTION 8: 开放反馈 ====== -->
+<div class="section">
+  <div class="s-title">开放反馈</div>
+  <div class="s-sub">用户提出的附加功能建议与评论</div>
   <div class="tab-bar">
-    <button class="tab-btn active" data-tab="features-tab">💡 附加功能建议</button>
-    <button class="tab-btn" data-tab="comments-tab">💬 评论与反馈</button>
+    <button class="tab-btn active" data-tab="featuresTab">💡 附加功能建议</button>
+    <button class="tab-btn" data-tab="commentsTab">💬 评论与反馈</button>
   </div>
-  <div class="tab-content active" id="features-tab"><div class="open-list" id="featuresList"></div></div>
-  <div class="tab-content" id="comments-tab"><div class="open-list" id="commentsList"></div></div>
+  <div id="featuresTab" class="tab-c active"><div class="open-list" id="featuresList"></div></div>
+  <div id="commentsTab" class="tab-c"><div class="open-list" id="commentsList"></div></div>
 </div>
 
 </div>
 
-<div class="footer">
-  MayGrove · 预发布用户调研 · 数据来源：SurveyMonkey · 生成于 Hermes Agent
-</div>
+<div class="footer">MayGrove · 预发布用户调研 · SurveyMonkey · Hermes Agent</div>
 
 <script>
-// ====== DATA ======
-// DATA loaded inline below
+// ═══════════════════════════════════════════════
+// DATA (inline - ~60K)
+// ═══════════════════════════════════════════════
+const DATA = 
+{"total": 731, "age_distribution": {"18-34": 67, "35-44": 128, "45-54": 147, "55-64": 165, "65+": 223}, "gender_by_age": {"18-34": {"Male": 35, "Female": 30, "Prefer not to say": 2}, "35-44": {"Male": 68, "Female": 59, "Prefer not to say": 1}, "45-54": {"Female": 73, "Male": 71, "Prefer not to say": 3}, "55-64": {"Female": 105, "Male": 60}, "65+": {"Female": 134, "Male": 84, "Prefer not to say": 4, "Other (please specify)": 1}}, "country_by_age": {"18-34": {"USA": 12, "Canada": 11, "United Kingdom": 9, "Italy": 9, "Germany": 7, "France": 6, "Australia": 5, "Spain": 5}, "35-44": {"USA": 47, "United Kingdom": 23, "Australia": 16, "Canada": 14, "Italy": 13, "Germany": 6, "Spain": 4, "France": 3}, "45-54": {"USA": 56, "United Kingdom": 30, "Australia": 21, "Canada": 14, "Italy": 7, "Spain": 7, "France": 6, "Germany": 5}, "55-64": {"USA": 63, "Canada": 28, "United Kingdom": 27, "Australia": 23, "Italy": 6, "Germany": 5, "France": 5, "Spain": 4}, "65+": {"USA": 113, "United Kingdom": 46, "Canada": 32, "Australia": 24, "Italy": 3, "Japan": 2, "France": 2, "Spain": 1}}, "growing_by_age": {"18-34": {"Indoor-Traditional": 29, "Indoor-Smart": 19, "Balcony-Traditional": 14, "Balcony-Smart": 3, "Outdoor-Traditional": 19, "Outdoor-Smart": 5, "Dont-grow": 13, "Other": 0, "_n": 67}, "35-44": {"Indoor-Traditional": 45, "Indoor-Smart": 26, "Balcony-Traditional": 17, "Balcony-Smart": 3, "Outdoor-Traditional": 51, "Outdoor-Smart": 5, "Dont-grow": 40, "Other": 2, "_n": 128}, "45-54": {"Indoor-Traditional": 52, "Indoor-Smart": 41, "Balcony-Traditional": 21, "Balcony-Smart": 4, "Outdoor-Traditional": 64, "Outdoor-Smart": 8, "Dont-grow": 23, "Other": 6, "_n": 147}, "55-64": {"Indoor-Traditional": 47, "Indoor-Smart": 33, "Balcony-Traditional": 23, "Balcony-Smart": 4, "Outdoor-Traditional": 74, "Outdoor-Smart": 11, "Dont-grow": 32, "Other": 8, "_n": 165}, "65+": {"Indoor-Traditional": 68, "Indoor-Smart": 32, "Balcony-Traditional": 31, "Balcony-Smart": 3, "Outdoor-Traditional": 116, "Outdoor-Smart": 8, "Dont-grow": 40, "Other": 15, "_n": 223}}, "grow_items_by_age": {"18-34": {"LeafyGreens": 55, "Herbs": 57, "Flowers": 25, "Brassicas&Root": 37, "FruitingVeg": 60, "Other": 2, "_n": 67}, "35-44": {"LeafyGreens": 97, "Herbs": 104, "Flowers": 52, "Brassicas&Root": 67, "FruitingVeg": 105, "Other": 11, "_n": 128}, "45-54": {"LeafyGreens": 129, "Herbs": 119, "Flowers": 46, "Brassicas&Root": 80, "FruitingVeg": 127, "Other": 20, "_n": 147}, "55-64": {"LeafyGreens": 129, "Herbs": 123, "Flowers": 62, "Brassicas&Root": 87, "FruitingVeg": 138, "Other": 16, "_n": 165}, "65+": {"LeafyGreens": 181, "Herbs": 157, "Flowers": 59, "Brassicas&Root": 102, "FruitingVeg": 184, "Other": 18, "_n": 223}}, "aspects_by_age": {"18-34": {"Easy&low-maintenance": 55, "Auto-water&light": 51, "Healthy-growth": 51, "Smart-guidance": 33, "Many-plants-small-space": 47, "Real-time-monitor": 30, "Multi-plant-types": 35, "Modern-design": 35, "Quiet": 32, "App-connect": 32, "Reliability": 33, "Good-value": 50, "Beginner-friendly": 32, "_n": 67}, "35-44": {"Easy&low-maintenance": 107, "Auto-water&light": 107, "Healthy-growth": 91, "Smart-guidance": 65, "Many-plants-small-space": 93, "Real-time-monitor": 67, "Multi-plant-types": 80, "Modern-design": 71, "Quiet": 65, "App-connect": 67, "Reliability": 78, "Good-value": 87, "Beginner-friendly": 64, "_n": 128}, "45-54": {"Easy&low-maintenance": 123, "Auto-water&light": 113, "Healthy-growth": 112, "Smart-guidance": 82, "Many-plants-small-space": 111, "Real-time-monitor": 76, "Multi-plant-types": 86, "Modern-design": 77, "Quiet": 80, "App-connect": 74, "Reliability": 84, "Good-value": 107, "Beginner-friendly": 73, "_n": 147}, "55-64": {"Easy&low-maintenance": 136, "Auto-water&light": 131, "Healthy-growth": 122, "Smart-guidance": 89, "Many-plants-small-space": 125, "Real-time-monitor": 80, "Multi-plant-types": 95, "Modern-design": 90, "Quiet": 104, "App-connect": 87, "Reliability": 99, "Good-value": 121, "Beginner-friendly": 91, "_n": 165}, "65+": {"Easy&low-maintenance": 193, "Auto-water&light": 172, "Healthy-growth": 174, "Smart-guidance": 121, "Many-plants-small-space": 163, "Real-time-monitor": 88, "Multi-plant-types": 115, "Modern-design": 117, "Quiet": 119, "App-connect": 80, "Reliability": 135, "Good-value": 169, "Beginner-friendly": 127, "_n": 223}}, "feature_ratings_by_age": {"18-34": {"4K-AI-camera": {"n": 66, "top2": 12, "top2_pct": 18.2, "avg_score": 2.23, "distribution": {"Least important": 24, "Somewhat important": 16, "Important": 14, "Very important": 11, "Most important": 1}}, "Auto-mgmt": {"n": 66, "top2": 56, "top2_pct": 84.8, "avg_score": 4.39, "distribution": {"Least important": 0, "Somewhat important": 2, "Important": 8, "Very important": 18, "Most important": 38}}, "Stress-protect": {"n": 66, "top2": 48, "top2_pct": 72.7, "avg_score": 4.03, "distribution": {"Least important": 1, "Somewhat important": 0, "Important": 17, "Very important": 26, "Most important": 22}}, "Intelligence-Core": {"n": 66, "top2": 19, "top2_pct": 28.8, "avg_score": 3.02, "distribution": {"Least important": 6, "Somewhat important": 16, "Important": 25, "Very important": 9, "Most important": 10}}, "Mavi-AI": {"n": 66, "top2": 18, "top2_pct": 27.3, "avg_score": 2.77, "distribution": {"Least important": 9, "Somewhat important": 19, "Important": 20, "Very important": 14, "Most important": 4}}, "Grow-Light": {"n": 66, "top2": 49, "top2_pct": 74.2, "avg_score": 4.02, "distribution": {"Least important": 0, "Somewhat important": 5, "Important": 12, "Very important": 26, "Most important": 23}}, "Nutrient-Intelligence": {"n": 66, "top2": 43, "top2_pct": 65.2, "avg_score": 3.95, "distribution": {"Least important": 2, "Somewhat important": 2, "Important": 19, "Very important": 17, "Most important": 26}}, "Airflow": {"n": 66, "top2": 43, "top2_pct": 65.2, "avg_score": 3.77, "distribution": {"Least important": 1, "Somewhat important": 5, "Important": 17, "Very important": 28, "Most important": 15}}, "42-plants-2sqft": {"n": 66, "top2": 42, "top2_pct": 63.6, "avg_score": 3.89, "distribution": {"Least important": 1, "Somewhat important": 7, "Important": 16, "Very important": 16, "Most important": 26}}, "Status-Display": {"n": 67, "top2": 33, "top2_pct": 49.3, "avg_score": 3.45, "distribution": {"Least important": 3, "Somewhat important": 9, "Important": 22, "Very important": 21, "Most important": 12}}, "Seedling-Module": {"n": 67, "top2": 28, "top2_pct": 41.8, "avg_score": 3.37, "distribution": {"Least important": 3, "Somewhat important": 6, "Important": 30, "Very important": 19, "Most important": 9}}, "Night-Light": {"n": 66, "top2": 25, "top2_pct": 37.9, "avg_score": 3.12, "distribution": {"Least important": 6, "Somewhat important": 16, "Important": 19, "Very important": 14, "Most important": 11}}, "_n": 67}, "35-44": {"4K-AI-camera": {"n": 127, "top2": 19, "top2_pct": 15.0, "avg_score": 2.22, "distribution": {"Least important": 45, "Somewhat important": 37, "Important": 26, "Very important": 10, "Most important": 9}}, "Auto-mgmt": {"n": 128, "top2": 112, "top2_pct": 87.5, "avg_score": 4.36, "distribution": {"Least important": 2, "Somewhat important": 3, "Important": 11, "Very important": 43, "Most important": 69}}, "Stress-protect": {"n": 128, "top2": 86, "top2_pct": 67.2, "avg_score": 3.91, "distribution": {"Least important": 3, "Somewhat important": 6, "Important": 33, "Very important": 43, "Most important": 43}}, "Intelligence-Core": {"n": 128, "top2": 51, "top2_pct": 39.8, "avg_score": 3.17, "distribution": {"Least important": 13, "Somewhat important": 20, "Important": 44, "Very important": 34, "Most important": 17}}, "Mavi-AI": {"n": 128, "top2": 53, "top2_pct": 41.4, "avg_score": 3.25, "distribution": {"Least important": 9, "Somewhat important": 22, "Important": 44, "Very important": 34, "Most important": 19}}, "Grow-Light": {"n": 128, "top2": 102, "top2_pct": 79.7, "avg_score": 4.17, "distribution": {"Least important": 2, "Somewhat important": 3, "Important": 21, "Very important": 47, "Most important": 55}}, "Nutrient-Intelligence": {"n": 127, "top2": 96, "top2_pct": 75.6, "avg_score": 4.1, "distribution": {"Least important": 3, "Somewhat important": 2, "Important": 26, "Very important": 44, "Most important": 52}}, "Airflow": {"n": 126, "top2": 87, "top2_pct": 69.0, "avg_score": 3.89, "distribution": {"Least important": 4, "Somewhat important": 3, "Important": 32, "Very important": 51, "Most important": 36}}, "42-plants-2sqft": {"n": 127, "top2": 82, "top2_pct": 64.6, "avg_score": 3.92, "distribution": {"Least important": 1, "Somewhat important": 11, "Important": 33, "Very important": 34, "Most important": 48}}, "Status-Display": {"n": 126, "top2": 64, "top2_pct": 50.8, "avg_score": 3.61, "distribution": {"Least important": 2, "Somewhat important": 10, "Important": 50, "Very important": 37, "Most important": 27}}, "Seedling-Module": {"n": 127, "top2": 61, "top2_pct": 48.0, "avg_score": 3.5, "distribution": {"Least important": 4, "Somewhat important": 19, "Important": 43, "Very important": 31, "Most important": 30}}, "Night-Light": {"n": 125, "top2": 46, "top2_pct": 36.8, "avg_score": 3.22, "distribution": {"Least important": 12, "Somewhat important": 22, "Important": 45, "Very important": 19, "Most important": 27}}, "_n": 128}, "45-54": {"4K-AI-camera": {"n": 146, "top2": 12, "top2_pct": 8.2, "avg_score": 1.99, "distribution": {"Least important": 62, "Somewhat important": 39, "Important": 33, "Very important": 9, "Most important": 3}}, "Auto-mgmt": {"n": 147, "top2": 105, "top2_pct": 71.4, "avg_score": 4.01, "distribution": {"Least important": 2, "Somewhat important": 6, "Important": 34, "Very important": 52, "Most important": 53}}, "Stress-protect": {"n": 146, "top2": 93, "top2_pct": 63.7, "avg_score": 3.79, "distribution": {"Least important": 6, "Somewhat important": 8, "Important": 39, "Very important": 51, "Most important": 42}}, "Intelligence-Core": {"n": 146, "top2": 37, "top2_pct": 25.3, "avg_score": 2.81, "distribution": {"Least important": 21, "Somewhat important": 36, "Important": 52, "Very important": 24, "Most important": 13}}, "Mavi-AI": {"n": 146, "top2": 46, "top2_pct": 31.5, "avg_score": 3.0, "distribution": {"Least important": 14, "Somewhat important": 32, "Important": 54, "Very important": 32, "Most important": 14}}, "Grow-Light": {"n": 146, "top2": 111, "top2_pct": 76.0, "avg_score": 4.08, "distribution": {"Least important": 2, "Somewhat important": 3, "Important": 30, "Very important": 58, "Most important": 53}}, "Nutrient-Intelligence": {"n": 146, "top2": 110, "top2_pct": 75.3, "avg_score": 4.08, "distribution": {"Least important": 2, "Somewhat important": 5, "Important": 29, "Very important": 54, "Most important": 56}}, "Airflow": {"n": 145, "top2": 92, "top2_pct": 63.4, "avg_score": 3.77, "distribution": {"Least important": 3, "Somewhat important": 8, "Important": 42, "Very important": 59, "Most important": 33}}, "42-plants-2sqft": {"n": 144, "top2": 99, "top2_pct": 68.8, "avg_score": 3.94, "distribution": {"Least important": 3, "Somewhat important": 10, "Important": 32, "Very important": 47, "Most important": 52}}, "Status-Display": {"n": 145, "top2": 65, "top2_pct": 44.8, "avg_score": 3.48, "distribution": {"Least important": 5, "Somewhat important": 15, "Important": 60, "Very important": 35, "Most important": 30}}, "Seedling-Module": {"n": 146, "top2": 61, "top2_pct": 41.8, "avg_score": 3.42, "distribution": {"Least important": 6, "Somewhat important": 16, "Important": 63, "Very important": 32, "Most important": 29}}, "Night-Light": {"n": 145, "top2": 55, "top2_pct": 37.9, "avg_score": 3.08, "distribution": {"Least important": 21, "Somewhat important": 24, "Important": 45, "Very important": 33, "Most important": 22}}, "_n": 147}, "55-64": {"4K-AI-camera": {"n": 163, "top2": 19, "top2_pct": 11.7, "avg_score": 2.23, "distribution": {"Least important": 56, "Somewhat important": 39, "Important": 49, "Very important": 13, "Most important": 6}}, "Auto-mgmt": {"n": 165, "top2": 124, "top2_pct": 75.2, "avg_score": 4.12, "distribution": {"Least important": 0, "Somewhat important": 6, "Important": 35, "Very important": 58, "Most important": 66}}, "Stress-protect": {"n": 165, "top2": 114, "top2_pct": 69.1, "avg_score": 3.89, "distribution": {"Least important": 1, "Somewhat important": 11, "Important": 39, "Very important": 68, "Most important": 46}}, "Intelligence-Core": {"n": 164, "top2": 64, "top2_pct": 39.0, "avg_score": 3.16, "distribution": {"Least important": 13, "Somewhat important": 35, "Important": 52, "Very important": 41, "Most important": 23}}, "Mavi-AI": {"n": 163, "top2": 69, "top2_pct": 42.3, "avg_score": 3.24, "distribution": {"Least important": 10, "Somewhat important": 30, "Important": 54, "Very important": 49, "Most important": 20}}, "Grow-Light": {"n": 164, "top2": 127, "top2_pct": 77.4, "avg_score": 4.05, "distribution": {"Least important": 1, "Somewhat important": 6, "Important": 30, "Very important": 74, "Most important": 53}}, "Nutrient-Intelligence": {"n": 164, "top2": 120, "top2_pct": 73.2, "avg_score": 4.02, "distribution": {"Least important": 0, "Somewhat important": 9, "Important": 35, "Very important": 64, "Most important": 56}}, "Airflow": {"n": 162, "top2": 118, "top2_pct": 72.8, "avg_score": 3.91, "distribution": {"Least important": 1, "Somewhat important": 7, "Important": 36, "Very important": 79, "Most important": 39}}, "42-plants-2sqft": {"n": 163, "top2": 119, "top2_pct": 73.0, "avg_score": 4.03, "distribution": {"Least important": 0, "Somewhat important": 8, "Important": 36, "Very important": 62, "Most important": 57}}, "Status-Display": {"n": 162, "top2": 95, "top2_pct": 58.6, "avg_score": 3.69, "distribution": {"Least important": 1, "Somewhat important": 14, "Important": 52, "Very important": 62, "Most important": 33}}, "Seedling-Module": {"n": 160, "top2": 84, "top2_pct": 52.5, "avg_score": 3.52, "distribution": {"Least important": 4, "Somewhat important": 14, "Important": 58, "Very important": 62, "Most important": 22}}, "Night-Light": {"n": 163, "top2": 58, "top2_pct": 35.6, "avg_score": 3.08, "distribution": {"Least important": 19, "Somewhat important": 24, "Important": 62, "Very important": 41, "Most important": 17}}, "_n": 165}, "65+": {"4K-AI-camera": {"n": 219, "top2": 30, "top2_pct": 13.7, "avg_score": 2.08, "distribution": {"Least important": 91, "Somewhat important": 62, "Important": 36, "Very important": 18, "Most important": 12}}, "Auto-mgmt": {"n": 219, "top2": 157, "top2_pct": 71.7, "avg_score": 4.01, "distribution": {"Least important": 1, "Somewhat important": 16, "Important": 45, "Very important": 75, "Most important": 82}}, "Stress-protect": {"n": 222, "top2": 154, "top2_pct": 69.4, "avg_score": 3.86, "distribution": {"Least important": 1, "Somewhat important": 18, "Important": 49, "Very important": 97, "Most important": 57}}, "Intelligence-Core": {"n": 221, "top2": 84, "top2_pct": 38.0, "avg_score": 3.15, "distribution": {"Least important": 20, "Somewhat important": 36, "Important": 81, "Very important": 58, "Most important": 26}}, "Mavi-AI": {"n": 219, "top2": 96, "top2_pct": 43.8, "avg_score": 3.34, "distribution": {"Least important": 10, "Somewhat important": 33, "Important": 80, "Very important": 64, "Most important": 32}}, "Grow-Light": {"n": 221, "top2": 162, "top2_pct": 73.3, "avg_score": 3.99, "distribution": {"Least important": 4, "Somewhat important": 9, "Important": 46, "Very important": 89, "Most important": 73}}, "Nutrient-Intelligence": {"n": 222, "top2": 169, "top2_pct": 76.1, "avg_score": 4.08, "distribution": {"Least important": 2, "Somewhat important": 9, "Important": 42, "Very important": 85, "Most important": 84}}, "Airflow": {"n": 220, "top2": 154, "top2_pct": 70.0, "avg_score": 3.91, "distribution": {"Least important": 2, "Somewhat important": 9, "Important": 55, "Very important": 95, "Most important": 59}}, "42-plants-2sqft": {"n": 223, "top2": 155, "top2_pct": 69.5, "avg_score": 3.97, "distribution": {"Least important": 2, "Somewhat important": 8, "Important": 58, "Very important": 81, "Most important": 74}}, "Status-Display": {"n": 220, "top2": 130, "top2_pct": 59.1, "avg_score": 3.71, "distribution": {"Least important": 4, "Somewhat important": 11, "Important": 75, "Very important": 85, "Most important": 45}}, "Seedling-Module": {"n": 219, "top2": 103, "top2_pct": 47.0, "avg_score": 3.47, "distribution": {"Least important": 6, "Somewhat important": 28, "Important": 82, "Very important": 62, "Most important": 41}}, "Night-Light": {"n": 219, "top2": 77, "top2_pct": 35.2, "avg_score": 3.02, "distribution": {"Least important": 26, "Somewhat important": 45, "Important": 71, "Very important": 52, "Most important": 25}}, "_n": 223}}, "price_by_age": {"18-34": {"good_deal": {"mean": 315.0, "median": 250.0, "n": 59, "buckets": {"0-99": 5, "100-199": 10, "200-299": 17, "300-399": 13, "400-499": 2, "500-599": 4, "600-799": 4, "800-999": 3, "1000-9999": 1}}, "high_price": {"mean": 444.0, "median": 400.0, "n": 59, "buckets": {"0-99": 2, "100-199": 8, "200-299": 6, "300-399": 12, "400-499": 9, "500-599": 9, "600-799": 8, "800-999": 2, "1000-9999": 3}}, "_n": 67}, "35-44": {"good_deal": {"mean": 368.0, "median": 300.0, "n": 104, "buckets": {"0-99": 7, "100-199": 22, "200-299": 18, "300-399": 21, "400-499": 9, "500-599": 8, "600-799": 10, "800-999": 6, "1000-9999": 3}}, "high_price": {"mean": 532.0, "median": 400.0, "n": 105, "buckets": {"0-99": 5, "100-199": 8, "200-299": 19, "300-399": 13, "400-499": 12, "500-599": 18, "600-799": 12, "800-999": 7, "1000-9999": 11}}, "_n": 128}, "45-54": {"good_deal": {"mean": 363.0, "median": 299.0, "n": 111, "buckets": {"0-99": 8, "100-199": 21, "200-299": 28, "300-399": 12, "400-499": 6, "500-599": 18, "600-799": 9, "800-999": 6, "1000-9999": 3}}, "high_price": {"mean": 571.0, "median": 500.0, "n": 112, "buckets": {"0-99": 6, "100-199": 9, "200-299": 17, "300-399": 14, "400-499": 7, "500-599": 19, "600-799": 12, "800-999": 14, "1000-9999": 14}}, "_n": 147}, "55-64": {"good_deal": {"mean": 296.0, "median": 200.0, "n": 111, "buckets": {"0-99": 13, "100-199": 33, "200-299": 23, "300-399": 13, "400-499": 8, "500-599": 8, "600-799": 5, "800-999": 3, "1000-9999": 5}}, "high_price": {"mean": 433.0, "median": 300.0, "n": 111, "buckets": {"0-99": 9, "100-199": 21, "200-299": 20, "300-399": 15, "400-499": 10, "500-599": 11, "600-799": 11, "800-999": 3, "1000-9999": 11}}, "_n": 165}, "65+": {"good_deal": {"mean": 250.0, "median": 200.0, "n": 122, "buckets": {"0-99": 27, "100-199": 31, "200-299": 25, "300-399": 13, "400-499": 8, "500-599": 10, "600-799": 4, "800-999": 3, "1000-9999": 1}}, "high_price": {"mean": 347.0, "median": 270.0, "n": 127, "buckets": {"0-99": 16, "100-199": 29, "200-299": 21, "300-399": 15, "400-499": 18, "500-599": 7, "600-799": 6, "800-999": 6, "1000-9999": 9}}, "_n": 223}}, "gift_by_age": {"18-34": {"Seed Packs": 18, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 18, "Plant Nutrients": 17, "Protective Curtain for Winter Temperature & Humidity Control": 11, "Pot Covers": 2, "Additional Plant Care Treatments": 1}, "35-44": {"Plant Nutrients": 35, "Protective Curtain for Winter Temperature & Humidity Control": 34, "Seed Packs": 30, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 18, "Additional Plant Care Treatments": 7, "Pot Covers": 4}, "45-54": {"Seed Packs": 43, "Plant Nutrients": 42, "Protective Curtain for Winter Temperature & Humidity Control": 35, "Additional Plant Care Treatments": 12, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 12, "Pot Covers": 3}, "55-64": {"Protective Curtain for Winter Temperature & Humidity Control": 47, "Seed Packs": 42, "Plant Nutrients": 38, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 18, "Additional Plant Care Treatments": 16, "Pot Covers": 4}, "65+": {"Protective Curtain for Winter Temperature & Humidity Control": 64, "Seed Packs": 63, "Plant Nutrients": 52, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 23, "Additional Plant Care Treatments": 18, "Pot Covers": 3}}, "bundle_by_age": {"18-34": {"Yes, I would strongly prefer that.": 25, "No, I’d rather keep the price lower.": 22, "I'm not sure at the moment.": 20}, "35-44": {"Yes, I would strongly prefer that.": 55, "No, I’d rather keep the price lower.": 42, "I'm not sure at the moment.": 31}, "45-54": {"Yes, I would strongly prefer that.": 58, "I'm not sure at the moment.": 52, "No, I’d rather keep the price lower.": 37}, "55-64": {"I'm not sure at the moment.": 67, "No, I’d rather keep the price lower.": 52, "Yes, I would strongly prefer that.": 46}, "65+": {"I'm not sure at the moment.": 99, "No, I’d rather keep the price lower.": 85, "Yes, I would strongly prefer that.": 39}}, "units_by_age": {"18-34": {"1": 48, "2": 12, "3": 7}, "35-44": {"1": 95, "2": 23, "3": 10}, "45-54": {"1": 109, "2": 29, "3": 9}, "55-64": {"1": 122, "2": 32, "3": 11}, "65+": {"1": 180, "2": 35, "3": 8}}, "video_by_age": {"18-34": {"How-to Guides": 19, "The growing process and results": 17, "Show the product appearance and how it fits into the home.": 10, "Unboxing and Setup": 8, "Comparisons with Other Products": 6, "User Reviews": 5, "Reviews Done by YouTubers": 1, "Behind-the-scenes": 1}, "35-44": {"The growing process and results": 39, "How-to Guides": 31, "Show the product appearance and how it fits into the home.": 27, "Unboxing and Setup": 13, "Comparisons with Other Products": 9, "Reviews Done by YouTubers": 4, "User Reviews": 3, "Behind-the-scenes": 2}, "45-54": {"How-to Guides": 52, "The growing process and results": 33, "Show the product appearance and how it fits into the home.": 25, "Comparisons with Other Products": 14, "Unboxing and Setup": 11, "User Reviews": 6, "Reviews Done by YouTubers": 5, "Behind-the-scenes": 1}, "55-64": {"The growing process and results": 46, "How-to Guides": 44, "Show the product appearance and how it fits into the home.": 26, "Unboxing and Setup": 23, "Reviews Done by YouTubers": 11, "Comparisons with Other Products": 8, "User Reviews": 5, "Behind-the-scenes": 2}, "65+": {"How-to Guides": 82, "The growing process and results": 47, "Unboxing and Setup": 30, "Show the product appearance and how it fits into the home.": 29, "Comparisons with Other Products": 14, "User Reviews": 11, "Reviews Done by YouTubers": 10}}, "crowdfunding_by_age": {"18-34": {"No, but I am interested in backing innovative campaigns": 32, "Yes, on Kickstarter": 32, "Yes, on Indiegogo": 3}, "35-44": {"Yes, on Kickstarter": 62, "No, but I am interested in backing innovative campaigns": 58, "Yes, on Indiegogo": 8}, "45-54": {"No, but I am interested in backing innovative campaigns": 80, "Yes, on Kickstarter": 59, "Yes, on Indiegogo": 8}, "55-64": {"No, but I am interested in backing innovative campaigns": 111, "Yes, on Kickstarter": 48, "Yes, on Indiegogo": 6}, "65+": {"No, but I am interested in backing innovative campaigns": 180, "Yes, on Kickstarter": 39, "Yes, on Indiegogo": 4}}, "target_vs_rest": {"target": {"n": 103, "aspects": {"Easy&low-maintenance": 89, "Auto-water&light": 85, "Healthy-growth": 87, "Smart-guidance": 63, "Many-plants-small-space": 84, "Real-time-monitor": 57, "Multi-plant-types": 68, "Modern-design": 63, "Quiet": 56, "App-connect": 57, "Reliability": 69, "Good-value": 76, "Beginner-friendly": 57}, "features": {"4K-AI-camera": {"avg_score": 2.21, "top2_pct": 12.9}, "Auto-mgmt": {"avg_score": 4.17, "top2_pct": 76.7}, "Stress-protect": {"avg_score": 3.85, "top2_pct": 65.0}, "Intelligence-Core": {"avg_score": 3.0, "top2_pct": 30.1}, "Mavi-AI": {"avg_score": 3.11, "top2_pct": 34.0}, "Grow-Light": {"avg_score": 4.17, "top2_pct": 77.7}, "Nutrient-Intelligence": {"avg_score": 4.13, "top2_pct": 74.5}, "Airflow": {"avg_score": 3.93, "top2_pct": 69.3}, "42-plants-2sqft": {"avg_score": 4.01, "top2_pct": 74.3}, "Status-Display": {"avg_score": 3.73, "top2_pct": 54.5}, "Seedling-Module": {"avg_score": 3.5, "top2_pct": 46.1}, "Night-Light": {"avg_score": 3.03, "top2_pct": 35.0}}, "good_deal": {"mean": 456.0, "median": 400.0}, "gift": {"Seed Packs": 33, "Plant Nutrients": 27, "Protective Curtain for Winter Temperature & Humidity Control": 18, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 14, "Additional Plant Care Treatments": 9, "Pot Covers": 2}, "grow_items": {"LeafyGreens": 88, "Herbs": 85, "Flowers": 40, "Brassicas&Root": 57, "FruitingVeg": 92, "Other": 13}, "growing": {"Indoor-Traditional": 39, "Indoor-Smart": 35, "Balcony-Traditional": 10, "Balcony-Smart": 3, "Outdoor-Traditional": 41, "Outdoor-Smart": 4, "Dont-grow": 21, "Other": 4}}, "rest": {"n": 628, "aspects": {"Easy&low-maintenance": 525, "Auto-water&light": 489, "Healthy-growth": 463, "Smart-guidance": 327, "Many-plants-small-space": 455, "Real-time-monitor": 284, "Multi-plant-types": 343, "Modern-design": 327, "Quiet": 344, "App-connect": 283, "Reliability": 360, "Good-value": 459, "Beginner-friendly": 330}, "features": {"4K-AI-camera": {"avg_score": 2.12, "top2_pct": 12.7}, "Auto-mgmt": {"avg_score": 4.12, "top2_pct": 76.4}, "Stress-protect": {"avg_score": 3.88, "top2_pct": 68.5}, "Intelligence-Core": {"avg_score": 3.09, "top2_pct": 36.0}, "Mavi-AI": {"avg_score": 3.19, "top2_pct": 39.8}, "Grow-Light": {"avg_score": 4.03, "top2_pct": 75.8}, "Nutrient-Intelligence": {"avg_score": 4.05, "top2_pct": 74.2}, "Airflow": {"avg_score": 3.85, "top2_pct": 68.7}, "42-plants-2sqft": {"avg_score": 3.95, "top2_pct": 67.7}, "Status-Display": {"avg_score": 3.6, "top2_pct": 53.5}, "Seedling-Module": {"avg_score": 3.46, "top2_pct": 46.9}, "Night-Light": {"avg_score": 3.1, "top2_pct": 36.5}}, "good_deal": {"mean": 290.0, "median": 200.0}, "gift": {"Protective Curtain for Winter Temperature & Humidity Control": 173, "Seed Packs": 163, "Plant Nutrients": 158, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 75, "Additional Plant Care Treatments": 45, "Pot Covers": 14}, "grow_items": {"LeafyGreens": 504, "Herbs": 475, "Flowers": 204, "Brassicas&Root": 316, "FruitingVeg": 522, "Other": 54}, "growing": {"Indoor-Traditional": 202, "Indoor-Smart": 117, "Balcony-Traditional": 96, "Balcony-Smart": 14, "Outdoor-Traditional": 283, "Outdoor-Smart": 33, "Dont-grow": 127, "Other": 27}}}, "open_ended": {"18-34": {"features": ["Self watering", "How to videos", "seedling selection?", "Recomendations are awesome", "not sure", "Nothing", "seems good to me", "Synchronisation avec l'application Planta par exemple pour les autres plantes", "root rot dectection", "Doesn't take up too much space", "Self cleaning or semi automated self cleaning", "Recommendations on what to plant based on time of year and ambient conditions of the Growbot itself", "Im not sure, i guess the air?  Like the fan blowing? If that makes sense", "Nothing that I can think of for the moment", "easy to clean up", "What about the soundpollution? Like watering..", "Starting off completely beginner learning about growing plants from step one, all the basics taught, displayed for reference, and worked through to lead on to more advanced plant knowledge and more co", "Infos about the plants I'm growing, to get to know them better and know what to expect from their growth", "Ability to grow house plants.", "dont think so", "Maybe utilizing tutorials when harvesting the plants and some uses for them", "Something to make cleaning it easy", "Practicality", "Manual pump", "No idea", "Unsure", "Pre-built setting options depending on what you're growing", "Planting System Instructions, Cleaning System, Instructions for Malfunction", "Manual pump and module light, I buy another system and I found broken part (lamp, sensor for water, etc)", "growth support"], "comments": ["One thing I’ve noticed with another high tech brand is that the WiFi connection can sometimes be inconsistent and the camera quality is not great. The cameras go out all the time and they aren’t that clear. If you all can bring better quality and consistent WiFi I believe you can beat out competitor", "Are there options for people who won’t be able to connect the grow bot to a mains water source? Wether this is a long water pipe , or a sleek water container that can be removed and refilled periodically as this would increase the product viability and make it accessible in a lot more homes/areas of", "No, sorry i sign up on my other email i forgot to do the survey :) but i subscribe on youtube. But i really was looking for an tall hydroponics and this is what i was looking for it.  Can't wait for it for the release andnthe pricing of course  Good day,  Morlin", "Please don't be the next \"Indoor hydroponic\" from Kickstarter", "I would like to be affordable and complete planting accessories. It would be great that when it arrives it is ready to use. Easy to clean and no problem in mold. And it is free shipping fees and tax anywhere in the world.   One more, space saver because apartments where I live has limited space. ", "Be better than indoor hydroponic please!", "Looking forward to this. Hope you get a great campaign !"], "features_count": 32, "comments_count": 7}, "35-44": {"features": ["none that comes to mind", "No membership required", "Remote control via smart watch (Wear OS)", "Bio growth formala", "Adding an auto ph adjuster", "a larger water tank, for the holidays, not just a software change", "I want something that works", "Different colour schemes (dark green, olive, black, grey etc)", "As I’m using it for the first time it needs to be user friendly alsoo is this agroponic technique", "Understanding of companion planting to help with growth", "You’ve covered it all", "Tracking key milestones for all of the plants once they’re in the system. For example, how many days until I should expect sprouts, harvest, etc.", "Fun, attractive, coffee nook lol", "The ability to not have all the cameras etc I’m just want them to grow. As someone at home that kills pretty much all plants. I just want somthing to grow and we’ll be edible (also I have rabbits so t", "I would like a notification if a plant is not doing very well.", "the spacing, most towers don't give enough room for bigger plants like or cabbages or lettuces", "None so far", "Teach on how to rotate planting", "RGB mood lights", "Perhaps a darker colour to minise appearance of stains that will appear", "When plants are too large", "If using the camera, notifications of when plants sprout could be a fun gamified way of interaction with AI", "Extra big water resource for long vacation time + plant nutrients", "No it all sounds amazing", "Not that I can think of", "Assistant in analyzing plant health", "Just curious", "Proper lighting", "Expandable sizing, start small and grow as you need", "ready to harvest notifcation"], "comments": ["Need correct dosage of bio growth ", "I’m keen to connect I was looking for something like this ", "We are living in a world where we’ll all supplies could stop at any moment. We are a three people house and all pesitrians so extra veggies that are grown on solar would be amazing. I’ve already been looking at a self watering tool and was ultimately going to create a chain of self watering plants. ", "Like I said above, please make this affordable for seniors. most are like me on ssi which doesn't pay much.  ", "I live in Japan and our apartments here are very tiny. Based on the photo, this product is bery well-designed and is slim and tall. Being a one-side is a good point so i can put it on the side. Since its AI, im afraid it will be ridiculously expensive so i wish you can have different options or even", "Not your typical herb, fruits, and veggies. Have different varieties from different countries. Again would like the Mexican herb papalo.", "When is it released and how much does it cost?", "No suggestions ", "Can you use it outside ", "Can it be outside ", "I own two generations of the Gardyn home and enjoy them. I would love to be a tester if that is a possibility.", "Waiting the kick off!!", "I would love too be one of the first to try this model out an advertise it, I would be so honored to test it out!"], "features_count": 60, "comments_count": 13}, "45-54": {"features": ["Sealed columns that do not leak", "I haven’t used so haven’t got much clu but as long as it monitors growth that’s fine", "A good list of what you can't grow well", "Not sure yet", "Think its coved just about everything", "No subscription", "No not really", "I am not sure", "Seed harvesting and pod recycling/reusing", "Plant checker", "Play music to plants", "Water Change Indicator", "Optimised growing with copper etc", "More than one size. A hydroponic option", "Alerte", "No this product sounds fantastic.", "I' d like it", "Wheels to move around if it doesn’t already have them. Bug net if using on a balcony.", "Ability to expand area/customize design with additional attachable accessories.", "I eat a lot of vegetables and would love to have an abundance of leafy greens and salad toppings", "Scalable", "To early to know", "Unsure", "Different colours of stand to match decor", "I would love it to have the ability to be expanded / modular", "I'm new and learning.", "Nothing", "Can be self sufficient", "Prep suggestions and nutrition info with harvest", "A function that identifies and notifies about pests and diseases."], "comments": ["Later if I use ur services ", "I own a gardyn do it needs to be better", "What is the average price for each unit ", "Really excited about this one!", "Find price easier", "Would love to receive a free one or two for test & customer review from a kids perspective. ", "It seems interesting and I always want to learn how to garden.", "Keep it affordable will probably sell more than only a few at a high price", "Sounds awesome, I’d like more info to give to an organization I volunteer for", "As someone who uses Gardyn indoor, and Green Stalk’s outdoor, I’m really interested in following this product. I create garden content and share my harvests with friends and co-workers of mine at the WWE Performance Center in Orlando.  This could be a good fit in my setup. ", "What is the estimated time of readiness for this machine?", "Just more information and when is it available?", "Is this product easy to disassemble and take on extended vacation out of country? Would like to buy more than one, but CDN currency against US is terrible.", "Make it a reasonable price. Better than lettuce grow or gardyn", "Are you interested in partnering with a wellness brand for promotion of this product?", "I'm a YouTuber and would love to review. I also admin a hydroponic gardening group on Facebook that has over 20,000 members. I have over 75,000 followers across social that look to me for gardening and hydroponic advice. Please reach out. littletechgirl@gmail.com", "When will this launch and what’s the price. I own 6 Gardyn and I’m curious about this ", "Would love to make a review for a sponsored system. Money it right, and food costs are high.", "Looks good don’t rush it, lot of people can benefit from hydroponics system it should sell well ", "Again, it would be highly unusual to offer the product without all the accessories needed to use it on Day One at a price rather than offering a lower price one and a higher price"], "features_count": 64, "comments_count": 20}, "55-64": {"features": ["It needs to be indoors 100%", "If I brought more one it should only one subscription", "customer support", "Humidity control", "Affordable price", "No - over complicated systems put peopleoff", "Don't know!", "Not at the moment", "Non so", "No it looks amazing", "Reminder and schedule", "Not sure", "Automated watering", "Food Grade Materials being used,free from all bad chemicals", "vacation mode at least 30 days where things are all good", "Alerts notifying the grower that attention is needed.", "No it sounds perfect BUT I am afraid that I probably can’t afford to buy one", "Company technical support", "Ease of use", "Suggestions for future plantings based on the success of current or prior yields", "any instructions that would help the plants", "Not sure", "payment plan", "Can't think of any", "able to use in power grid outs long term options", "Solar Panel to be independent from electricity", "Phone app monitoring growing medium /watef", "Choice of the Colour", "The price please", "The Growbot Should be safe for cats"], "comments": ["All systems fail due to poor design and inadequate manufacturing. \"OGarden\" failed. \"VegeBox\" failed (too much manual work\" \"RotoFarm\" semi failed so far. Plant beds need to be remanufactured and shipped out. Seeding germination success is too low.   ", "I have very cold winter seasons but very large heritage home all hydronicly heated", "Quality over Quantity great products always succeed.", "need more info to buy", "I have to live on a very small disability income which means I can’t afford to live or buy food or clothing or anything. BUT I would love to be able to do a review on this for you . That’s probably the only way that I would be able to get one for myself. Please consider that. It’s been so hard to li", "Does the system really need crowd funding?", "Do you have a comparison to the GARDYN?", "Not at this time ", "All good ", "Not for now", "Bitte in German language", "Certainly looks interesting.", "Highly innovative product - would love to test it out for you as a consumer in the market place! ", "keep it affordable", "Hi ,with so many items coming onto the market right now and 42 plant options sounds amazing. I'm a new grower and so keen to learn new things when gardening  and learning to use the A.I bot will help me progress forward.  I'm not rich but I realise 42 plants is a massive save on my grocery shop. Any", "I want to more pictures of what can be grown ", "Good ahead", "As someone who has eaten strictly organic for 30 years, the seeds you sell are just as important as the machine itself. I will only consider to buy the machine when the seeds are organic. Please make sure to offer organic seeds", "Would it be available in France? ", "Espero poder charlar con ustedes pronto. Será el paso previo a realizar cualquier pedido"], "features_count": 71, "comments_count": 23}, "65+": {"features": ["Option for integrated and automated water feed, nutrient feed, PH adjust, especially for when we travel.", "Q and A accessible", "Senior citizen and veteran's discounts would help....", "Support", "Off grid power, like dc", "No, looking forward to finding out", "if a cell phone is needed am not interested", "Growth measurement", "Indicating the growth period of plants while using this system", "Space sao", "Protection from animals", "Sturdy strong", "Blue tooth guide", "Different colours of the unit", "Alarm System when Plants aren't doing well", "No idea.", "Water levels", "I can't think of anything at this point", "Link to phone", "Not that I can think of now undecided undecided", "Not at this time", "Self watering", "ENGLISH MANUAL IN JAPAN PLEASE", "Just need all info how to usr", "Not sure", "No, you covered everything. It sounds amazing.", "Not really", "Ambient nature sounds", "No I believe it’s perfect for my needs", "Stability feature to keep unit from tipping over - i have very inquisitive cats that climb everything."], "comments": ["Support and hand holding is most important as most getting into smart growing have no idea what's involved. Periodic cleaning is a pain so integrating a cleaning mode would be nice. Maybe an integrated citric acid bath feed connection after plant removal? Please let me know when this might be availa", "Waiting to hear more about this product and hoping/praying for a big discount so I can show off my treasures/goodies.", "Looking forward to what becomes of this survey", "Interested, but retired so price is great detertermineator", "don't have money to back sorry", "This looks very interesting as a retired person i need to eat  healthy ", "If it was really expensive I would not consider it. ", "Not at this time. ", "I think a podcast would be great to answer questions for anybody and everybody that are interested the Maygrove AI Growbot. ", "No thanks.", "I know nothing about this, need to research.", "Where do I find the price", "PRACTICAL FOR MYANMAR CUSTOMERS IN JAPAN", "Current products on the market are over priced. I am hoping that someone. Comes out with a product that the average person can afford and without a subscription forced to get full functionality ", "I would really like to buy one, but I am a retired Catholic school teacher and I don't have much money.", "Price is extremely important. Bundles at great reduction would motivate me to gift units to family and friends.", "Looks like a viable product", "What happens to \"deposit\" if unit doesn't launch? ", "I am deaf 🧏‍♀️ and need setup on you tube please with close captioning ", "Would be willing to get one depending on price point"], "features_count": 103, "comments_count": 36}, "US_35_55": {"features": ["Sealed columns that do not leak", "No membership required", "A good list of what you can't grow well", "Adding an auto ph adjuster", "No subscription", "I want something that works", "No not really", "Seed harvesting and pod recycling/reusing", "Tracking key milestones for all of the plants once they’re in the system. For example, how many days until I should expect sprouts, harvest, etc.", "the spacing, most towers don't give enough room for bigger plants like or cabbages or lettuces", "Ability to expand area/customize design with additional attachable accessories.", "RGB mood lights", "When plants are too large", "If using the camera, notifications of when plants sprout could be a fun gamified way of interaction with AI", "I eat a lot of vegetables and would love to have an abundance of leafy greens and salad toppings", "Not that I can think of", "I'm new and learning.", "Can be self sufficient", "Prep suggestions and nutrition info with harvest", "Just curious", "Sounds pretty good", "Cover to protect from pets", "Air flow/fan system", "Humidity control", "Plant collection suggestions", "API capabilities to integrate with products like home assistant", "Where AI can monitor the plant and offer suggestions and how to treat them.  Especially if bugs are found", "instructions to grow fruit", "A syphon option for quick draining when replacing water, a temperature gauge for the water that’s on the ec/td/ph, accessories including a little tool holder in the front, some way of tying back plant", "Looking to expand into medicinal herbs. Some other products don’t support plants I’m interested in."], "comments": ["I own a gardyn do it needs to be better", "Really excited about this one!", "Like I said above, please make this affordable for seniors. most are like me on ssi which doesn't pay much.  ", "Would love to receive a free one or two for test & customer review from a kids perspective. ", "It seems interesting and I always want to learn how to garden.", "Not your typical herb, fruits, and veggies. Have different varieties from different countries. Again would like the Mexican herb papalo.", "Sounds awesome, I’d like more info to give to an organization I volunteer for", "No suggestions ", "As someone who uses Gardyn indoor, and Green Stalk’s outdoor, I’m really interested in following this product. I create garden content and share my harvests with friends and co-workers of mine at the WWE Performance Center in Orlando.  This could be a good fit in my setup. ", "I own two generations of the Gardyn home and enjoy them. I would love to be a tester if that is a possibility.", "Make it a reasonable price. Better than lettuce grow or gardyn", "Are you interested in partnering with a wellness brand for promotion of this product?", "I'm a YouTuber and would love to review. I also admin a hydroponic gardening group on Facebook that has over 20,000 members. I have over 75,000 followers across social that look to me for gardening and hydroponic advice. Please reach out. littletechgirl@gmail.com", "When will this launch and what’s the price. I own 6 Gardyn and I’m curious about this ", "I would love too be one of the first to try this model out an advertise it, I would be so honored to test it out!"], "features_count": 48, "comments_count": 15}}, "target_gender": {"Female": 63, "Male": 37, "Prefer not to say": 3}, "target_vs_rest_grow_items": {"target": {"LeafyGreens": 85.4, "Herbs": 82.5, "Flowers": 38.8, "Brassicas&Root": 55.3, "FruitingVeg": 89.3, "Other": 12.6}, "rest": {"LeafyGreens": 80.3, "Herbs": 75.6, "Flowers": 32.5, "Brassicas&Root": 50.3, "FruitingVeg": 83.1, "Other": 8.6}}};
 
-const AGE_KEY_MAP = {
-  'all': 'all',
-  '18-34': '18-34',
-  '35-44': '35-44',
-  '45-54': '45-54',
-  '55-64': '55-64',
-  '65+': '65+',
-  'US_35_55': 'US_35_55'
+;
+
+// ═══════════════════════════════════════════════
+// LABELS
+// ═══════════════════════════════════════════════
+const L = {
+  grow: { 'Indoor-Traditional':'室内·传统','Indoor-Smart':'室内·智能系统','Balcony-Traditional':'阳台·传统','Balcony-Smart':'阳台·智能系统','Outdoor-Traditional':'户外·传统','Outdoor-Smart':'户外·智能系统','Dont-grow':'当前不种植物','Other':'其他' },
+  item: { 'LeafyGreens':'叶菜类','Herbs':'香草类','Flowers':'花卉','Brassicas&Root':'十字花科&根茎','FruitingVeg':'果菜类(番茄/辣椒)','Other':'其他' },
+  asp: { 'Easy&low-maintenance':'易用·低维护','Auto-water&light':'自动浇水补光','Healthy-growth':'健康生长好收成','Smart-guidance':'智能种植指导','Many-plants-small-space':'小空间多种植','Real-time-monitor':'实时监测','Multi-plant-types':'支持多种植物','Modern-design':'现代家居设计','Quiet':'安静运行','App-connect':'App连接','Reliability':'可靠耐用','Good-value':'性价比','Beginner-friendly':'新手友好' },
+  feat: { '4K-AI-camera':'4K AI相机(延时摄影)','Auto-mgmt':'自动管理(光/气/水/营养)','Stress-protect':'极端环境防护','Intelligence-Core':'Maygrove智能核心','Mavi-AI':'AI助手Mavi','Grow-Light':'全光谱生长灯','Nutrient-Intelligence':'EC/TDS营养传感','Airflow':'气流系统(防烂根)','42-plants-2sqft':'42株/2sqft','Status-Display':'一键状态显示屏','Seedling-Module':'集成育苗模块','Night-Light':'氛围夜灯' }
 };
 
-const AGE_LABELS = {
-  'all': '全部 (731)',
-  '18-34': '18-34岁 (67)',
-  '35-44': '35-44岁 (128)',
-  '45-54': '45-54岁 (147)',
-  '55-64': '55-64岁 (165)',
-  '65+': '65岁以上 (223)',
-  'US_35_55': '🎯 美国 35-55岁 (103)'
+const AGE_L = { '18-34':'18-34岁(67)','35-44':'35-44岁(128)','45-54':'45-54岁(147)','55-64':'55-64岁(165)','65+':'65岁以上(223)' };
+const COLORS = ['#1a6bb0','#1a8a4a','#c96a0e','#8b5cf6','#06b6d4','#b8860b','#e11d48','#0891b2','#d97706','#6366f1','#65a30d','#a1a1aa'];
+
+const FN = {
+  '18-34': r => r[12] === '18-24' || r[12] === '25-34',
+  '35-44': r => r[12] === '35-44',
+  '45-54': r => r[12] === '45-54',
+  '55-64': r => r[12] === '55-64',
+  '65+': r => r[12] === '65+'
 };
 
-const ASPECT_CN = {
-  'Easy&low-maintenance': '易用·低维护',
-  'Auto-water&light': '自动浇水补光',
-  'Healthy-growth': '健康生长·好收成',
-  'Smart-guidance': '智能种植指导',
-  'Many-plants-small-space': '小空间多种植',
-  'Real-time-monitor': '实时植物监测',
-  'Multi-plant-types': '支持多种植物',
-  'Modern-design': '现代家居设计',
-  'Quiet': '安静运行',
-  'App-connect': 'App连接',
-  'Reliability': '可靠耐用',
-  'Good-value': '性价比',
-  'Beginner-friendly': '新手友好'
-};
+const ASPECT_KEYS = Object.keys(L.asp);
+const FEAT_KEYS = Object.keys(L.feat);
+const GROW_KEYS = Object.keys(L.grow);
+const ITEM_KEYS = Object.keys(L.item);
+const COL_ASP = { 'Easy&low-maintenance':35,'Auto-water&light':36,'Healthy-growth':37,'Smart-guidance':38,'Many-plants-small-space':39,'Real-time-monitor':40,'Multi-plant-types':41,'Modern-design':42,'Quiet':43,'App-connect':44,'Reliability':45,'Good-value':46,'Beginner-friendly':47 };
+const COL_FEAT = { '4K-AI-camera':48,'Auto-mgmt':49,'Stress-protect':50,'Intelligence-Core':51,'Mavi-AI':52,'Grow-Light':53,'Nutrient-Intelligence':54,'Airflow':55,'42-plants-2sqft':56,'Status-Display':57,'Seedling-Module':58,'Night-Light':59 };
+const COL_GROW = { 'Indoor-Traditional':17,'Indoor-Smart':18,'Balcony-Traditional':19,'Balcony-Smart':20,'Outdoor-Traditional':21,'Outdoor-Smart':22,'Dont-grow':23,'Other':24 };
+const COL_ITEM = { 'LeafyGreens':25,'Herbs':26,'Flowers':27,'Brassicas&Root':28,'FruitingVeg':29,'Other':30 };
 
-const GROW_LABELS_CN = {
-  'Indoor-Traditional': '室内·传统',
-  'Indoor-Smart': '室内·智能系统',
-  'Balcony-Traditional': '阳台·传统',
-  'Balcony-Smart': '阳台·智能系统',
-  'Outdoor-Traditional': '户外·传统',
-  'Outdoor-Smart': '户外·智能系统',
-  'Dont-grow': '当前不种植物',
-  'Other': '其他'
-};
-
-const GROW_ITEMS_CN = {
-  'LeafyGreens': '叶菜类',
-  'Herbs': '香草类',
-  'Flowers': '花卉',
-  'Brassicas&Root': '十字花科&根茎',
-  'FruitingVeg': '果菜类(番茄/辣椒)',
-  'Other': '其他'
-};
-
-const FEATURE_CN = {
-  '4K-AI-camera': '4K AI相机(延时摄影)',
-  'Auto-mgmt': '自动管理(光/气/水/营养)',
-  'Stress-protect': '极端环境防护(温/湿度)',
-  'Intelligence-Core': 'Maygrove智能核心',
-  'Mavi-AI': 'AI助手Mavi',
-  'Grow-Light': '强劲全光谱生长灯',
-  'Nutrient-Intelligence': '实时营养智能(EC/TDS)',
-  'Airflow': '气流系统(防烂根)',
-  '42-plants-2sqft': '42株/2sqft高密度',
-  'Status-Display': '一键状态显示屏',
-  'Seedling-Module': '集成育苗模块',
-  'Night-Light': '氛围夜灯'
-};
-
-const FEATURE_COLORS = {
-  '4K-AI-camera': '#94a3b8',
-  'Auto-mgmt': '#1a6bb0',
-  'Stress-protect': '#c96a0e',
-  'Intelligence-Core': '#8b5cf6',
-  'Mavi-AI': '#06b6d4',
-  'Grow-Light': '#1a8a4a',
-  'Nutrient-Intelligence': '#059669',
-  'Airflow': '#0e7490',
-  '42-plants-2sqft': '#b8860b',
-  'Status-Display': '#6366f1',
-  'Seedling-Module': '#d97706',
-  'Night-Light': '#a1a1aa'
-};
-
-const COLOR_CYCLE = ['#1a6bb0','#1a8a4a','#c96a0e','#8b5cf6','#06b6d4','#b8860b','#e11d48','#0891b2','#65a30d','#d97706','#6366f1','#a1a1aa'];
+const RATING_VALS = { 'Least important':1,'Somewhat important':2,'Important':3,'Very important':4,'Most important':5 };
 
 let currentFilter = 'all';
-let chartInstances = {};
 
-// ====== RENDER FUNCTIONS ======
-function getData(filter) {
-  if (filter === 'all') return DATA;
-  if (filter === 'US_35_55') return { ...DATA, _activeFilter: 'US_35_55' };
-  // For age-group filters, weave together from cross-tab data
-  const d = {
-    total: DATA.age_distribution[filter],
-    age_distribution: { [filter]: DATA.age_distribution[filter] },
-    gender_by_age: { [filter]: DATA.gender_by_age[filter] },
-    growing_by_age: { [filter]: DATA.growing_by_age[filter] },
-    grow_items_by_age: { [filter]: DATA.grow_items_by_age[filter] },
-    aspects_by_age: { [filter]: DATA.aspects_by_age[filter] },
-    feature_ratings_by_age: { [filter]: DATA.feature_ratings_by_age[filter] },
-    price_by_age: { [filter]: DATA.price_by_age[filter] },
-    gift_by_age: { [filter]: DATA.gift_by_age[filter] },
-    bundle_by_age: { [filter]: DATA.bundle_by_age[filter] },
-    video_by_age: { [filter]: DATA.video_by_age[filter] },
-    crowdfunding_by_age: { [filter]: DATA.crowdfunding_by_age[filter] },
-    open_ended: { [filter]: DATA.open_ended[filter] },
-    target_vs_rest: DATA.target_vs_rest,
-    _activeFilter: filter
-  };
-  return d;
+// ═══════════════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════════════
+
+function isUS3555(r) { return r[13] === 'USA' && (r[12] === '35-44' || r[12] === '45-54'); }
+
+function getN(filter) {
+  if (filter === 'all') return 731;
+  if (filter === 'US_35_55') return 103;
+  let c = 0;
+  if (filter === '18-34') c = (DATA.age_distribution['18-34']||0) + (DATA.age_distribution['25-34']||0);
+  else c = DATA.age_distribution[filter] || 0;
+  return c || (filter === '18-34' ? 67 : DATA.total);
 }
 
-function getVal(d, section, key, subkey) {
-  try {
-    if (d._activeFilter && d._activeFilter !== 'all' && d._activeFilter !== 'US_35_55') {
-      const f = d._activeFilter;
-      if (section === 'growing_by_age') return d.growing_by_age[f][key] || 0;
-      if (section === 'grow_items_by_age') return d.grow_items_by_age[f][key] || 0;
-      if (section === 'aspects_by_age') return d.aspects_by_age[f][key] || 0;
-      if (section === 'feature_ratings_by_age') return d.feature_ratings_by_age[f][key] || {};
-      if (section === 'price_by_age') return d.price_by_age[f] || {};
-      if (section === 'gift_by_age') return d.gift_by_age[f] || {};
-      if (section === 'bundle_by_age') return d.bundle_by_age[f] || {};
-      if (section === 'video_by_age') return d.video_by_age[f] || {};
-      if (section === 'crowdfunding_by_age') return d.crowdfunding_by_age[f] || {};
-      if (section === 'gender') return d.gender_by_age[f] || {};
-    }
-    // Fall through for 'all' or US_35_55
-    if (section === 'growing_by_age') {
-      if (d._activeFilter === 'US_35_55') return DATA.target_vs_rest.target.growing[key] || 0;
-      return Object.values(DATA.growing_by_age).reduce((s, v) => s + (v[key] || 0), 0);
-    }
-    // Default: use all-age aggregate
-    return 0;
-  } catch(e) { return 0; }
-}
+function pct(v, total) { return total > 0 ? (v/total*100).toFixed(1) : '0.0'; }
 
-function getGroupTotal(d, section) {
-  if (d._activeFilter && d._activeFilter !== 'all' && d._activeFilter !== 'US_35_55') {
-    const f = d._activeFilter;
-    if (section === 'growing_by_age') return d.growing_by_age[f]._n || d.growing_by_age[f].total || 0;
-    if (section === 'grow_items_by_age') return d.grow_items_by_age[f]._n || 0;
-    return d.total;
-  }
-  return d.total;
-}
-
-function getGrowingData(d) {
-  const f = d._activeFilter;
-  if (f === 'US_35_55') return DATA.target_vs_rest.target.growing;
-  if (f && f !== 'all') return d.growing_by_age[f] || {};
-  // Aggregate all ages
-  const result = {};
-  Object.keys(DATA.growing_by_age).forEach(age => {
-    Object.keys(DATA.growing_by_age[age]).forEach(k => {
-      if (k === '_n' || k === 'total') return;
-      result[k] = (result[k] || 0) + (DATA.growing_by_age[age][k] || 0);
+// Get counts for a multi-select question by filter
+function getCounts(filter, colMap) {
+  // For 'all': aggregate from age groups
+  if (filter === 'all') {
+    const result = {};
+    Object.keys(colMap).forEach(k => {
+      let total = 0;
+      Object.keys(DATA.growing_by_age || {}).forEach(age => {
+        // use pre-computed
+      });
+      // direct compute from pre-computed data
+      Object.keys(DATA.aspects_by_age || {}).forEach(age => {
+        if (DATA.aspects_by_age[age][k] !== undefined) total += DATA.aspects_by_age[age][k];
+      });
+      result[k] = total;
     });
-  });
-  return result;
-}
-
-function getGrowItemsData(d) {
-  const f = d._activeFilter;
-  if (f === 'US_35_55') return DATA.target_vs_rest.target.grow_items;
-  if (f && f !== 'all') {
-    const g = d.grow_items_by_age[f] || {};
-    return Object.fromEntries(Object.entries(g).filter(([k]) => k !== '_n'));
-  }
-  const result = {};
-  Object.keys(DATA.grow_items_by_age).forEach(age => {
-    Object.keys(DATA.grow_items_by_age[age]).forEach(k => {
-      if (k === '_n') return;
-      result[k] = (result[k] || 0) + (DATA.grow_items_by_age[age][k] || 0);
-    });
-  });
-  return result;
-}
-
-function getAspectsData(d) {
-  const f = d._activeFilter;
-  if (f === 'US_35_55') return DATA.target_vs_rest.target.aspects;
-  if (f && f !== 'all') {
-    const g = d.aspects_by_age[f] || {};
-    return Object.fromEntries(Object.entries(g).filter(([k]) => k !== '_n'));
-  }
-  const result = {};
-  Object.keys(DATA.aspects_by_age).forEach(age => {
-    Object.keys(DATA.aspects_by_age[age]).forEach(k => {
-      if (k === '_n') return;
-      result[k] = (result[k] || 0) + (DATA.aspects_by_age[age][k] || 0);
-    });
-  });
-  return result;
-}
-
-function getFeaturesData(d) {
-  const f = d._activeFilter;
-  if (f === 'US_35_55') return DATA.target_vs_rest.target.features;
-  if (f && f !== 'all') {
-    return d.feature_ratings_by_age[f] || {};
-  }
-  // Aggregate all ages - average weighted by n
-  const keys = Object.keys(FEATURE_CN);
-  const result = {};
-  keys.forEach(k => {
-    let totalScore = 0, totalN = 0, totalTop2 = 0, totalCount = 0;
-    let dist = {};
-    Object.keys(DATA.feature_ratings_by_age).forEach(age => {
-      const feat = DATA.feature_ratings_by_age[age][k];
-      if (feat && feat.avg_score) {
-        totalScore += feat.avg_score * feat.n;
-        totalN += feat.n;
-        totalTop2 += feat.top2;
-        totalCount += feat.n;
-        Object.keys(feat.distribution).forEach(r => {
-          dist[r] = (dist[r] || 0) + feat.distribution[r];
+    // Check if colMap is grow (has Indoor-Traditional etc)
+    const firstKey = Object.keys(colMap)[0];
+    if (firstKey === 'Indoor-Traditional' || colMap[firstKey] === 17) {
+      Object.keys(colMap).forEach(k => {
+        let total = 0;
+        Object.keys(DATA.growing_by_age).forEach(age => {
+          if (DATA.growing_by_age[age][k] !== undefined) total += DATA.growing_by_age[age][k];
         });
-      }
-    });
-    result[k] = {
-      avg_score: totalN > 0 ? totalScore / totalN : 0,
-      top2_pct: totalCount > 0 ? (totalTop2 / totalCount * 100) : 0,
-      top2: totalTop2,
-      n: totalN,
-      distribution: dist
-    };
-  });
-  return result;
-}
+        result[k] = total;
+      });
+    } else if (firstKey === 'LeafyGreens' || colMap[firstKey] === 25) {
+      Object.keys(colMap).forEach(k => {
+        let total = 0;
+        Object.keys(DATA.grow_items_by_age).forEach(age => {
+          if (DATA.grow_items_by_age[age][k] !== undefined) total += DATA.grow_items_by_age[age][k];
+        });
+        result[k] = total;
+      });
+    } else if (L.asp[firstKey]) {
+      Object.keys(colMap).forEach(k => {
+        let total = 0;
+        Object.keys(DATA.aspects_by_age).forEach(age => {
+          if (DATA.aspects_by_age[age][k] !== undefined) total += DATA.aspects_by_age[age][k];
+        });
+        result[k] = total;
+      });
+    }
+    return result;
+  }
 
-function getPriceData(d) {
-  const f = d._activeFilter;
-  if (f === 'US_35_55') return DATA.target_vs_rest.target;
-  if (f && f !== 'all') return d.price_by_age[f] || {};
-  // Aggregate
-  let goodPrices = [], highPrices = [], totalN = 0;
-  Object.keys(DATA.price_by_age).forEach(age => {
-    const p = DATA.price_by_age[age];
-    totalN += p._n || 0;
-  });
-  // Recalculate from original data - use weighted average
-  return { good_deal: { mean: 317, median: 250 }, high_price: { mean: 463, median: 350 }, _n: totalN };
-}
+  // For US_35_55
+  if (filter === 'US_35_55') {
+    const firstKey = Object.keys(colMap)[0];
+    if (L.asp[firstKey]) return DATA.target_vs_rest.target.aspects || {};
+    if (firstKey === 'Indoor-Traditional') return DATA.target_vs_rest.target.growing || {};
+    if (firstKey === 'LeafyGreens') return DATA.target_vs_rest.target.grow_items || {};
+    return {};
+  }
 
-function getGiftData(d) {
-  const f = d._activeFilter;
-  if (f === 'US_35_55') return DATA.target_vs_rest.target.gift;
-  if (f && f !== 'all') return d.gift_by_age[f] || {};
+  // For age groups - use pre-computed data
+  let src;
+  const firstKey = Object.keys(colMap)[0];
+  if (firstKey === 'Indoor-Traditional') src = DATA.growing_by_age[filter];
+  else if (firstKey === 'LeafyGreens') src = DATA.grow_items_by_age[filter];
+  else if (L.asp[firstKey]) src = DATA.aspects_by_age[filter];
+  else src = {};
+
+  if (!src) return {};
   const result = {};
-  Object.keys(DATA.gift_by_age).forEach(age => {
-    Object.keys(DATA.gift_by_age[age]).forEach(k => {
-      result[k] = (result[k] || 0) + DATA.gift_by_age[age][k];
-    });
+  Object.keys(colMap).forEach(k => {
+    result[k] = src[k] || 0;
   });
   return result;
 }
 
-function getBundleData(d) {
-  const f = d._activeFilter;
-  if (f === 'US_35_55') return DATA.bundle_by_age['35-44'] || {};
-  if (f && f !== 'all') return d.bundle_by_age[f] || {};
-  const result = {};
-  Object.keys(DATA.bundle_by_age).forEach(age => {
-    Object.keys(DATA.bundle_by_age[age]).forEach(k => {
-      result[k] = (result[k] || 0) + DATA.bundle_by_age[age][k];
+function getFeatures(filter) {
+  if (filter === 'all') {
+    const result = {};
+    FEAT_KEYS.forEach(k => {
+      let totalScore = 0, totalN = 0, totalTop2 = 0;
+      let dist = {};
+      Object.keys(DATA.feature_ratings_by_age).forEach(age => {
+        const f = DATA.feature_ratings_by_age[age][k];
+        if (f && f.n) {
+          totalScore += f.avg_score * f.n;
+          totalN += f.n;
+          totalTop2 += f.top2 || 0;
+          Object.keys(f.distribution || {}).forEach(r => { dist[r] = (dist[r] || 0) + (f.distribution[r] || 0); });
+        }
+      });
+      result[k] = { avg_score: totalN > 0 ? (totalScore/totalN) : 0, top2_pct: totalN > 0 ? (totalTop2/totalN*100) : 0, n: totalN, top2: totalTop2, distribution: dist };
     });
-  });
-  return result;
+    return result;
+  }
+
+  if (filter === 'US_35_55') {
+    return DATA.target_vs_rest.target.features || {};
+  }
+
+  return DATA.feature_ratings_by_age[filter] || {};
+}
+
+function getGift(filter) {
+  if (filter === 'all') {
+    const r = {};
+    Object.keys(DATA.gift_by_age).forEach(age => {
+      Object.keys(DATA.gift_by_age[age]).forEach(k => { r[k] = (r[k] || 0) + DATA.gift_by_age[age][k]; });
+    });
+    return r;
+  }
+  if (filter === 'US_35_55') return DATA.target_vs_rest.target.gift || {};
+  return DATA.gift_by_age[filter] || {};
+}
+
+function getBundle(filter) {
+  if (filter === 'all') {
+    const r = {};
+    Object.keys(DATA.bundle_by_age).forEach(age => {
+      Object.keys(DATA.bundle_by_age[age]).forEach(k => { r[k] = (r[k] || 0) + DATA.bundle_by_age[age][k]; });
+    });
+    return r;
+  }
+  if (filter === 'US_35_55') {
+    const d1 = DATA.bundle_by_age['35-44'] || {};
+    const d2 = DATA.bundle_by_age['45-54'] || {};
+    const r = {};
+    [...new Set([...Object.keys(d1), ...Object.keys(d2)])].forEach(k => { r[k] = (d1[k]||0)+(d2[k]||0); });
+    return r;
+  }
+  return DATA.bundle_by_age[filter] || {};
+}
+
+function getVideo(filter) {
+  if (filter === 'all') {
+    const r = {};
+    Object.keys(DATA.video_by_age).forEach(age => {
+      Object.keys(DATA.video_by_age[age]).forEach(k => { r[k] = (r[k] || 0) + DATA.video_by_age[age][k]; });
+    });
+    return r;
+  }
+  if (filter === 'US_35_55') {
+    const d1 = DATA.video_by_age['35-44'] || {};
+    const d2 = DATA.video_by_age['45-54'] || {};
+    const r = {};
+    [...new Set([...Object.keys(d1), ...Object.keys(d2)])].forEach(k => { r[k] = (d1[k]||0)+(d2[k]||0); });
+    return r;
+  }
+  return DATA.video_by_age[filter] || {};
+}
+
+function getCrowd(filter) {
+  if (filter === 'all') {
+    const r = {};
+    Object.keys(DATA.crowdfunding_by_age).forEach(age => {
+      Object.keys(DATA.crowdfunding_by_age[age]).forEach(k => { r[k] = (r[k] || 0) + DATA.crowdfunding_by_age[age][k]; });
+    });
+    return r;
+  }
+  if (filter === 'US_35_55') {
+    const d1 = DATA.crowdfunding_by_age['35-44'] || {};
+    const d2 = DATA.crowdfunding_by_age['45-54'] || {};
+    const r = {};
+    [...new Set([...Object.keys(d1), ...Object.keys(d2)])].forEach(k => { r[k] = (d1[k]||0)+(d2[k]||0); });
+    return r;
+  }
+  return DATA.crowdfunding_by_age[filter] || {};
+}
+
+// ====== RENDER BAR TABLE ======
+function renderBar(el, data, labels, total) {
+  const entries = Object.entries(data).filter(([k]) => !k.startsWith('_')).map(([k,v]) => {
+    const ln = labels[k] || k;
+    const p = total > 0 ? (v/total*100) : 0;
+    return { k, label: ln, val: v, pct: p };
+  }).sort((a,b) => b.pct - a.pct);
+  const maxPct = entries.length > 0 ? Math.max(entries[0].pct, 1) : 100;
+  el.innerHTML = '<div class="bar-table">' + entries.map((e,i) =>
+    '<div class="bar-row">' +
+      '<div class="bar-lbl' + (e.label.length > 10 ? ' wide' : '') + '">' + e.label + '</div>' +
+      '<div class="bar-bg"><div class="bar-fill" style="width:' + (e.pct/maxPct*100) + '%;background:' + COLORS[i % COLORS.length] + '"></div></div>' +
+      '<div class="bar-pct">' + e.pct.toFixed(1) + '%</div>' +
+      '<div class="bar-n">' + e.val + '</div>' +
+    '</div>'
+  ).join('') + '</div>';
+}
+
+// ====== DONUT (CSS) ======
+function renderDonut(el, data) {
+  const entries = Object.entries(data);
+  const total = entries.reduce((s, [,v]) => s+v, 0);
+  if (total === 0) { el.innerHTML = '<div style="text-align:center;color:var(--text3);padding:12px">暂无数据</div>'; return; }
+  // Sort by value desc
+  entries.sort((a,b) => b[1] - a[1]);
+  el.innerHTML = '<div class="donut">' + entries.map(([k,v], i) => {
+    const p = (v/total*100).toFixed(0);
+    const label = k.length > 25 ? k.slice(0, 22) + '...' : k;
+    return '<div class="donut-item"><span class="donut-dot" style="background:' + COLORS[i % COLORS.length] + '"></span>' + label + ' <strong>' + p + '%</strong> (' + v + ')</div>';
+  }).join('') + '</div>';
+}
+
+// ====== FEATURE TABLE ======
+function renderFeatTable(el, feat) {
+  const sorted = Object.entries(feat).map(([k,v]) => ({ key: k, ...v })).sort((a,b) => b.top2_pct - a.top2_pct);
+  el.innerHTML = '<table class="tbl"><thead><tr>' +
+    '<th style="width:34%">功能</th>' +
+    '<th style="width:10%;text-align:center">Top2%</th>' +
+    '<th style="width:30%">评分分布</th>' +
+    '<th style="width:8%;text-align:center">均分</th>' +
+    '<th style="width:6%;text-align:center">n</th></tr></thead><tbody>' +
+    sorted.map(f => {
+      const d = f.distribution || {};
+      const td = Object.values(d).reduce((s, v) => s+v, 0) || 1;
+      const w1 = ((d['Least important']||0)/td*100).toFixed(0);
+      const w2 = ((d['Somewhat important']||0)/td*100).toFixed(0);
+      const w3 = ((d['Important']||0)/td*100).toFixed(0);
+      const w4 = ((d['Very important']||0)/td*100).toFixed(0);
+      const w5 = ((d['Most important']||0)/td*100).toFixed(0);
+      return '<tr>' +
+        '<td style="font-size:12px">' + (L.feat[f.key] || f.key) + '</td>' +
+        '<td style="text-align:center;font-weight:700;color:' + COLORS[sorted.indexOf(f) % COLORS.length] + '">' + f.top2_pct.toFixed(1) + '%</td>' +
+        '<td><div style="display:flex;height:8px;border-radius:4px;overflow:hidden;background:#eef0f4;min-width:80px">' +
+          '<div style="width:' + w1 + '%;background:#d1d5db"></div>' +
+          '<div style="width:' + w2 + '%;background:#9ca3af"></div>' +
+          '<div style="width:' + w3 + '%;background:#60a5fa"></div>' +
+          '<div style="width:' + w4 + '%;background:#3b82f6"></div>' +
+          '<div style="width:' + w5 + '%;background:#1d4ed8"></div>' +
+        '</div></td>' +
+        '<td style="text-align:center;font-weight:600">' + f.avg_score.toFixed(1) + '</td>' +
+        '<td style="text-align:center;color:var(--text3)">' + f.n + '</td></tr>';
+    }).join('') + '</tbody></table>';
+}
+
+// ====== VERTICAL BAR LIST ======
+function renderVertBar(el, data) {
+  const entries = Object.entries(data);
+  const total = entries.reduce((s, [,v]) => s+v, 0);
+  if (total === 0) { el.innerHTML = '<div style="color:var(--text3);padding:8px;text-align:center">暂无数据</div>'; return; }
+  const maxV = Math.max(...entries.map(([,v]) => v), 1);
+  entries.sort((a,b) => b[1] - a[1]);
+  el.innerHTML = '<div class="bar-table">' + entries.map(([k,v], i) => {
+    const p = (v/total*100).toFixed(0);
+    return '<div class="bar-row">' +
+      '<div class="bar-lbl" style="width:130px;font-size:11px">' + (k.length > 22 ? k.slice(0,20)+'...' : k) + '</div>' +
+      '<div class="bar-bg" style="height:18px"><div class="bar-fill" style="width:' + (v/maxV*100) + '%;background:' + COLORS[i%COLORS.length] + '"></div></div>' +
+      '<div class="bar-pct" style="font-size:11px">' + p + '%</div>' +
+      '<div class="bar-n" style="font-size:10px">' + v + '</div></div>';
+  }).join('') + '</div>';
 }
 
 // ====== RENDER ALL ======
-function renderAll(filter) {
-  currentFilter = filter;
-  const d = getData(filter);
-  const total = d._activeFilter === 'US_35_55' ? 103 : d.total;
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.filter-btn').forEach(b => { if (b.textContent.includes(f) || (f === 'all' && !b.textContent.includes('35') && !b.textContent.includes('55'))) {} });
+  // Just find the right button
+  document.querySelectorAll('.filter-btn').forEach(b => {
+    if (f === 'all' && b.textContent.includes('全部')) b.classList.add('active');
+    else if (f === 'US_35_55' && b.textContent.includes('美国')) b.classList.add('active');
+    else if (b.textContent.includes(f)) b.classList.add('active');
+  });
+  renderAll();
+}
 
-  // Target banner
-  document.getElementById('targetBanner').style.display = filter === 'US_35_55' ? 'block' : 'none';
+function renderAll() {
+  const f = currentFilter;
+  const n = getN(f);
+  const isTarget = f === 'US_35_55';
 
-  // Overview Stats
-  renderOverview(filter);
+  // Banner
+  document.getElementById('targetBanner').style.display = isTarget ? 'block' : 'none';
 
-  // Compare (only in US_35_55 filter)
-  renderCompare(filter);
+  // Overview
+  renderOverview(f, n);
 
-  // Growing methods
-  renderBarChart('growingChart', getGrowingData(d), GROW_LABELS_CN, total, '种植方式分布');
+  // Conclusions
+  renderConclusions(f, n);
+
+  // Growing
+  renderBar(document.getElementById('growingContent'), getCounts(f, COL_GROW), L.grow, n);
 
   // Grow items
-  renderBarChart('growItemsChart', getGrowItemsData(d), GROW_ITEMS_CN, total, '想种的品类');
+  renderBar(document.getElementById('growContent'), getCounts(f, COL_ITEM), L.item, n);
 
   // Aspects
-  renderBarChart('aspectsChart', getAspectsData(d), ASPECT_CN, total, '购买决策因子');
+  renderBar(document.getElementById('aspectsContent'), getCounts(f, COL_ASP), L.asp, n);
 
   // Features
-  renderFeatures(d);
+  renderFeatTable(document.getElementById('featuresContent'), getFeatures(f));
 
   // Price
-  renderPrice(d, filter);
+  renderPrice(f, n);
 
-  // Gift & Bundle
-  renderGift(d);
-  renderBundle(d);
+  // Gift, Bundle, Video, Crowd
+  renderDonut(document.getElementById('giftContent'), getGift(f));
+  renderDonut(document.getElementById('bundleContent'), getBundle(f));
+  renderVertBar(document.getElementById('videoContent'), getVideo(f));
+  renderVertBar(document.getElementById('crowdContent'), getCrowd(f));
 
-  // Video & Crowdfunding
-  renderVideoList(d);
-  renderCrowdList(d);
+  // Compare
+  renderCompare(f);
 
   // Open-ended
-  renderOpenEnded(d);
+  renderOpenEnded(f);
 }
 
-function renderOverview(filter) {
-  const d = getData(filter);
-  const f = d._activeFilter;
-  let genderHtml = '';
-  let ageHtml = '';
-  let countryHtml = '';
+function renderOverview(f, n) {
+  let genderStr = '', ageStr = '', countryStr = '', totalStr = n + ' 份';
 
-  if (f === 'US_35_55') {
-    // Use target gender
-    const g = DATA.target_gender;
-    genderHtml = Object.entries(g).map(([k,v]) => `<span style="font-size:12px;color:#6b7280">${k} ${v}</span>`).join(' ');
-    ageHtml = '35-55岁';
-    countryHtml = '美国 🇺🇸';
-  } else if (f && f !== 'all') {
-    const g = DATA.gender_by_age[f] || {};
-    genderHtml = Object.entries(g).map(([k,v]) => `<span style="font-size:12px;color:#6b7280">${k} ${v}</span>`).join(' ');
-    ageHtml = AGE_LABELS[f];
-    const c = DATA.country_by_age[f] || {};
-    countryHtml = Object.entries(c).slice(0,3).map(([k,v]) => `${k} ${v}`).join(' · ');
+  if (f === 'all') {
+    genderStr = '女性 401 · 男性 319 · 其他 11';
+    ageStr = '65+ 30.5% · 55-64 22.6% · 45-54 20.1% · 35-44 17.5%';
+    countryStr = '美国 39.8% · 英国 18.6% · 加拿大 13.5% · 澳大利亚 12.2%';
+  } else if (f === 'US_35_55') {
+    const gData = DATA.target_gender || {};
+    genderStr = Object.entries(gData).map(([k,v]) => k + ' ' + v).join(' · ');
+    ageStr = '35-55 岁 (美国)';
+    countryStr = '美国 🇺🇸';
   } else {
-    genderHtml = '女性 401 · 男性 319 · 不愿透露 10';
-    ageHtml = '65+ 30.5% · 55-64 22.6% · 45-54 20.1% · 35-44 17.5%';
-    countryHtml = '美国 39.8% · 英国 18.6% · 加拿大 13.5% · 澳大利亚 12.2%';
+    const gb = DATA.gender_by_age[f] || {};
+    genderStr = Object.entries(gb).map(([k,v]) => k + ' ' + v).join(' · ');
+    ageStr = AGE_L[f] || f + '岁';
+    const cb = DATA.country_by_age[f] || {};
+    countryStr = Object.entries(cb).slice(0,3).map(([k,v]) => k + ' ' + v).join(' · ');
   }
 
-  const totalN = f === 'US_35_55' ? 103 : (f && f !== 'all' ? (DATA.age_distribution[f] || 0) : 731);
-
-  document.getElementById('overviewStats').innerHTML = `
-    <div class="stat-card">
-      <div class="num">${totalN}</div>
-      <div class="label">有效问卷</div>
-    </div>
-    <div class="stat-card">
-      <div class="num">${genderHtml}</div>
-      <div class="label">性别分布</div>
-    </div>
-    <div class="stat-card">
-      <div class="num" style="font-size:14px;color:var(--text-secondary)">${ageHtml}</div>
-      <div class="label">年龄分布</div>
-    </div>
-    <div class="stat-card">
-      <div class="num" style="font-size:14px;color:var(--text-secondary)">${countryHtml}</div>
-      <div class="label">国家分布 Top 4</div>
-    </div>
-  `;
+  document.getElementById('overviewSub').textContent = '受访者 ' + totalStr + ' · 按年龄筛选查看不同群体';
+  document.getElementById('overviewStats').innerHTML =
+    '<div class="stat-c"><div class="stat-num">' + n + '</div><div class="stat-lbl">有效问卷</div></div>' +
+    '<div class="stat-c"><div class="stat-num" style="font-size:14px;color:var(--text)">' + genderStr + '</div><div class="stat-lbl">性别分布</div></div>' +
+    '<div class="stat-c"><div class="stat-num" style="font-size:14px;color:var(--text)">' + ageStr + '</div><div class="stat-lbl">年龄分布</div></div>' +
+    '<div class="stat-c"><div class="stat-num" style="font-size:14px;color:var(--text)">' + countryStr + '</div><div class="stat-lbl">国家分布 Top</div></div>';
 }
 
-function renderCompare(filter) {
-  const el = document.getElementById('compareCharts');
-  if (filter !== 'US_35_55') {
-    el.innerHTML = '<div class="insight">💡 点击「🎯 美国 35-55岁」按钮查看目标用户与全量数据的逐项对比</div>';
+function renderConclusions(f, n) {
+  const container = document.getElementById('conclusionsContainer');
+  const isTarget = f === 'US_35_55';
+  const isAll = f === 'all';
+
+  let conclusions = [];
+
+  if (isAll || isTarget) {
+    const prefix = isTarget ? '🎯 目标用户（美国35-55岁）' : '📊 全量数据';
+    const goodPrice = isTarget ? '$425' : '$317';
+    const highPrice = isTarget ? '$580' : '$463';
+
+    conclusions.push({
+      title: prefix + ' · 核心发现',
+      items: [
+        '好价均值 <strong>$' + goodPrice.replace('$','') + '</strong>，中位数 $' + (isTarget ? '350' : '250') + '。若定价 $699，仅约 6% 受访者认为算好价',
+        'Top 3 功能：<strong>自动管理</strong>（76% Top2）= <strong>生长灯</strong>（76%）> <strong>EC/TDS 营养传感</strong>（74%）',
+        '<strong>最弱卖点：4K AI 相机</strong> Top2 仅 13%，38.5% 选"最不重要"——营销应弱化 AI 噱头，强化"全自动+健康收成"',
+        '近 <strong>30% 受访者愿意为全套高配方案付更高价</strong>，建议设多个档位',
+        '受访者中 <strong>43.6% 为男性</strong>，54.9% 为女性——男女比例接近，产品设计和营销需平衡两性偏好'
+      ]
+    });
+
+    conclusions.push({
+      title: prefix + ' · 定价建议',
+      items: [
+        '<strong>Kickstarter 早鸟价：$399-499</strong>，常规零售价：$699-799',
+        isTarget ? '目标用户好价均值 $425，建议早鸟 $449、常规 $699 两档，增加 3 期免息分期' : '设置 Senior 折扣（65+ 好价均值仅 $255），以及分期付款选项',
+        '约 30.5% 愿意为全套 Bundle 付更高价 → 设基础版 + 豪华版两档'
+      ]
+    });
+
+    conclusions.push({
+      title: prefix + ' · 受众洞察',
+      items: [
+        isTarget ? '核心目标人群（美国35-55岁）：103人，好价均值 $425，购买力强' : '最大群体为退休人员（33.8%）+ 55岁以上（53.1%），产品要照顾老年用户',
+        '当前不种植物占 20.2% → Growbot 有很强的新手吸引力',
+        '<strong>63% 从未参与过众筹</strong> → 需大量教育内容、信任建立、Kickstarter 新手引导',
+        '最受欢迎视频类型：使用指南（31.2%）> 生长成果展示（24.9%）> 家居搭配（16%）'
+      ]
+    });
+
+    conclusions.push({
+      title: prefix + ' · 产品改进方向',
+      items: [
+        '<strong>用户最想要的附加功能</strong>：自动 pH 调节、无强制订阅、离线运行、大水箱、防泄漏设计',
+        '开放反馈中多次提及竞品痛点：WiFi 不稳定、相机质量差、客服缺失',
+        '种子包（26.8%）、温湿度防护罩（26.1%）、营养液（25.3%）赠品偏好三分天下'
+      ]
+    });
+  }
+
+  // Age-specific conclusions
+  if (!isAll && !isTarget) {
+    const ageLabel = AGE_L[f] || f + '岁';
+    conclusions = [];
+    const aspects = getCounts(f, COL_ASP);
+    const aspectsSorted = Object.entries(aspects).sort((a,b) => (b[1]/n*100) - (a[1]/n*100));
+    const topAsp = aspectsSorted.slice(0, 3).map(([k]) => L.asp[k]);
+    const priceData = DATA.price_by_age[f];
+    const goodPrice = priceData ? priceData.good_deal.mean : '?';
+    const featData = getFeatures(f);
+    const featSorted = Object.entries(featData).sort((a,b) => b[1].top2_pct - a[1].top2_pct);
+    const topFeat = featSorted.slice(0, 3).map(([k]) => L.feat[k]);
+
+    conclusions.push({
+      title: ageLabel + ' 群体特征',
+      items: [
+        '<strong>Top 3 购买决策因子：</strong>' + topAsp.join('、'),
+        '<strong>Top 3 功能偏好：</strong>' + topFeat.join('、'),
+        '好价均值 <strong>$' + goodPrice + '</strong>',
+        '总人数 ' + n + ' 人，占全量 ' + (n/731*100).toFixed(1) + '%'
+      ]
+    });
+  }
+
+  container.innerHTML = conclusions.map(c =>
+    '<div class="conclusion-card">' +
+      '<h4>' + c.title + '</h4>' +
+      (c.items ? '<ul>' + c.items.map(i => '<li>' + i + '</li>').join('') + '</ul>' : '') +
+      (c.text ? '<p>' + c.text + '</p>' : '') +
+    '</div>'
+  ).join('');
+}
+
+function renderPrice(f, n) {
+  let goodMean = 317, goodMedian = 250, highMean = 463, highMedian = 350;
+  let priceNote = '';
+  if (f === 'US_35_55') {
+    goodMean = DATA.target_vs_rest.target.good_deal.mean || 425;
+    goodMedian = DATA.target_vs_rest.target.good_deal.median || 350;
+    highMean = DATA.target_vs_rest.rest.good_deal.mean || 463;
+    priceNote = '🎯 目标用户好价均值 <strong>$' + goodMean + '</strong>，比全体均值 $317 高出 34%。说明美国 35-55 岁人群购买力更强。';
+  } else if (f !== 'all') {
+    const pd = DATA.price_by_age[f];
+    if (pd) {
+      goodMean = pd.good_deal.mean || goodMean;
+      goodMedian = pd.good_deal.median || goodMedian;
+      highMean = pd.high_price.mean || highMean;
+    }
+    priceNote = AGE_L[f] + ' 群体好价均值 $' + goodMean + '。';
+  } else {
+    priceNote = '好价均值 <strong>$' + goodMean + '</strong>，$200 以下占 35%，$500 以上占 18%。若定价 $699，仅约 6% 认为算好价。';
+  }
+
+  document.getElementById('priceContent').innerHTML =
+    '<div class="chart-row">' +
+      '<div class="chart-c"><h4>💰 "好价"均值</h4>' +
+        '<div style="text-align:center;padding:16px 0"><div style="font-size:40px;font-weight:700;color:var(--green)">$' + goodMean + '</div>' +
+        '<div style="font-size:12px;color:var(--text2);margin-top:4px">中位数 $' + goodMedian + '</div></div></div>' +
+      '<div class="chart-c"><h4>📈 "仍愿考虑"均值</h4>' +
+        '<div style="text-align:center;padding:16px 0"><div style="font-size:40px;font-weight:700;color:var(--orange)">$' + highMean + '</div>' +
+        '<div style="font-size:12px;color:var(--text2);margin-top:4px">中位数 $' + highMedian + '</div></div></div>' +
+    '</div>' +
+    '<div class="insight">' + priceNote + '<br><br><strong>定价建议：</strong>Kickstarter 早鸟 $399-499，常规零售 $699-799，设分期付款选项。</div>';
+}
+
+function renderCompare(f) {
+  const el = document.getElementById('compareContent');
+  if (f !== 'US_35_55') {
+    el.innerHTML = '<div class="insight" style="background:#f0f4f8">💡 点击上方 <strong>🎯 美国 35-55 岁</strong> 按钮查看目标用户与全量数据的逐项对比</div>';
     return;
   }
 
@@ -913,318 +806,97 @@ function renderCompare(filter) {
   const tn = target.n;
   const rn = rest.n;
 
-  // Aspects comparison
-  const aspects = Object.keys(ASPECT_CN);
-  let rows = aspects.map(k => {
-    const tp = target.aspects[k] || 0;
-    const rp = rest.aspects[k] || 0;
-    const tpct = (tp/tn*100).toFixed(1);
-    const rpct = (rp/rn*100).toFixed(1);
-    const diff = (tp/tn - rp/rn) * 100;
-    const diffStr = diff > 0 ? `+${diff.toFixed(1)}%` : diff.toFixed(1) + '%';
-    const diffColor = diff > 0 ? '#1a8a4a' : '#c96a0e';
-    return `<div class="compare-cell"><span>${ASPECT_CN[k]}</span><span style="font-size:12px;font-weight:600;color:${diffColor}">目标 ${tpct}% · 其他 ${rpct}% (${diffStr})</span></div>`;
+  // Aspects
+  const rows = ASPECT_KEYS.map(k => {
+    const tv = (target.aspects[k]||0)/tn*100;
+    const rv = (rest.aspects[k]||0)/rn*100;
+    const maxV = Math.max(tv, rv, 1);
+    return '<div class="comp-cell t">' +
+      '<span>' + L.asp[k] + '</span>' +
+      '<span style="display:flex;align-items:center;gap:4px;font-size:11px">' +
+        '<span style="color:var(--gold);font-weight:600">' + tv.toFixed(1) + '%</span>' +
+        '<span class="mini-bar"><span class="mini-fill" style="width:' + (tv/maxV*100) + '%;background:var(--gold)"></span></span>' +
+        '|' +
+        '<span class="mini-bar"><span class="mini-fill" style="width:' + (rv/maxV*100) + '%;background:var(--blue)"></span></span>' +
+        '<span style="color:var(--text2)">' + rv.toFixed(1) + '%</span>' +
+      '</span></div>';
   }).join('');
 
-  el.innerHTML = `
-    <div class="insight" style="background:#fef3c7;border-color:var(--accent-gold);margin-bottom:20px;">
-      <strong>🎯 目标用户（美国 35-55岁，n=${tn}）</strong> 对比 <strong>其他受访者（n=${rn}）</strong><br>
-      目标用户在以下维度明显高于其他人群：<strong>App连接</strong> (+12%)、<strong>现代设计</strong> (+9%)、<strong>智能种植指导</strong> (+9%)、<strong>实时监测</strong> (+10%)。<br>
-      略低于其他人群：<strong>性价比</strong> (-5%)，说明该群体对价格敏感度相对较低，更看重功能。
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-      <div class="chart-card">
-        <h4>购买决策因子对比</h4>
-        <div style="max-height:500px;overflow-y:auto;">${rows}</div>
-      </div>
-      <div class="chart-card">
-        <h4>功能评分对比</h4>
-        <div style="max-height:500px;overflow-y:auto;">
-          ${Object.keys(FEATURE_CN).map(k => {
-            const tf = target.features[k] || {};
-            const rf = rest.features[k] || {};
-            const tpct = tf.top2_pct || 0;
-            const rpct = rf.top2_pct || 0;
-            const diff = tpct - rpct;
-            const diffStr = diff > 0 ? `+${diff.toFixed(0)}%` : diff.toFixed(0) + '%';
-            const diffColor = diff > 0 ? '#1a8a4a' : '#c96a0e';
-            return `<div class="compare-cell" style="border-bottom:1px solid var(--border);padding:6px 8px;"><span style="font-size:12px">${FEATURE_CN[k]}</span><span style="font-size:11px;font-weight:600;color:${diffColor}">目标 ${tpct}% · 其他 ${rpct}% (${diffStr})</span></div>`;
-          }).join('')}
-        </div>
-      </div>
-    </div>
-  `;
+  // Feature comparison
+  const featRows = FEAT_KEYS.map(k => {
+    const tf = target.features[k] || {};
+    const rf = rest.features[k] || {};
+    const tv = tf.top2_pct || 0;
+    const rv = rf.top2_pct || 0;
+    const diff = (tv - rv);
+    const sign = diff > 0 ? '▲' : '▼';
+    return '<div style="display:flex;justify-content:space-between;padding:4px 8px;font-size:11px;border-bottom:1px solid var(--border)">' +
+      '<span>' + L.feat[k] + '</span>' +
+      '<span><span style="color:var(--gold);font-weight:600">' + tv.toFixed(0) + '%</span> vs <span style="color:var(--text2)">' + rv.toFixed(0) + '%</span> <span style="color:' + (diff > 0 ? 'var(--green)' : 'var(--orange)') + '">' + sign + Math.abs(diff).toFixed(0) + '%</span></span></div>';
+  }).join('');
+
+  el.innerHTML =
+    '<div class="insight gold" style="margin-bottom:16px">' +
+      '<strong>🎯 目标用户（美国 35-55 岁，n=' + tn + '）</strong> vs <strong>其他受访者（n=' + rn + '）</strong><br>' +
+      '目标用户在以下维度明显高于其他人群：<strong>App 连接</strong>（+12%）、<strong>现代设计</strong>（+9%）、<strong>智能种植指导</strong>（+9%）、<strong>实时监测</strong>（+10%）<br>' +
+      '略低于：<strong>性价比</strong>（-5%）→ 该群体对价格敏感度相对较低，更看重功能。' +
+    '</div>' +
+    '<div class="chart-row">' +
+      '<div class="chart-c"><h4>购买决策因子对比</h4><div class="scroll-box"><div style="display:flex;flex-direction:column">' + rows + '</div></div></div>' +
+      '<div class="chart-c"><h4>功能评分对比 (Top2%)</h4><div class="scroll-box">' + featRows + '</div></div>' +
+    '</div>';
 }
 
-function renderBarChart(elId, data, labelsCn, total, title) {
-  const el = document.getElementById(elId);
-  let bars = Object.entries(data)
-    .filter(([k]) => k !== '_n' && k !== 'total' && !k.startsWith('_'))
-    .map(([k,v]) => {
-      if (typeof v !== 'number') return null;
-      const pct = total > 0 ? (v / total * 100) : 0;
-      const barWidth = Math.max(pct * 0.8, 4);
-      return { key: k, label: labelsCn[k] || k, value: v, pct: pct, barWidth: barWidth };
-    })
-    .filter(Boolean)
-    .sort((a,b) => b.pct - a.pct);
+function renderOpenEnded(f) {
+  const key = f === 'US_35_55' ? 'US_35_55' : (f !== 'all' ? f : null);
+  let features = [], comments = [];
 
-  const maxPct = bars.length > 0 ? bars[0].pct : 100;
-
-  el.innerHTML = `<div class="bar-table">${bars.map((b,i) => `
-    <div class="bar-row">
-      <div class="label">${b.label}</div>
-      <div class="bar-bg">
-        <div class="bar-fill" style="width:${b.pct/maxPct*100}%;background:${COLOR_CYCLE[i%COLOR_CYCLE.length]}"></div>
-      </div>
-      <div class="pct">${b.pct.toFixed(1)}%</div>
-      <div class="count">${b.value}</div>
-    </div>
-  `).join('')}</div>`;
-}
-
-function renderFeatures(d) {
-  const el = document.getElementById('featuresChart');
-  const feat = getFeaturesData(d);
-  const sorted = Object.entries(feat)
-    .map(([k,v]) => ({ key: k, ...v }))
-    .sort((a,b) => b.top2_pct - a.top2_pct);
-
-  el.innerHTML = `<table class="feature-table">
-    <thead><tr>
-      <th style="width:35%">功能</th>
-      <th style="width:12%;text-align:center">Top-2%</th>
-      <th style="width:25%">评分分布</th>
-      <th style="width:10%;text-align:center">均分</th>
-      <th style="width:8%;text-align:center">n</th>
-    </tr></thead>
-    <tbody>${sorted.map(f => {
-      const color = FEATURE_COLORS[f.key] || '#1a6bb0';
-      const dist = f.distribution || {};
-      const totalDist = Object.values(dist).reduce((s, v) => s+v, 0) || 1;
-      const least = (dist['Least important'] || 0) / totalDist * 100;
-      const some = (dist['Somewhat important'] || 0) / totalDist * 100;
-      const imp = (dist['Important'] || 0) / totalDist * 100;
-      const very = (dist['Very important'] || 0) / totalDist * 100;
-      const most = (dist['Most important'] || 0) / totalDist * 100;
-      return `<tr>
-        <td style="font-size:12px">${FEATURE_CN[f.key]}</td>
-        <td style="text-align:center;font-weight:700;color:${color}">${f.top2_pct.toFixed(1)}%</td>
-        <td><div style="display:flex;height:8px;border-radius:4px;overflow:hidden;background:#eef0f4;min-width:100px">
-          <div style="width:${least}%;background:#d1d5db" title="最不重要 ${least.toFixed(0)}%"></div>
-          <div style="width:${some}%;background:#9ca3af" title="不太重要 ${some.toFixed(0)}%"></div>
-          <div style="width:${imp}%;background:#60a5fa" title="重要 ${imp.toFixed(0)}%"></div>
-          <div style="width:${very}%;background:#3b82f6" title="非常重要 ${very.toFixed(0)}%"></div>
-          <div style="width:${most}%;background:#1d4ed8" title="最重要 ${most.toFixed(0)}%"></div>
-        </div></td>
-        <td style="text-align:center;font-weight:600">${f.avg_score.toFixed(1)}</td>
-        <td style="text-align:center;color:var(--text-secondary)">${f.n}</td>
-      </tr>`;
-    }).join('')}</tbody>
-  </table>`;
-}
-
-function renderPrice(d, filter) {
-  const el = document.getElementById('priceCharts');
-  const elStats = document.getElementById('priceStats');
-
-  let goodDeal, highPrice, n;
-  if (filter === 'US_35_55') {
-    goodDeal = DATA.target_vs_rest.target.good_deal || { mean: 425, median: 350 };
-    highPrice = DATA.target_vs_rest.rest.good_deal || { mean: 300, median: 250 };
-    n = 103;
-  } else {
-    goodDeal = { mean: 317, median: 250 };
-    highPrice = { mean: 463, median: 350 };
-    n = 731;
-  }
-
-  el.innerHTML = `
-    <div class="chart-card">
-      <h4>💰 "好价"均值</h4>
-      <div style="text-align:center;padding:20px 0;">
-        <div style="font-size:42px;font-weight:700;color:var(--accent-green)">$${goodDeal.mean}</div>
-        <div style="font-size:13px;color:var(--text-secondary);margin-top:4px">中位数 $${goodDeal.median} · n=${goodDeal.n || n}</div>
-        <div class="insight" style="margin-top:12px;text-align:left;">
-          ${filter === 'US_35_55'
-            ? `<strong>🎯 目标用户好价均值 $${goodDeal.mean}</strong>，比全体均值 $317 高出34%。说明美国35-55岁人群愿意为AI Growbot支付更高价格。`
-            : `好价均值<strong>$${goodDeal.mean}</strong>，$200以下占35%，$500以上占18%。若定价$699，仅约6%认为算好价。`}
-        </div>
-      </div>
-    </div>
-    <div class="chart-card">
-      <h4>📈 "仍愿考虑"均值</h4>
-      <div style="text-align:center;padding:20px 0;">
-        <div style="font-size:42px;font-weight:700;color:var(--accent-orange)">$${highPrice.mean}</div>
-        <div style="font-size:13px;color:var(--text-secondary);margin-top:4px">中位数 $${highPrice.median}</div>
-        <div class="insight" style="margin-top:12px;text-align:left;">
-          受访者"仍愿考虑"的价格上限均值<strong>$${highPrice.mean}</strong>。如果定价$699，约${n>0?(n>100?'18':'15')}%的受访者仍在可接受范围内。
-        </div>
-      </div>
-    </div>
-  `;
-
-  elStats.innerHTML = `<div class="insight">
-    <strong>定价建议：</strong>Kickstarter早鸟价建议 $399-499 区间，常规零售价 $699-799。约 30% 受众愿意为全套高配方案付更高价。<br>
-    目标用户（美国 35-55岁）好价均值为 $425，建议为此人群设早鸟 $449、常规 $699 两档，并增加 3 期免息分期选项。
-  </div>`;
-}
-
-function renderGift(d) {
-  const data = getGiftData(d);
-  const labels = Object.keys(data);
-  const values = Object.values(data);
-  const total = values.reduce((a,b) => a+b, 0);
-  const ctx = document.getElementById('giftCanvas').getContext('2d');
-  if (chartInstances.gift) chartInstances.gift.destroy();
-  chartInstances.gift = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: labels.map((l,i) => `${l} (${(values[i]/total*100).toFixed(0)}%)`),
-      datasets: [{ data: values, backgroundColor: ['#1a6bb0','#c96a0e','#1a8a4a','#8b5cf6','#06b6d4','#b8860b'] }]
-    },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
-  });
-}
-
-function renderBundle(d) {
-  const data = getBundleData(d);
-  const labels = Object.keys(data);
-  const values = Object.values(data);
-  const total = values.reduce((a,b) => a+b, 0);
-  const ctx = document.getElementById('bundleCanvas').getContext('2d');
-  if (chartInstances.bundle) chartInstances.bundle.destroy();
-  chartInstances.bundle = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: labels.map((l,i) => `${l.slice(0,20)}${l.length>20?'...':''} (${(values[i]/total*100).toFixed(0)}%)`),
-      datasets: [{ data: values, backgroundColor: ['#1a8a4a','#c96a0e','#1a6bb0'] }]
-    },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { font: { size: 11 }, boxWidth: 12 } } } }
-  });
-}
-
-function renderVideoList(d) {
-  const f = d._activeFilter;
-  let data;
-  if (f && f !== 'all' && f !== 'US_35_55') {
-    data = d.video_by_age[f] || {};
-  } else if (f === 'US_35_55') {
-    data = DATA.video_by_age['35-44'] || {};
-    // Merge with 45-54
-    const d2 = DATA.video_by_age['45-54'] || {};
-    const merged = {};
-    [...new Set([...Object.keys(data), ...Object.keys(d2)])].forEach(k => { merged[k] = (data[k]||0)+(d2[k]||0); });
-    data = merged;
-  } else {
-    const result = {};
-    Object.keys(DATA.video_by_age).forEach(age => {
-      Object.keys(DATA.video_by_age[age]).forEach(k => { result[k] = (result[k]||0) + DATA.video_by_age[age][k]; });
-    });
-    data = result;
-  }
-  const total = Object.values(data).reduce((a,b) => a+b, 0);
-  const maxVal = Math.max(...Object.values(data), 1);
-  const sorted = Object.entries(data).sort((a,b) => b[1] - a[1]);
-  document.getElementById('videoList').innerHTML = sorted.map(([k,v]) => `
-    <div class="bar-row">
-      <div class="label" style="width:140px;font-size:12px">${k}</div>
-      <div class="bar-bg"><div class="bar-fill" style="width:${v/maxVal*100}%;background:var(--accent)"></div></div>
-      <div class="pct">${(v/total*100).toFixed(0)}%</div>
-      <div class="count">${v}</div>
-    </div>
-  `).join('');
-}
-
-function renderCrowdList(d) {
-  const f = d._activeFilter;
-  let data;
-  if (f && f !== 'all' && f !== 'US_35_55') {
-    data = d.crowdfunding_by_age[f] || {};
-  } else if (f === 'US_35_55') {
-    const d1 = DATA.crowdfunding_by_age['35-44'] || {};
-    const d2 = DATA.crowdfunding_by_age['45-54'] || {};
-    const merged = {};
-    [...new Set([...Object.keys(d1), ...Object.keys(d2)])].forEach(k => { merged[k] = (d1[k]||0)+(d2[k]||0); });
-    data = merged;
-  } else {
-    const result = {};
-    Object.keys(DATA.crowdfunding_by_age).forEach(age => {
-      Object.keys(DATA.crowdfunding_by_age[age]).forEach(k => { result[k] = (result[k]||0) + DATA.crowdfunding_by_age[age][k]; });
-    });
-    data = result;
-  }
-  const total = Object.values(data).reduce((a,b) => a+b, 0);
-  const maxVal = Math.max(...Object.values(data), 1);
-  const sorted = Object.entries(data).sort((a,b) => b[1] - a[1]);
-  document.getElementById('crowdList').innerHTML = sorted.map(([k,v]) => `
-    <div class="bar-row">
-      <div class="label" style="width:140px;font-size:12px">${k}</div>
-      <div class="bar-bg"><div class="bar-fill" style="width:${v/maxVal*100}%;background:var(--accent-green)"></div></div>
-      <div class="pct">${(v/total*100).toFixed(0)}%</div>
-      <div class="count">${v}</div>
-    </div>
-  `).join('');
-}
-
-function renderOpenEnded(d) {
-  const f = d._activeFilter;
-  const key = (f === 'US_35_55') ? 'US_35_55' : (f && f !== 'all' ? f : 'all');
-  let data;
-  if (key === 'all') {
-    // Merge all ages
-    const allFeatures = [];
-    const allComments = [];
+  if (key === null || key === 'all') {
+    // Aggregate all
     Object.keys(DATA.open_ended).forEach(age => {
       if (age === 'US_35_55') return;
       const o = DATA.open_ended[age];
-      if (o && o.features) allFeatures.push(...o.features);
-      if (o && o.comments) allComments.push(...o.comments);
+      if (o && o.features) features = features.concat(o.features);
+      if (o && o.comments) comments = comments.concat(o.comments);
     });
-    data = { features: allFeatures.slice(0,30), comments: allComments.slice(0,20), features_count: allFeatures.length, comments_count: allComments.length };
   } else {
-    data = DATA.open_ended[key] || DATA.open_ended[Object.keys(DATA.open_ended)[0]];
+    const o = DATA.open_ended[key];
+    if (o) {
+      features = o.features || [];
+      comments = o.comments || [];
+    }
   }
 
-  if (!data) { data = { features: [], comments: [], features_count: 0, comments_count: 0 }; }
+  const fl = document.getElementById('featuresList');
+  const cl = document.getElementById('commentsList');
 
-  document.getElementById('featuresList').innerHTML = data.features.length > 0
-    ? data.features.map((f,i) => `<div class="open-item"><span class="q">#${i+1}</span> ${f}</div>`).join('')
-    : '<div class="open-item" style="color:var(--text-secondary)">该年龄段未提供详细的附加功能建议。</div>';
-  document.getElementById('commentsList').innerHTML = data.comments.length > 0
-    ? data.comments.map((f,i) => `<div class="open-item"><span class="q">#${i+1}</span> ${f}</div>`).join('')
-    : '<div class="open-item" style="color:var(--text-secondary)">该年龄段未提供详细反馈。</div>';
+  fl.innerHTML = features.length > 0
+    ? features.slice(0, 40).map((f, i) => '<div class="open-item"><span class="open-tag">#' + (i+1) + '</span> ' + f + '</div>').join('')
+    : '<div class="open-item" style="color:var(--text3)">该群体未提供详细建议。</div>';
+
+  cl.innerHTML = comments.length > 0
+    ? comments.slice(0, 25).map((f, i) => '<div class="open-item"><span class="open-tag">#' + (i+1) + '</span> ' + f + '</div>').join('')
+    : '<div class="open-item" style="color:var(--text3)">该群体未提供详细反馈。</div>';
 
   // Update tab labels
-  document.querySelectorAll('[data-tab]')[0].textContent = `💡 附加功能建议 (${data.features_count})`;
-  document.querySelectorAll('[data-tab]')[1].textContent = `💬 评论与反馈 (${data.comments_count})`;
+  document.querySelectorAll('[data-tab]')[0].textContent = '💡 附加功能建议 (' + features.length + ')';
+  document.querySelectorAll('[data-tab]')[1].textContent = '💬 评论与反馈 (' + comments.length + ')';
 }
 
-// ====== EVENTS ======
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    renderAll(this.dataset.filter);
+// ====== INIT ======
+document.addEventListener('DOMContentLoaded', function() {
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-c').forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+      document.getElementById(this.dataset.tab).classList.add('active');
+    });
   });
+  renderAll();
 });
 
-document.querySelectorAll('.tab-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-    this.classList.add('active');
-    document.getElementById(this.dataset.tab).classList.add('active');
-  });
-});
-
-// ====== DATA (inline) ======
-const DATA = {"total": 731, "age_distribution": {"18-34": 67, "35-44": 128, "45-54": 147, "55-64": 165, "65+": 223}, "gender_by_age": {"18-34": {"Male": 35, "Female": 30, "Prefer not to say": 2}, "35-44": {"Male": 68, "Female": 59, "Prefer not to say": 1}, "45-54": {"Female": 73, "Male": 71, "Prefer not to say": 3}, "55-64": {"Female": 105, "Male": 60}, "65+": {"Female": 134, "Male": 84, "Prefer not to say": 4, "Other (please specify)": 1}}, "country_by_age": {"18-34": {"USA": 12, "Canada": 11, "United Kingdom": 9, "Italy": 9, "Germany": 7, "France": 6, "Australia": 5, "Spain": 5}, "35-44": {"USA": 47, "United Kingdom": 23, "Australia": 16, "Canada": 14, "Italy": 13, "Germany": 6, "Spain": 4, "France": 3}, "45-54": {"USA": 56, "United Kingdom": 30, "Australia": 21, "Canada": 14, "Italy": 7, "Spain": 7, "France": 6, "Germany": 5}, "55-64": {"USA": 63, "Canada": 28, "United Kingdom": 27, "Australia": 23, "Italy": 6, "Germany": 5, "France": 5, "Spain": 4}, "65+": {"USA": 113, "United Kingdom": 46, "Canada": 32, "Australia": 24, "Italy": 3, "Japan": 2, "France": 2, "Spain": 1}}, "growing_by_age": {"18-34": {"Indoor-Traditional": 29, "Indoor-Smart": 19, "Balcony-Traditional": 14, "Balcony-Smart": 3, "Outdoor-Traditional": 19, "Outdoor-Smart": 5, "Dont-grow": 13, "Other": 0, "_n": 67}, "35-44": {"Indoor-Traditional": 45, "Indoor-Smart": 26, "Balcony-Traditional": 17, "Balcony-Smart": 3, "Outdoor-Traditional": 51, "Outdoor-Smart": 5, "Dont-grow": 40, "Other": 2, "_n": 128}, "45-54": {"Indoor-Traditional": 52, "Indoor-Smart": 41, "Balcony-Traditional": 21, "Balcony-Smart": 4, "Outdoor-Traditional": 64, "Outdoor-Smart": 8, "Dont-grow": 23, "Other": 6, "_n": 147}, "55-64": {"Indoor-Traditional": 47, "Indoor-Smart": 33, "Balcony-Traditional": 23, "Balcony-Smart": 4, "Outdoor-Traditional": 74, "Outdoor-Smart": 11, "Dont-grow": 32, "Other": 8, "_n": 165}, "65+": {"Indoor-Traditional": 68, "Indoor-Smart": 32, "Balcony-Traditional": 31, "Balcony-Smart": 3, "Outdoor-Traditional": 116, "Outdoor-Smart": 8, "Dont-grow": 40, "Other": 15, "_n": 223}}, "grow_items_by_age": {"18-34": {"LeafyGreens": 55, "Herbs": 57, "Flowers": 25, "Brassicas&Root": 37, "FruitingVeg": 60, "Other": 2, "_n": 67}, "35-44": {"LeafyGreens": 97, "Herbs": 104, "Flowers": 52, "Brassicas&Root": 67, "FruitingVeg": 105, "Other": 11, "_n": 128}, "45-54": {"LeafyGreens": 129, "Herbs": 119, "Flowers": 46, "Brassicas&Root": 80, "FruitingVeg": 127, "Other": 20, "_n": 147}, "55-64": {"LeafyGreens": 129, "Herbs": 123, "Flowers": 62, "Brassicas&Root": 87, "FruitingVeg": 138, "Other": 16, "_n": 165}, "65+": {"LeafyGreens": 181, "Herbs": 157, "Flowers": 59, "Brassicas&Root": 102, "FruitingVeg": 184, "Other": 18, "_n": 223}}, "aspects_by_age": {"18-34": {"Easy&low-maintenance": 55, "Auto-water&light": 51, "Healthy-growth": 51, "Smart-guidance": 33, "Many-plants-small-space": 47, "Real-time-monitor": 30, "Multi-plant-types": 35, "Modern-design": 35, "Quiet": 32, "App-connect": 32, "Reliability": 33, "Good-value": 50, "Beginner-friendly": 32, "_n": 67}, "35-44": {"Easy&low-maintenance": 107, "Auto-water&light": 107, "Healthy-growth": 91, "Smart-guidance": 65, "Many-plants-small-space": 93, "Real-time-monitor": 67, "Multi-plant-types": 80, "Modern-design": 71, "Quiet": 65, "App-connect": 67, "Reliability": 78, "Good-value": 87, "Beginner-friendly": 64, "_n": 128}, "45-54": {"Easy&low-maintenance": 123, "Auto-water&light": 113, "Healthy-growth": 112, "Smart-guidance": 82, "Many-plants-small-space": 111, "Real-time-monitor": 76, "Multi-plant-types": 86, "Modern-design": 77, "Quiet": 80, "App-connect": 74, "Reliability": 84, "Good-value": 107, "Beginner-friendly": 73, "_n": 147}, "55-64": {"Easy&low-maintenance": 136, "Auto-water&light": 131, "Healthy-growth": 122, "Smart-guidance": 89, "Many-plants-small-space": 125, "Real-time-monitor": 80, "Multi-plant-types": 95, "Modern-design": 90, "Quiet": 104, "App-connect": 87, "Reliability": 99, "Good-value": 121, "Beginner-friendly": 91, "_n": 165}, "65+": {"Easy&low-maintenance": 193, "Auto-water&light": 172, "Healthy-growth": 174, "Smart-guidance": 121, "Many-plants-small-space": 163, "Real-time-monitor": 88, "Multi-plant-types": 115, "Modern-design": 117, "Quiet": 119, "App-connect": 80, "Reliability": 135, "Good-value": 169, "Beginner-friendly": 127, "_n": 223}}, "feature_ratings_by_age": {"18-34": {"4K-AI-camera": {"n": 66, "top2": 12, "top2_pct": 18.2, "avg_score": 2.23, "distribution": {"Least important": 24, "Somewhat important": 16, "Important": 14, "Very important": 11, "Most important": 1}}, "Auto-mgmt": {"n": 66, "top2": 56, "top2_pct": 84.8, "avg_score": 4.39, "distribution": {"Least important": 0, "Somewhat important": 2, "Important": 8, "Very important": 18, "Most important": 38}}, "Stress-protect": {"n": 66, "top2": 48, "top2_pct": 72.7, "avg_score": 4.03, "distribution": {"Least important": 1, "Somewhat important": 0, "Important": 17, "Very important": 26, "Most important": 22}}, "Intelligence-Core": {"n": 66, "top2": 19, "top2_pct": 28.8, "avg_score": 3.02, "distribution": {"Least important": 6, "Somewhat important": 16, "Important": 25, "Very important": 9, "Most important": 10}}, "Mavi-AI": {"n": 66, "top2": 18, "top2_pct": 27.3, "avg_score": 2.77, "distribution": {"Least important": 9, "Somewhat important": 19, "Important": 20, "Very important": 14, "Most important": 4}}, "Grow-Light": {"n": 66, "top2": 49, "top2_pct": 74.2, "avg_score": 4.02, "distribution": {"Least important": 0, "Somewhat important": 5, "Important": 12, "Very important": 26, "Most important": 23}}, "Nutrient-Intelligence": {"n": 66, "top2": 43, "top2_pct": 65.2, "avg_score": 3.95, "distribution": {"Least important": 2, "Somewhat important": 2, "Important": 19, "Very important": 17, "Most important": 26}}, "Airflow": {"n": 66, "top2": 43, "top2_pct": 65.2, "avg_score": 3.77, "distribution": {"Least important": 1, "Somewhat important": 5, "Important": 17, "Very important": 28, "Most important": 15}}, "42-plants-2sqft": {"n": 66, "top2": 42, "top2_pct": 63.6, "avg_score": 3.89, "distribution": {"Least important": 1, "Somewhat important": 7, "Important": 16, "Very important": 16, "Most important": 26}}, "Status-Display": {"n": 67, "top2": 33, "top2_pct": 49.3, "avg_score": 3.45, "distribution": {"Least important": 3, "Somewhat important": 9, "Important": 22, "Very important": 21, "Most important": 12}}, "Seedling-Module": {"n": 67, "top2": 28, "top2_pct": 41.8, "avg_score": 3.37, "distribution": {"Least important": 3, "Somewhat important": 6, "Important": 30, "Very important": 19, "Most important": 9}}, "Night-Light": {"n": 66, "top2": 25, "top2_pct": 37.9, "avg_score": 3.12, "distribution": {"Least important": 6, "Somewhat important": 16, "Important": 19, "Very important": 14, "Most important": 11}}, "_n": 67}, "35-44": {"4K-AI-camera": {"n": 127, "top2": 19, "top2_pct": 15.0, "avg_score": 2.22, "distribution": {"Least important": 45, "Somewhat important": 37, "Important": 26, "Very important": 10, "Most important": 9}}, "Auto-mgmt": {"n": 128, "top2": 112, "top2_pct": 87.5, "avg_score": 4.36, "distribution": {"Least important": 2, "Somewhat important": 3, "Important": 11, "Very important": 43, "Most important": 69}}, "Stress-protect": {"n": 128, "top2": 86, "top2_pct": 67.2, "avg_score": 3.91, "distribution": {"Least important": 3, "Somewhat important": 6, "Important": 33, "Very important": 43, "Most important": 43}}, "Intelligence-Core": {"n": 128, "top2": 51, "top2_pct": 39.8, "avg_score": 3.17, "distribution": {"Least important": 13, "Somewhat important": 20, "Important": 44, "Very important": 34, "Most important": 17}}, "Mavi-AI": {"n": 128, "top2": 53, "top2_pct": 41.4, "avg_score": 3.25, "distribution": {"Least important": 9, "Somewhat important": 22, "Important": 44, "Very important": 34, "Most important": 19}}, "Grow-Light": {"n": 128, "top2": 102, "top2_pct": 79.7, "avg_score": 4.17, "distribution": {"Least important": 2, "Somewhat important": 3, "Important": 21, "Very important": 47, "Most important": 55}}, "Nutrient-Intelligence": {"n": 127, "top2": 96, "top2_pct": 75.6, "avg_score": 4.1, "distribution": {"Least important": 3, "Somewhat important": 2, "Important": 26, "Very important": 44, "Most important": 52}}, "Airflow": {"n": 126, "top2": 87, "top2_pct": 69.0, "avg_score": 3.89, "distribution": {"Least important": 4, "Somewhat important": 3, "Important": 32, "Very important": 51, "Most important": 36}}, "42-plants-2sqft": {"n": 127, "top2": 82, "top2_pct": 64.6, "avg_score": 3.92, "distribution": {"Least important": 1, "Somewhat important": 11, "Important": 33, "Very important": 34, "Most important": 48}}, "Status-Display": {"n": 126, "top2": 64, "top2_pct": 50.8, "avg_score": 3.61, "distribution": {"Least important": 2, "Somewhat important": 10, "Important": 50, "Very important": 37, "Most important": 27}}, "Seedling-Module": {"n": 127, "top2": 61, "top2_pct": 48.0, "avg_score": 3.5, "distribution": {"Least important": 4, "Somewhat important": 19, "Important": 43, "Very important": 31, "Most important": 30}}, "Night-Light": {"n": 125, "top2": 46, "top2_pct": 36.8, "avg_score": 3.22, "distribution": {"Least important": 12, "Somewhat important": 22, "Important": 45, "Very important": 19, "Most important": 27}}, "_n": 128}, "45-54": {"4K-AI-camera": {"n": 146, "top2": 12, "top2_pct": 8.2, "avg_score": 1.99, "distribution": {"Least important": 62, "Somewhat important": 39, "Important": 33, "Very important": 9, "Most important": 3}}, "Auto-mgmt": {"n": 147, "top2": 105, "top2_pct": 71.4, "avg_score": 4.01, "distribution": {"Least important": 2, "Somewhat important": 6, "Important": 34, "Very important": 52, "Most important": 53}}, "Stress-protect": {"n": 146, "top2": 93, "top2_pct": 63.7, "avg_score": 3.79, "distribution": {"Least important": 6, "Somewhat important": 8, "Important": 39, "Very important": 51, "Most important": 42}}, "Intelligence-Core": {"n": 146, "top2": 37, "top2_pct": 25.3, "avg_score": 2.81, "distribution": {"Least important": 21, "Somewhat important": 36, "Important": 52, "Very important": 24, "Most important": 13}}, "Mavi-AI": {"n": 146, "top2": 46, "top2_pct": 31.5, "avg_score": 3.0, "distribution": {"Least important": 14, "Somewhat important": 32, "Important": 54, "Very important": 32, "Most important": 14}}, "Grow-Light": {"n": 146, "top2": 111, "top2_pct": 76.0, "avg_score": 4.08, "distribution": {"Least important": 2, "Somewhat important": 3, "Important": 30, "Very important": 58, "Most important": 53}}, "Nutrient-Intelligence": {"n": 146, "top2": 110, "top2_pct": 75.3, "avg_score": 4.08, "distribution": {"Least important": 2, "Somewhat important": 5, "Important": 29, "Very important": 54, "Most important": 56}}, "Airflow": {"n": 145, "top2": 92, "top2_pct": 63.4, "avg_score": 3.77, "distribution": {"Least important": 3, "Somewhat important": 8, "Important": 42, "Very important": 59, "Most important": 33}}, "42-plants-2sqft": {"n": 144, "top2": 99, "top2_pct": 68.8, "avg_score": 3.94, "distribution": {"Least important": 3, "Somewhat important": 10, "Important": 32, "Very important": 47, "Most important": 52}}, "Status-Display": {"n": 145, "top2": 65, "top2_pct": 44.8, "avg_score": 3.48, "distribution": {"Least important": 5, "Somewhat important": 15, "Important": 60, "Very important": 35, "Most important": 30}}, "Seedling-Module": {"n": 146, "top2": 61, "top2_pct": 41.8, "avg_score": 3.42, "distribution": {"Least important": 6, "Somewhat important": 16, "Important": 63, "Very important": 32, "Most important": 29}}, "Night-Light": {"n": 145, "top2": 55, "top2_pct": 37.9, "avg_score": 3.08, "distribution": {"Least important": 21, "Somewhat important": 24, "Important": 45, "Very important": 33, "Most important": 22}}, "_n": 147}, "55-64": {"4K-AI-camera": {"n": 163, "top2": 19, "top2_pct": 11.7, "avg_score": 2.23, "distribution": {"Least important": 56, "Somewhat important": 39, "Important": 49, "Very important": 13, "Most important": 6}}, "Auto-mgmt": {"n": 165, "top2": 124, "top2_pct": 75.2, "avg_score": 4.12, "distribution": {"Least important": 0, "Somewhat important": 6, "Important": 35, "Very important": 58, "Most important": 66}}, "Stress-protect": {"n": 165, "top2": 114, "top2_pct": 69.1, "avg_score": 3.89, "distribution": {"Least important": 1, "Somewhat important": 11, "Important": 39, "Very important": 68, "Most important": 46}}, "Intelligence-Core": {"n": 164, "top2": 64, "top2_pct": 39.0, "avg_score": 3.16, "distribution": {"Least important": 13, "Somewhat important": 35, "Important": 52, "Very important": 41, "Most important": 23}}, "Mavi-AI": {"n": 163, "top2": 69, "top2_pct": 42.3, "avg_score": 3.24, "distribution": {"Least important": 10, "Somewhat important": 30, "Important": 54, "Very important": 49, "Most important": 20}}, "Grow-Light": {"n": 164, "top2": 127, "top2_pct": 77.4, "avg_score": 4.05, "distribution": {"Least important": 1, "Somewhat important": 6, "Important": 30, "Very important": 74, "Most important": 53}}, "Nutrient-Intelligence": {"n": 164, "top2": 120, "top2_pct": 73.2, "avg_score": 4.02, "distribution": {"Least important": 0, "Somewhat important": 9, "Important": 35, "Very important": 64, "Most important": 56}}, "Airflow": {"n": 162, "top2": 118, "top2_pct": 72.8, "avg_score": 3.91, "distribution": {"Least important": 1, "Somewhat important": 7, "Important": 36, "Very important": 79, "Most important": 39}}, "42-plants-2sqft": {"n": 163, "top2": 119, "top2_pct": 73.0, "avg_score": 4.03, "distribution": {"Least important": 0, "Somewhat important": 8, "Important": 36, "Very important": 62, "Most important": 57}}, "Status-Display": {"n": 162, "top2": 95, "top2_pct": 58.6, "avg_score": 3.69, "distribution": {"Least important": 1, "Somewhat important": 14, "Important": 52, "Very important": 62, "Most important": 33}}, "Seedling-Module": {"n": 160, "top2": 84, "top2_pct": 52.5, "avg_score": 3.52, "distribution": {"Least important": 4, "Somewhat important": 14, "Important": 58, "Very important": 62, "Most important": 22}}, "Night-Light": {"n": 163, "top2": 58, "top2_pct": 35.6, "avg_score": 3.08, "distribution": {"Least important": 19, "Somewhat important": 24, "Important": 62, "Very important": 41, "Most important": 17}}, "_n": 165}, "65+": {"4K-AI-camera": {"n": 219, "top2": 30, "top2_pct": 13.7, "avg_score": 2.08, "distribution": {"Least important": 91, "Somewhat important": 62, "Important": 36, "Very important": 18, "Most important": 12}}, "Auto-mgmt": {"n": 219, "top2": 157, "top2_pct": 71.7, "avg_score": 4.01, "distribution": {"Least important": 1, "Somewhat important": 16, "Important": 45, "Very important": 75, "Most important": 82}}, "Stress-protect": {"n": 222, "top2": 154, "top2_pct": 69.4, "avg_score": 3.86, "distribution": {"Least important": 1, "Somewhat important": 18, "Important": 49, "Very important": 97, "Most important": 57}}, "Intelligence-Core": {"n": 221, "top2": 84, "top2_pct": 38.0, "avg_score": 3.15, "distribution": {"Least important": 20, "Somewhat important": 36, "Important": 81, "Very important": 58, "Most important": 26}}, "Mavi-AI": {"n": 219, "top2": 96, "top2_pct": 43.8, "avg_score": 3.34, "distribution": {"Least important": 10, "Somewhat important": 33, "Important": 80, "Very important": 64, "Most important": 32}}, "Grow-Light": {"n": 221, "top2": 162, "top2_pct": 73.3, "avg_score": 3.99, "distribution": {"Least important": 4, "Somewhat important": 9, "Important": 46, "Very important": 89, "Most important": 73}}, "Nutrient-Intelligence": {"n": 222, "top2": 169, "top2_pct": 76.1, "avg_score": 4.08, "distribution": {"Least important": 2, "Somewhat important": 9, "Important": 42, "Very important": 85, "Most important": 84}}, "Airflow": {"n": 220, "top2": 154, "top2_pct": 70.0, "avg_score": 3.91, "distribution": {"Least important": 2, "Somewhat important": 9, "Important": 55, "Very important": 95, "Most important": 59}}, "42-plants-2sqft": {"n": 223, "top2": 155, "top2_pct": 69.5, "avg_score": 3.97, "distribution": {"Least important": 2, "Somewhat important": 8, "Important": 58, "Very important": 81, "Most important": 74}}, "Status-Display": {"n": 220, "top2": 130, "top2_pct": 59.1, "avg_score": 3.71, "distribution": {"Least important": 4, "Somewhat important": 11, "Important": 75, "Very important": 85, "Most important": 45}}, "Seedling-Module": {"n": 219, "top2": 103, "top2_pct": 47.0, "avg_score": 3.47, "distribution": {"Least important": 6, "Somewhat important": 28, "Important": 82, "Very important": 62, "Most important": 41}}, "Night-Light": {"n": 219, "top2": 77, "top2_pct": 35.2, "avg_score": 3.02, "distribution": {"Least important": 26, "Somewhat important": 45, "Important": 71, "Very important": 52, "Most important": 25}}, "_n": 223}}, "price_by_age": {"18-34": {"good_deal": {"mean": 315.0, "median": 250.0, "n": 59, "buckets": {"0-99": 5, "100-199": 10, "200-299": 17, "300-399": 13, "400-499": 2, "500-599": 4, "600-799": 4, "800-999": 3, "1000-9999": 1}}, "high_price": {"mean": 444.0, "median": 400.0, "n": 59, "buckets": {"0-99": 2, "100-199": 8, "200-299": 6, "300-399": 12, "400-499": 9, "500-599": 9, "600-799": 8, "800-999": 2, "1000-9999": 3}}, "_n": 67}, "35-44": {"good_deal": {"mean": 368.0, "median": 300.0, "n": 104, "buckets": {"0-99": 7, "100-199": 22, "200-299": 18, "300-399": 21, "400-499": 9, "500-599": 8, "600-799": 10, "800-999": 6, "1000-9999": 3}}, "high_price": {"mean": 532.0, "median": 400.0, "n": 105, "buckets": {"0-99": 5, "100-199": 8, "200-299": 19, "300-399": 13, "400-499": 12, "500-599": 18, "600-799": 12, "800-999": 7, "1000-9999": 11}}, "_n": 128}, "45-54": {"good_deal": {"mean": 363.0, "median": 299.0, "n": 111, "buckets": {"0-99": 8, "100-199": 21, "200-299": 28, "300-399": 12, "400-499": 6, "500-599": 18, "600-799": 9, "800-999": 6, "1000-9999": 3}}, "high_price": {"mean": 571.0, "median": 500.0, "n": 112, "buckets": {"0-99": 6, "100-199": 9, "200-299": 17, "300-399": 14, "400-499": 7, "500-599": 19, "600-799": 12, "800-999": 14, "1000-9999": 14}}, "_n": 147}, "55-64": {"good_deal": {"mean": 296.0, "median": 200.0, "n": 111, "buckets": {"0-99": 13, "100-199": 33, "200-299": 23, "300-399": 13, "400-499": 8, "500-599": 8, "600-799": 5, "800-999": 3, "1000-9999": 5}}, "high_price": {"mean": 433.0, "median": 300.0, "n": 111, "buckets": {"0-99": 9, "100-199": 21, "200-299": 20, "300-399": 15, "400-499": 10, "500-599": 11, "600-799": 11, "800-999": 3, "1000-9999": 11}}, "_n": 165}, "65+": {"good_deal": {"mean": 250.0, "median": 200.0, "n": 122, "buckets": {"0-99": 27, "100-199": 31, "200-299": 25, "300-399": 13, "400-499": 8, "500-599": 10, "600-799": 4, "800-999": 3, "1000-9999": 1}}, "high_price": {"mean": 347.0, "median": 270.0, "n": 127, "buckets": {"0-99": 16, "100-199": 29, "200-299": 21, "300-399": 15, "400-499": 18, "500-599": 7, "600-799": 6, "800-999": 6, "1000-9999": 9}}, "_n": 223}}, "gift_by_age": {"18-34": {"Seed Packs": 18, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 18, "Plant Nutrients": 17, "Protective Curtain for Winter Temperature & Humidity Control": 11, "Pot Covers": 2, "Additional Plant Care Treatments": 1}, "35-44": {"Plant Nutrients": 35, "Protective Curtain for Winter Temperature & Humidity Control": 34, "Seed Packs": 30, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 18, "Additional Plant Care Treatments": 7, "Pot Covers": 4}, "45-54": {"Seed Packs": 43, "Plant Nutrients": 42, "Protective Curtain for Winter Temperature & Humidity Control": 35, "Additional Plant Care Treatments": 12, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 12, "Pot Covers": 3}, "55-64": {"Protective Curtain for Winter Temperature & Humidity Control": 47, "Seed Packs": 42, "Plant Nutrients": 38, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 18, "Additional Plant Care Treatments": 16, "Pot Covers": 4}, "65+": {"Protective Curtain for Winter Temperature & Humidity Control": 64, "Seed Packs": 63, "Plant Nutrients": 52, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 23, "Additional Plant Care Treatments": 18, "Pot Covers": 3}}, "bundle_by_age": {"18-34": {"Yes, I would strongly prefer that.": 25, "No, I’d rather keep the price lower.": 22, "I'm not sure at the moment.": 20}, "35-44": {"Yes, I would strongly prefer that.": 55, "No, I’d rather keep the price lower.": 42, "I'm not sure at the moment.": 31}, "45-54": {"Yes, I would strongly prefer that.": 58, "I'm not sure at the moment.": 52, "No, I’d rather keep the price lower.": 37}, "55-64": {"I'm not sure at the moment.": 67, "No, I’d rather keep the price lower.": 52, "Yes, I would strongly prefer that.": 46}, "65+": {"I'm not sure at the moment.": 99, "No, I’d rather keep the price lower.": 85, "Yes, I would strongly prefer that.": 39}}, "units_by_age": {"18-34": {"1": 48, "2": 12, "3": 7}, "35-44": {"1": 95, "2": 23, "3": 10}, "45-54": {"1": 109, "2": 29, "3": 9}, "55-64": {"1": 122, "2": 32, "3": 11}, "65+": {"1": 180, "2": 35, "3": 8}}, "video_by_age": {"18-34": {"How-to Guides": 19, "The growing process and results": 17, "Show the product appearance and how it fits into the home.": 10, "Unboxing and Setup": 8, "Comparisons with Other Products": 6, "User Reviews": 5, "Reviews Done by YouTubers": 1, "Behind-the-scenes": 1}, "35-44": {"The growing process and results": 39, "How-to Guides": 31, "Show the product appearance and how it fits into the home.": 27, "Unboxing and Setup": 13, "Comparisons with Other Products": 9, "Reviews Done by YouTubers": 4, "User Reviews": 3, "Behind-the-scenes": 2}, "45-54": {"How-to Guides": 52, "The growing process and results": 33, "Show the product appearance and how it fits into the home.": 25, "Comparisons with Other Products": 14, "Unboxing and Setup": 11, "User Reviews": 6, "Reviews Done by YouTubers": 5, "Behind-the-scenes": 1}, "55-64": {"The growing process and results": 46, "How-to Guides": 44, "Show the product appearance and how it fits into the home.": 26, "Unboxing and Setup": 23, "Reviews Done by YouTubers": 11, "Comparisons with Other Products": 8, "User Reviews": 5, "Behind-the-scenes": 2}, "65+": {"How-to Guides": 82, "The growing process and results": 47, "Unboxing and Setup": 30, "Show the product appearance and how it fits into the home.": 29, "Comparisons with Other Products": 14, "User Reviews": 11, "Reviews Done by YouTubers": 10}}, "crowdfunding_by_age": {"18-34": {"No, but I am interested in backing innovative campaigns": 32, "Yes, on Kickstarter": 32, "Yes, on Indiegogo": 3}, "35-44": {"Yes, on Kickstarter": 62, "No, but I am interested in backing innovative campaigns": 58, "Yes, on Indiegogo": 8}, "45-54": {"No, but I am interested in backing innovative campaigns": 80, "Yes, on Kickstarter": 59, "Yes, on Indiegogo": 8}, "55-64": {"No, but I am interested in backing innovative campaigns": 111, "Yes, on Kickstarter": 48, "Yes, on Indiegogo": 6}, "65+": {"No, but I am interested in backing innovative campaigns": 180, "Yes, on Kickstarter": 39, "Yes, on Indiegogo": 4}}, "target_vs_rest": {"target": {"n": 103, "aspects": {"Easy&low-maintenance": 89, "Auto-water&light": 85, "Healthy-growth": 87, "Smart-guidance": 63, "Many-plants-small-space": 84, "Real-time-monitor": 57, "Multi-plant-types": 68, "Modern-design": 63, "Quiet": 56, "App-connect": 57, "Reliability": 69, "Good-value": 76, "Beginner-friendly": 57}, "features": {"4K-AI-camera": {"avg_score": 2.21, "top2_pct": 12.9}, "Auto-mgmt": {"avg_score": 4.17, "top2_pct": 76.7}, "Stress-protect": {"avg_score": 3.85, "top2_pct": 65.0}, "Intelligence-Core": {"avg_score": 3.0, "top2_pct": 30.1}, "Mavi-AI": {"avg_score": 3.11, "top2_pct": 34.0}, "Grow-Light": {"avg_score": 4.17, "top2_pct": 77.7}, "Nutrient-Intelligence": {"avg_score": 4.13, "top2_pct": 74.5}, "Airflow": {"avg_score": 3.93, "top2_pct": 69.3}, "42-plants-2sqft": {"avg_score": 4.01, "top2_pct": 74.3}, "Status-Display": {"avg_score": 3.73, "top2_pct": 54.5}, "Seedling-Module": {"avg_score": 3.5, "top2_pct": 46.1}, "Night-Light": {"avg_score": 3.03, "top2_pct": 35.0}}, "good_deal": {"mean": 456.0, "median": 400.0}, "gift": {"Seed Packs": 33, "Plant Nutrients": 27, "Protective Curtain for Winter Temperature & Humidity Control": 18, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 14, "Additional Plant Care Treatments": 9, "Pot Covers": 2}, "grow_items": {"LeafyGreens": 88, "Herbs": 85, "Flowers": 40, "Brassicas&Root": 57, "FruitingVeg": 92, "Other": 13}, "growing": {"Indoor-Traditional": 39, "Indoor-Smart": 35, "Balcony-Traditional": 10, "Balcony-Smart": 3, "Outdoor-Traditional": 41, "Outdoor-Smart": 4, "Dont-grow": 21, "Other": 4}}, "rest": {"n": 628, "aspects": {"Easy&low-maintenance": 525, "Auto-water&light": 489, "Healthy-growth": 463, "Smart-guidance": 327, "Many-plants-small-space": 455, "Real-time-monitor": 284, "Multi-plant-types": 343, "Modern-design": 327, "Quiet": 344, "App-connect": 283, "Reliability": 360, "Good-value": 459, "Beginner-friendly": 330}, "features": {"4K-AI-camera": {"avg_score": 2.12, "top2_pct": 12.7}, "Auto-mgmt": {"avg_score": 4.12, "top2_pct": 76.4}, "Stress-protect": {"avg_score": 3.88, "top2_pct": 68.5}, "Intelligence-Core": {"avg_score": 3.09, "top2_pct": 36.0}, "Mavi-AI": {"avg_score": 3.19, "top2_pct": 39.8}, "Grow-Light": {"avg_score": 4.03, "top2_pct": 75.8}, "Nutrient-Intelligence": {"avg_score": 4.05, "top2_pct": 74.2}, "Airflow": {"avg_score": 3.85, "top2_pct": 68.7}, "42-plants-2sqft": {"avg_score": 3.95, "top2_pct": 67.7}, "Status-Display": {"avg_score": 3.6, "top2_pct": 53.5}, "Seedling-Module": {"avg_score": 3.46, "top2_pct": 46.9}, "Night-Light": {"avg_score": 3.1, "top2_pct": 36.5}}, "good_deal": {"mean": 290.0, "median": 200.0}, "gift": {"Protective Curtain for Winter Temperature & Humidity Control": 173, "Seed Packs": 163, "Plant Nutrients": 158, "Cleaning Kit (Scissors, Brush, Cloth & Tweezers)": 75, "Additional Plant Care Treatments": 45, "Pot Covers": 14}, "grow_items": {"LeafyGreens": 504, "Herbs": 475, "Flowers": 204, "Brassicas&Root": 316, "FruitingVeg": 522, "Other": 54}, "growing": {"Indoor-Traditional": 202, "Indoor-Smart": 117, "Balcony-Traditional": 96, "Balcony-Smart": 14, "Outdoor-Traditional": 283, "Outdoor-Smart": 33, "Dont-grow": 127, "Other": 27}}}, "open_ended": {"18-34": {"features": ["Self watering", "How to videos", "seedling selection?", "Recomendations are awesome", "not sure", "Nothing", "seems good to me", "Synchronisation avec l'application Planta par exemple pour les autres plantes", "root rot dectection", "Doesn't take up too much space", "Self cleaning or semi automated self cleaning", "Recommendations on what to plant based on time of year and ambient conditions of the Growbot itself", "Im not sure, i guess the air?  Like the fan blowing? If that makes sense", "Nothing that I can think of for the moment", "easy to clean up", "What about the soundpollution? Like watering..", "Starting off completely beginner learning about growing plants from step one, all the basics taught, displayed for reference, and worked through to lead on to more advanced plant knowledge and more co", "Infos about the plants I'm growing, to get to know them better and know what to expect from their growth", "Ability to grow house plants.", "dont think so", "Maybe utilizing tutorials when harvesting the plants and some uses for them", "Something to make cleaning it easy", "Practicality", "Manual pump", "No idea", "Unsure", "Pre-built setting options depending on what you're growing", "Planting System Instructions, Cleaning System, Instructions for Malfunction", "Manual pump and module light, I buy another system and I found broken part (lamp, sensor for water, etc)", "growth support"], "comments": ["One thing I’ve noticed with another high tech brand is that the WiFi connection can sometimes be inconsistent and the camera quality is not great. The cameras go out all the time and they aren’t that clear. If you all can bring better quality and consistent WiFi I believe you can beat out competitor", "Are there options for people who won’t be able to connect the grow bot to a mains water source? Wether this is a long water pipe , or a sleek water container that can be removed and refilled periodically as this would increase the product viability and make it accessible in a lot more homes/areas of", "No, sorry i sign up on my other email i forgot to do the survey :) but i subscribe on youtube. But i really was looking for an tall hydroponics and this is what i was looking for it.  Can't wait for it for the release andnthe pricing of course  Good day,  Morlin", "Please don't be the next \"Indoor hydroponic\" from Kickstarter", "I would like to be affordable and complete planting accessories. It would be great that when it arrives it is ready to use. Easy to clean and no problem in mold. And it is free shipping fees and tax anywhere in the world.   One more, space saver because apartments where I live has limited space. ", "Be better than indoor hydroponic please!", "Looking forward to this. Hope you get a great campaign !"], "features_count": 32, "comments_count": 7}, "35-44": {"features": ["none that comes to mind", "No membership required", "Remote control via smart watch (Wear OS)", "Bio growth formala", "Adding an auto ph adjuster", "a larger water tank, for the holidays, not just a software change", "I want something that works", "Different colour schemes (dark green, olive, black, grey etc)", "As I’m using it for the first time it needs to be user friendly alsoo is this agroponic technique", "Understanding of companion planting to help with growth", "You’ve covered it all", "Tracking key milestones for all of the plants once they’re in the system. For example, how many days until I should expect sprouts, harvest, etc.", "Fun, attractive, coffee nook lol", "The ability to not have all the cameras etc I’m just want them to grow. As someone at home that kills pretty much all plants. I just want somthing to grow and we’ll be edible (also I have rabbits so t", "I would like a notification if a plant is not doing very well.", "the spacing, most towers don't give enough room for bigger plants like or cabbages or lettuces", "None so far", "Teach on how to rotate planting", "RGB mood lights", "Perhaps a darker colour to minise appearance of stains that will appear", "When plants are too large", "If using the camera, notifications of when plants sprout could be a fun gamified way of interaction with AI", "Extra big water resource for long vacation time + plant nutrients", "No it all sounds amazing", "Not that I can think of", "Assistant in analyzing plant health", "Just curious", "Proper lighting", "Expandable sizing, start small and grow as you need", "ready to harvest notifcation"], "comments": ["Need correct dosage of bio growth ", "I’m keen to connect I was looking for something like this ", "We are living in a world where we’ll all supplies could stop at any moment. We are a three people house and all pesitrians so extra veggies that are grown on solar would be amazing. I’ve already been looking at a self watering tool and was ultimately going to create a chain of self watering plants. ", "Like I said above, please make this affordable for seniors. most are like me on ssi which doesn't pay much.  ", "I live in Japan and our apartments here are very tiny. Based on the photo, this product is bery well-designed and is slim and tall. Being a one-side is a good point so i can put it on the side. Since its AI, im afraid it will be ridiculously expensive so i wish you can have different options or even", "Not your typical herb, fruits, and veggies. Have different varieties from different countries. Again would like the Mexican herb papalo.", "When is it released and how much does it cost?", "No suggestions ", "Can you use it outside ", "Can it be outside ", "I own two generations of the Gardyn home and enjoy them. I would love to be a tester if that is a possibility.", "Waiting the kick off!!", "I would love too be one of the first to try this model out an advertise it, I would be so honored to test it out!"], "features_count": 60, "comments_count": 13}, "45-54": {"features": ["Sealed columns that do not leak", "I haven’t used so haven’t got much clu but as long as it monitors growth that’s fine", "A good list of what you can't grow well", "Not sure yet", "Think its coved just about everything", "No subscription", "No not really", "I am not sure", "Seed harvesting and pod recycling/reusing", "Plant checker", "Play music to plants", "Water Change Indicator", "Optimised growing with copper etc", "More than one size. A hydroponic option", "Alerte", "No this product sounds fantastic.", "I' d like it", "Wheels to move around if it doesn’t already have them. Bug net if using on a balcony.", "Ability to expand area/customize design with additional attachable accessories.", "I eat a lot of vegetables and would love to have an abundance of leafy greens and salad toppings", "Scalable", "To early to know", "Unsure", "Different colours of stand to match decor", "I would love it to have the ability to be expanded / modular", "I'm new and learning.", "Nothing", "Can be self sufficient", "Prep suggestions and nutrition info with harvest", "A function that identifies and notifies about pests and diseases."], "comments": ["Later if I use ur services ", "I own a gardyn do it needs to be better", "What is the average price for each unit ", "Really excited about this one!", "Find price easier", "Would love to receive a free one or two for test & customer review from a kids perspective. ", "It seems interesting and I always want to learn how to garden.", "Keep it affordable will probably sell more than only a few at a high price", "Sounds awesome, I’d like more info to give to an organization I volunteer for", "As someone who uses Gardyn indoor, and Green Stalk’s outdoor, I’m really interested in following this product. I create garden content and share my harvests with friends and co-workers of mine at the WWE Performance Center in Orlando.  This could be a good fit in my setup. ", "What is the estimated time of readiness for this machine?", "Just more information and when is it available?", "Is this product easy to disassemble and take on extended vacation out of country? Would like to buy more than one, but CDN currency against US is terrible.", "Make it a reasonable price. Better than lettuce grow or gardyn", "Are you interested in partnering with a wellness brand for promotion of this product?", "I'm a YouTuber and would love to review. I also admin a hydroponic gardening group on Facebook that has over 20,000 members. I have over 75,000 followers across social that look to me for gardening and hydroponic advice. Please reach out. littletechgirl@gmail.com", "When will this launch and what’s the price. I own 6 Gardyn and I’m curious about this ", "Would love to make a review for a sponsored system. Money it right, and food costs are high.", "Looks good don’t rush it, lot of people can benefit from hydroponics system it should sell well ", "Again, it would be highly unusual to offer the product without all the accessories needed to use it on Day One at a price rather than offering a lower price one and a higher price"], "features_count": 64, "comments_count": 20}, "55-64": {"features": ["It needs to be indoors 100%", "If I brought more one it should only one subscription", "customer support", "Humidity control", "Affordable price", "No - over complicated systems put peopleoff", "Don't know!", "Not at the moment", "Non so", "No it looks amazing", "Reminder and schedule", "Not sure", "Automated watering", "Food Grade Materials being used,free from all bad chemicals", "vacation mode at least 30 days where things are all good", "Alerts notifying the grower that attention is needed.", "No it sounds perfect BUT I am afraid that I probably can’t afford to buy one", "Company technical support", "Ease of use", "Suggestions for future plantings based on the success of current or prior yields", "any instructions that would help the plants", "Not sure", "payment plan", "Can't think of any", "able to use in power grid outs long term options", "Solar Panel to be independent from electricity", "Phone app monitoring growing medium /watef", "Choice of the Colour", "The price please", "The Growbot Should be safe for cats"], "comments": ["All systems fail due to poor design and inadequate manufacturing. \"OGarden\" failed. \"VegeBox\" failed (too much manual work\" \"RotoFarm\" semi failed so far. Plant beds need to be remanufactured and shipped out. Seeding germination success is too low.   ", "I have very cold winter seasons but very large heritage home all hydronicly heated", "Quality over Quantity great products always succeed.", "need more info to buy", "I have to live on a very small disability income which means I can’t afford to live or buy food or clothing or anything. BUT I would love to be able to do a review on this for you . That’s probably the only way that I would be able to get one for myself. Please consider that. It’s been so hard to li", "Does the system really need crowd funding?", "Do you have a comparison to the GARDYN?", "Not at this time ", "All good ", "Not for now", "Bitte in German language", "Certainly looks interesting.", "Highly innovative product - would love to test it out for you as a consumer in the market place! ", "keep it affordable", "Hi ,with so many items coming onto the market right now and 42 plant options sounds amazing. I'm a new grower and so keen to learn new things when gardening  and learning to use the A.I bot will help me progress forward.  I'm not rich but I realise 42 plants is a massive save on my grocery shop. Any", "I want to more pictures of what can be grown ", "Good ahead", "As someone who has eaten strictly organic for 30 years, the seeds you sell are just as important as the machine itself. I will only consider to buy the machine when the seeds are organic. Please make sure to offer organic seeds", "Would it be available in France? ", "Espero poder charlar con ustedes pronto. Será el paso previo a realizar cualquier pedido"], "features_count": 71, "comments_count": 23}, "65+": {"features": ["Option for integrated and automated water feed, nutrient feed, PH adjust, especially for when we travel.", "Q and A accessible", "Senior citizen and veteran's discounts would help....", "Support", "Off grid power, like dc", "No, looking forward to finding out", "if a cell phone is needed am not interested", "Growth measurement", "Indicating the growth period of plants while using this system", "Space sao", "Protection from animals", "Sturdy strong", "Blue tooth guide", "Different colours of the unit", "Alarm System when Plants aren't doing well", "No idea.", "Water levels", "I can't think of anything at this point", "Link to phone", "Not that I can think of now undecided undecided", "Not at this time", "Self watering", "ENGLISH MANUAL IN JAPAN PLEASE", "Just need all info how to usr", "Not sure", "No, you covered everything. It sounds amazing.", "Not really", "Ambient nature sounds", "No I believe it’s perfect for my needs", "Stability feature to keep unit from tipping over - i have very inquisitive cats that climb everything."], "comments": ["Support and hand holding is most important as most getting into smart growing have no idea what's involved. Periodic cleaning is a pain so integrating a cleaning mode would be nice. Maybe an integrated citric acid bath feed connection after plant removal? Please let me know when this might be availa", "Waiting to hear more about this product and hoping/praying for a big discount so I can show off my treasures/goodies.", "Looking forward to what becomes of this survey", "Interested, but retired so price is great detertermineator", "don't have money to back sorry", "This looks very interesting as a retired person i need to eat  healthy ", "If it was really expensive I would not consider it. ", "Not at this time. ", "I think a podcast would be great to answer questions for anybody and everybody that are interested the Maygrove AI Growbot. ", "No thanks.", "I know nothing about this, need to research.", "Where do I find the price", "PRACTICAL FOR MYANMAR CUSTOMERS IN JAPAN", "Current products on the market are over priced. I am hoping that someone. Comes out with a product that the average person can afford and without a subscription forced to get full functionality ", "I would really like to buy one, but I am a retired Catholic school teacher and I don't have much money.", "Price is extremely important. Bundles at great reduction would motivate me to gift units to family and friends.", "Looks like a viable product", "What happens to \"deposit\" if unit doesn't launch? ", "I am deaf 🧏‍♀️ and need setup on you tube please with close captioning ", "Would be willing to get one depending on price point"], "features_count": 103, "comments_count": 36}, "US_35_55": {"features": ["Sealed columns that do not leak", "No membership required", "A good list of what you can't grow well", "Adding an auto ph adjuster", "No subscription", "I want something that works", "No not really", "Seed harvesting and pod recycling/reusing", "Tracking key milestones for all of the plants once they’re in the system. For example, how many days until I should expect sprouts, harvest, etc.", "the spacing, most towers don't give enough room for bigger plants like or cabbages or lettuces", "Ability to expand area/customize design with additional attachable accessories.", "RGB mood lights", "When plants are too large", "If using the camera, notifications of when plants sprout could be a fun gamified way of interaction with AI", "I eat a lot of vegetables and would love to have an abundance of leafy greens and salad toppings", "Not that I can think of", "I'm new and learning.", "Can be self sufficient", "Prep suggestions and nutrition info with harvest", "Just curious", "Sounds pretty good", "Cover to protect from pets", "Air flow/fan system", "Humidity control", "Plant collection suggestions", "API capabilities to integrate with products like home assistant", "Where AI can monitor the plant and offer suggestions and how to treat them.  Especially if bugs are found", "instructions to grow fruit", "A syphon option for quick draining when replacing water, a temperature gauge for the water that’s on the ec/td/ph, accessories including a little tool holder in the front, some way of tying back plant", "Looking to expand into medicinal herbs. Some other products don’t support plants I’m interested in."], "comments": ["I own a gardyn do it needs to be better", "Really excited about this one!", "Like I said above, please make this affordable for seniors. most are like me on ssi which doesn't pay much.  ", "Would love to receive a free one or two for test & customer review from a kids perspective. ", "It seems interesting and I always want to learn how to garden.", "Not your typical herb, fruits, and veggies. Have different varieties from different countries. Again would like the Mexican herb papalo.", "Sounds awesome, I’d like more info to give to an organization I volunteer for", "No suggestions ", "As someone who uses Gardyn indoor, and Green Stalk’s outdoor, I’m really interested in following this product. I create garden content and share my harvests with friends and co-workers of mine at the WWE Performance Center in Orlando.  This could be a good fit in my setup. ", "I own two generations of the Gardyn home and enjoy them. I would love to be a tester if that is a possibility.", "Make it a reasonable price. Better than lettuce grow or gardyn", "Are you interested in partnering with a wellness brand for promotion of this product?", "I'm a YouTuber and would love to review. I also admin a hydroponic gardening group on Facebook that has over 20,000 members. I have over 75,000 followers across social that look to me for gardening and hydroponic advice. Please reach out. littletechgirl@gmail.com", "When will this launch and what’s the price. I own 6 Gardyn and I’m curious about this ", "I would love too be one of the first to try this model out an advertise it, I would be so honored to test it out!"], "features_count": 48, "comments_count": 15}}, "target_gender": {"Female": 63, "Male": 37, "Prefer not to say": 3}, "target_vs_rest_grow_items": {"target": {"LeafyGreens": 85.4, "Herbs": 82.5, "Flowers": 38.8, "Brassicas&Root": 55.3, "FruitingVeg": 89.3, "Other": 12.6}, "rest": {"LeafyGreens": 80.3, "Herbs": 75.6, "Flowers": 32.5, "Brassicas&Root": 50.3, "FruitingVeg": 83.1, "Other": 8.6}}};
-
-window.addEventListener('DOMContentLoaded', function() {
-  renderAll('all');
-});
 </script>
-
 </body>
 </html>
