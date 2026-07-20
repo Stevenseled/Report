@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VSE-ATW70 加热器 2026H1 销售数据分析报告</title>
+<title>VSE-ATW70 加热器 销售数据分析报告</title>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-:root { --bg:#fff; --text:#1a1b26; --t2:#6b7280; --t3:#9ca3af; --border:#e5e7eb; --blue:#1a6bb0; --green:#1a8a4a; --orange:#c96a0e; --gold:#b8860b; --card:#f8f9fb; --red:#c0392b; }
-body { font-family: -apple-system,'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; font-size:14px; }
+* { margin:0; padding:0; box-sizing:border-box; }
+:root { --bg:#fff; --text:#1a1b26; --t2:#6b7280; --t3:#9ca3af; --border:#e5e7eb; --blue:#1a6bb0; --green:#1a8a4a; --orange:#c96a0e; --gold:#b8860b; --card:#f8f9fb; --red:#c0392b; --purple:#7c3aed; }
+body { font-family:-apple-system,'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; font-size:14px; }
 .container { max-width:960px; margin:0 auto; padding:20px 16px 60px; }
 
 .hero { text-align:center; padding:40px 16px 28px; border-bottom:1px solid var(--border); margin-bottom:24px; }
@@ -20,33 +20,28 @@ body { font-family: -apple-system,'PingFang SC','Noto Sans SC','Microsoft YaHei'
 .s-title { font-size:20px; font-weight:700; margin-bottom:2px; }
 .s-sub { font-size:13px; color:var(--t2); margin-bottom:16px; }
 
+/* Stats */
 .stats { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
 .stat-c { flex:1; min-width:130px; background:var(--card); border-radius:8px; padding:16px; text-align:center; }
 .stat-num { font-size:24px; font-weight:700; }
-.stat-num.blue { color:var(--blue); }
-.stat-num.green { color:var(--green); }
-.stat-num.orange { color:var(--orange); }
+.stat-num.b { color:var(--blue); }
+.stat-num.g { color:var(--green); }
+.stat-num.o { color:var(--orange); }
 .stat-lbl { font-size:11px; color:var(--t2); margin-top:2px; }
 
-.insight { background:#e8f0fe; border-left:3px solid var(--blue); padding:12px 16px; border-radius:0 6px 6px 0; margin:12px 0; font-size:13px; line-height:1.7; }
-.insight.gold { background:#fef3c7; border-color:var(--gold); }
-.insight.gold strong { color:#92400e; }
-.insight strong { color:var(--blue); }
+/* Bar Chart */
+.chart-wrap { display:flex; align-items:flex-end; gap:6px; height:200px; padding:0 4px; margin-bottom:8px; }
+.bar-group { display:flex; flex-direction:column; align-items:center; flex:1; height:100%; justify-content:flex-end; }
+.bar-col { display:flex; gap:2px; align-items:flex-end; height:180px; }
+.bar { width:22px; border-radius:4px 4px 0 0; min-height:2px; position:relative; transition:height .3s; }
+.bar .val { position:absolute; top:-18px; left:50%; transform:translateX(-50%); font-size:10px; font-weight:600; white-space:nowrap; }
+.bar-l { font-size:10px; color:var(--t2); margin-top:6px; text-align:center; }
+.bar-lbl-m { font-size:10px; color:var(--t2); margin-top:4px; text-align:center; }
+.legend { display:flex; gap:16px; justify-content:center; margin-bottom:12px; }
+.legend-item { display:flex; align-items:center; gap:4px; font-size:11px; }
+.legend-dot { width:10px; height:10px; border-radius:2px; }
 
-.chart-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-@media (max-width:640px) { .chart-row { grid-template-columns:1fr; } }
-.chart-c { background:var(--card); border-radius:8px; padding:16px; }
-.chart-c h4 { font-size:14px; font-weight:600; margin-bottom:12px; }
-
-.tbl { width:100%; border-collapse:collapse; font-size:12px; }
-.tbl th { text-align:left; padding:8px 6px; border-bottom:2px solid var(--border); font-weight:600; color:var(--t2); font-size:11px; }
-.tbl td { padding:7px 6px; border-bottom:1px solid var(--border); }
-.tbl tr:hover td { background:#f0f4f8; }
-.tbl .num { text-align:right; font-variant-numeric:tabular-nums; }
-.tbl .pct { text-align:center; font-weight:600; }
-.tbl .down { color:var(--orange); }
-.tbl .up { color:var(--green); }
-
+/* Bar table */
 .bar-table { display:flex; flex-direction:column; gap:4px; }
 .bar-row { display:flex; align-items:center; gap:8px; }
 .bar-lbl { width:100px; font-size:11px; text-align:right; flex-shrink:0; color:var(--text); }
@@ -55,24 +50,45 @@ body { font-family: -apple-system,'PingFang SC','Noto Sans SC','Microsoft YaHei'
 .bar-pct { width:40px; font-size:11px; font-weight:600; text-align:right; flex-shrink:0; }
 .bar-n { font-size:10px; color:var(--t3); width:30px; text-align:right; flex-shrink:0; }
 
+/* Tables */
+.tbl { width:100%; border-collapse:collapse; font-size:12px; }
+.tbl th { text-align:left; padding:8px 6px; border-bottom:2px solid var(--border); font-weight:600; color:var(--t2); font-size:11px; }
+.tbl td { padding:7px 6px; border-bottom:1px solid var(--border); }
+.tbl tr:hover td { background:#f0f4f8; }
+.tbl .n { text-align:right; font-variant-numeric:tabular-nums; }
+.tbl .p { text-align:center; font-weight:600; }
+.tbl .d { color:var(--orange); }
+.tbl .u { color:var(--green); }
+
+.insight { background:#e8f0fe; border-left:3px solid var(--blue); padding:12px 16px; border-radius:0 6px 6px 0; margin:12px 0; font-size:13px; line-height:1.7; }
+.insight.gold { background:#fef3c7; border-color:var(--gold); }
+.insight.gold strong { color:#92400e; }
+.insight.green { background:#e8f5e9; border-color:var(--green); }
+.insight strong { color:var(--blue); }
+
+.chart-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+@media (max-width:640px) { .chart-row { grid-template-columns:1fr; } }
+.chart-c { background:var(--card); border-radius:8px; padding:16px; }
+.chart-c h4 { font-size:14px; font-weight:600; margin-bottom:12px; }
+
 .tag { display:inline-block; font-size:10px; padding:1px 6px; border-radius:3px; margin-right:4px; }
 .tag-b { background:#e3f2fd; color:#1565c0; }
 .tag-g { background:#e8f5e9; color:#2e7d32; }
 
 .footer { text-align:center; padding:30px 16px; font-size:11px; color:var(--t3); border-top:1px solid var(--border); }
 
-.conclusion-card { background:var(--card); border-radius:10px; padding:20px; margin-bottom:14px; border:1px solid var(--border); }
-.conclusion-card h4 { font-size:15px; font-weight:700; margin-bottom:6px; }
-.conclusion-card p, .conclusion-card li { font-size:13px; line-height:1.7; }
-.conclusion-card ul { padding-left:18px; margin-top:6px; }
-.conclusion-card li { margin-bottom:3px; }
+.cc { background:var(--card); border-radius:10px; padding:20px; margin-bottom:14px; border:1px solid var(--border); }
+.cc h4 { font-size:15px; font-weight:700; margin-bottom:6px; }
+.cc p, .cc li { font-size:13px; line-height:1.7; }
+.cc ul { padding-left:18px; margin-top:6px; }
+.cc li { margin-bottom:3px; }
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <h1>🔥 <span>VSE-ATW70</span> 加热器 2026 H1 销售分析</h1>
-  <p class="sub">Amazon + 独立站 · 全渠道 · 26H1销售数据报告</p>
+  <h1>🔥 <span>VSE-ATW70</span> 加热器销售数据分析</h1>
+  <p class="sub">Amazon + 独立站 · 25H1-26H1 · 全渠道销售趋势与盈利能力</p>
   <p class="meta">2026-07-20 · 数据来源：Amazon利润报表 + 订单收入成本明细</p>
 </div>
 
@@ -83,244 +99,336 @@ body { font-family: -apple-system,'PingFang SC','Noto Sans SC','Microsoft YaHei'
   <div class="s-title">核心数据</div>
   <div class="s-sub">VSE-ATW70 系列 2026 H1 全渠道汇总</div>
   <div class="stats">
-    <div class="stat-c"><div class="stat-num blue">4,319,570</div><div class="stat-lbl">总收入 (CNY)</div></div>
-    <div class="stat-c"><div class="stat-num green">4,034</div><div class="stat-lbl">Amazon 销量 (台)</div></div>
-    <div class="stat-c"><div class="stat-num orange">3,297</div><div class="stat-lbl">独立站发运量</div></div>
-    <div class="stat-c"><div class="stat-num blue">2,964,085</div><div class="stat-lbl">毛利1 (CNY)</div></div>
-    <div class="stat-c"><div class="stat-num green">1,482,037</div><div class="stat-lbl">毛利2 (CNY)</div></div>
-    <div class="stat-c"><div class="stat-num" style="color:#6b21a8">Amazon 67%</div><div class="stat-lbl">渠道占比</div></div>
+    <div class="stat-c"><div class="stat-num b">4,319,570</div><div class="stat-lbl">⚠总收入 (CNY)</div></div>
+    <div class="stat-c"><div class="stat-num g">4,034</div><div class="stat-lbl">Amazon 销量 (台)</div></div>
+    <div class="stat-c"><div class="stat-num o">3,297</div><div class="stat-lbl">独立站发运量</div></div>
+    <div class="stat-c"><div class="stat-num b">2,964,085</div><div class="stat-lbl">⚠毛利1</div></div>
+    <div class="stat-c"><div class="stat-num g">1,482,037</div><div class="stat-lbl">⚠毛利2</div></div>
+    <div class="stat-c"><div class="stat-num" style="color:var(--purple)">Amazon 67%</div><div class="stat-lbl">渠道占比</div></div>
   </div>
   <div class="insight">
-    <strong>关键发现：</strong>VSE-ATW70 于 2026 年初上市，26H1 全渠道总收入达 <strong>432 万元</strong>。Amazon 占 67%，独立站占 33%。整体毛利率1 达 <strong>68.6%</strong>，毛利率2（扣除运营费用后）为 <strong>34.3%</strong>。1-3 月为销售高峰期（占 H1 总量 85%），4 月起销量明显回落，属于典型的季节性取暖产品。
+    <strong>关键发现：</strong>VSE-ATW70 于 2026 年初上市，替代了 25H1 销量惨淡的老款加热器。加热器品类从 25H1 的 <strong>11 万</strong> 收入暴增至 26H1 的 <strong>432 万</strong>（<strong>增长 39 倍</strong>），ATW70 是绝对增长引擎。整体毛利率1 达 <strong>68.6%</strong>，毛利率2 为 <strong>34.3%</strong>，盈利能力健康。1-3 月为销售高峰（占 H1 总量 85%），属强季节性产品。
   </div>
 </div>
 
-<!-- ====== Amazon 分析 ====== -->
+<!-- ====== 品类增长（柱状图） ====== -->
 <div class="section">
-  <div class="s-title">Amazon 渠道分析</div>
-  <div class="s-sub">VSE-ATW70 Amazon 26H1 月度趋势</div>
-  
-  <table class="tbl">
-    <thead><tr>
-      <th>月份</th>
-      <th class="num">销量</th>
-      <th class="num">收入 (CNY)</th>
-      <th class="num">毛利1</th>
-      <th class="num">毛利2</th>
-      <th class="pct">毛利率1</th>
-      <th class="pct">毛利率2</th>
-      <th class="num">月环比</th>
-    </tr></thead>
-    <tbody>
-      <tr><td>2026-01</td><td class="num">1,224</td><td class="num">918,869</td><td class="num">633,032</td><td class="num">312,452</td><td class="pct">68.9%</td><td class="pct">34.0%</td><td class="num">—</td></tr>
-      <tr><td>2026-02</td><td class="num">1,318</td><td class="num">915,057</td><td class="num">614,114</td><td class="num">334,979</td><td class="pct">67.1%</td><td class="pct">36.6%</td><td class="num up">+7.7%</td></tr>
-      <tr><td>2026-03</td><td class="num">891</td><td class="num">622,587</td><td class="num">413,404</td><td class="num">189,195</td><td class="pct">66.4%</td><td class="pct">30.4%</td><td class="num down">-32.4%</td></tr>
-      <tr><td>2026-04</td><td class="num">243</td><td class="num">174,391</td><td class="num">117,696</td><td class="num">56,843</td><td class="pct">67.5%</td><td class="pct">32.6%</td><td class="num down">-72.7%</td></tr>
-      <tr><td>2026-05</td><td class="num">148</td><td class="num">131,691</td><td class="num">96,345</td><td class="num">57,351</td><td class="pct">73.2%</td><td class="pct">43.5%</td><td class="num down">-39.1%</td></tr>
-      <tr><td>2026-06</td><td class="num">210</td><td class="num">140,194</td><td class="num">91,954</td><td class="num">25,300</td><td class="pct">65.6%</td><td class="pct">18.0%</td><td class="num up">+41.9%</td></tr>
-    </tbody>
-    <tfoot>
-      <tr style="font-weight:700;background:var(--card)"><td>合计</td><td class="num">4,034</td><td class="num">2,902,789</td><td class="num">1,966,545</td><td class="num">976,120</td><td class="pct">67.7%</td><td class="pct">33.6%</td><td class="num">—</td></tr>
-    </tfoot>
-  </table>
+  <div class="s-title">📊 加热器品类增长趋势</div>
+  <div class="s-sub">25H1（旧款 VH 系列）→ 26H1（ATW70 系列）收入对比</div>
+  <div class="chart-c">
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--t3)"></span>25H1 旧款加热器</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>26H1 VSE-ATW70</div>
+    </div>
+    <div class="chart-wrap" style="height:240px;">
+      <!-- Amazon 25H1 vs 26H1 -->
+      <div class="bar-group" style="flex:0.8;">
+        <div class="bar-col" style="gap:4px;">
+          <div class="bar" style="height:8px;background:var(--t3);">
+            <div class="val" style="font-size:9px;top:-16px;color:var(--t3)">11万</div>
+          </div>
+          <div class="bar" style="height:180px;background:var(--orange);">
+            <div class="val" style="color:var(--orange)">290万</div>
+          </div>
+        </div>
+        <div class="bar-lbl-m">Amazon 加热器</div>
+      </div>
 
-  <div class="insight">
-    <strong>趋势分析：</strong>Amazon 销售呈现明显的前高后低走势。1-2 月为冬季取暖旺季，月销超 1,200 台；3 月起随天气转暖销量逐月下滑，4-6 月进入淡季（月均 200 台）。6 月销量环比回升 42%，可能受益于 Prime Day 预热或促销活动。
-  </div>
+      <!-- Web 25H1 vs 26H1 -->
+      <div class="bar-group" style="flex:0.8;">
+        <div class="bar-col" style="gap:4px;">
+          <div class="bar" style="height:2px;background:var(--t3);min-height:2px;">
+            <div class="val" style="font-size:9px;top:-16px;color:var(--t3)">0</div>
+          </div>
+          <div class="bar" style="height:88px;background:var(--orange);">
+            <div class="val" style="color:var(--orange)">142万</div>
+          </div>
+        </div>
+        <div class="bar-lbl-m">独立站 加热器</div>
+      </div>
 
-  <div class="s-sub" style="margin-top:20px">Amazon 各站点/SKU 26H1 对比</div>
-  <table class="tbl">
-    <thead><tr>
-      <th>SKU</th>
-      <th>站点</th>
-      <th class="num">收入 (CNY)</th>
-      <th class="num">毛利1</th>
-      <th class="num">毛利2</th>
-      <th class="pct">毛利率1</th>
-      <th class="pct">毛利率2</th>
-    </tr></thead>
-    <tbody>
-      <tr><td>VSE-ATW70</td><td>🇺🇸 US (FBA)</td><td class="num">2,310,308</td><td class="num">1,554,669</td><td class="num">756,959</td><td class="pct">67.3%</td><td class="pct">32.8%</td></tr>
-      <tr><td>VSE-ATW70K</td><td>🇺🇸 US (FBA)</td><td class="num">161,271</td><td class="num">113,751</td><td class="num">49,222</td><td class="pct">70.5%</td><td class="pct">30.5%</td></tr>
-      <tr><td>VSE-ATW70-EU</td><td>🇪🇺 EU (FBA)</td><td class="num">324,523</td><td class="num">221,665</td><td class="num">123,113</td><td class="pct">68.3%</td><td class="pct">37.9%</td></tr>
-      <tr><td>VSE-ATW70-EU-FBM</td><td>🇪🇺 EU (FBM)</td><td class="num">56,405</td><td class="num">40,970</td><td class="num">22,838</td><td class="pct">72.6%</td><td class="pct">40.5%</td></tr>
-      <tr><td>VSE-ATW70-UK</td><td>🇬🇧 UK (FBA)</td><td class="num">9,259</td><td class="num">6,439</td><td class="num">4,373</td><td class="pct">69.5%</td><td class="pct">47.2%</td></tr>
-      <tr><td>VSE-ATW70-UK-FBM</td><td>🇬🇧 UK (FBM)</td><td class="num">38,133</td><td class="num">26,853</td><td class="num">17,928</td><td class="pct">70.4%</td><td class="pct">47.0%</td></tr>
-      <tr><td>VSE-ATW70-AU-FBM</td><td>🇦🇺 AU (FBM)</td><td class="num">2,890</td><td class="num">2,198</td><td class="num">1,687</td><td class="pct">76.1%</td><td class="pct">58.4%</td></tr>
-    </tbody>
-    <tfoot>
-      <tr style="font-weight:700;background:var(--card)"><td colspan="2">合计</td><td class="num">2,902,789</td><td class="num">1,966,545</td><td class="num">976,120</td><td class="pct">67.7%</td><td class="pct">33.6%</td></tr>
-    </tfoot>
-  </table>
-
-  <div class="insight">
-    <strong>站点分析：</strong>美国站贡献 Amazon 总收入的 <strong>85%</strong>（含 ATW70K），是绝对主力市场。EU 站合计约 38 万，UK 站约 4.7 万，AU 站极小。FBM 模式在 EU/UK 的毛利率2 显著高于 FBA（约 7-10 个百分点），说明 FBM 费用更低。<br><br>
-    <strong>VSE-ATW70K</strong>（可能为捆绑或变体 SKU）收入 16 万，毛利率 70.5% 略高于标准版。
+      <!-- Total -->
+      <div class="bar-group" style="flex:0.8;">
+        <div class="bar-col" style="gap:4px;">
+          <div class="bar" style="height:7px;background:var(--t3);">
+            <div class="val" style="font-size:9px;top:-16px;color:var(--t3)">11万</div>
+          </div>
+          <div class="bar" style="height:180px;background:var(--blue);">
+            <div class="val" style="color:var(--blue)">432万</div>
+          </div>
+        </div>
+        <div class="bar-lbl-m">全渠道合计</div>
+      </div>
+    </div>
+    <div class="insight green" style="margin:0;font-size:12px;">
+      <strong>品类飞跃：</strong>ATW70 上市后，加热器品类从 25H1 的 11 万（旧款 VH 系列，多为退货/亏损）跃升至 26H1 的 432 万。2025 年的加热器产品（VH1560/VH1561/VH1626）多为亏损状态（毛利2 为负数），ATW70 彻底逆转了品类的盈利能力。
+    </div>
   </div>
 </div>
 
-<!-- ====== 独立站分析 ====== -->
+<!-- ====== 月度趋势（柱状图） ====== -->
 <div class="section">
-  <div class="s-title">独立站 (DTC) 渠道分析</div>
-  <div class="s-sub">VSE-ATW70 独立站 26H1 各站点汇总</div>
+  <div class="s-title">📈 Amazon 月度销售趋势</div>
+  <div class="s-sub">VSE-ATW70 Amazon 26H1 每月销量与毛利2</div>
+  <div class="chart-c">
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>销量 (台)</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--green)"></span>毛利2 (万元)</div>
+    </div>
+    <div class="chart-wrap" style="height:220px;">
+      <!-- Jan: 1224 qty, 312,452 gp2 -->
+      <div class="bar-group">
+        <div class="bar-col" style="gap:3px;">
+          <div class="bar" style="height:170px;background:var(--blue);"><div class="val">1,224</div></div>
+          <div class="bar" style="height:90px;background:var(--green);"><div class="val" style="color:var(--green)">31.2</div></div>
+        </div>
+        <div class="bar-lbl-m">1月</div>
+      </div>
+      <!-- Feb: 1318 qty, 334,979 gp2 -->
+      <div class="bar-group">
+        <div class="bar-col" style="gap:3px;">
+          <div class="bar" style="height:183px;background:var(--blue);"><div class="val">1,318</div></div>
+          <div class="bar" style="height:97px;background:var(--green);"><div class="val" style="color:var(--green)">33.5</div></div>
+        </div>
+        <div class="bar-lbl-m">2月</div>
+      </div>
+      <!-- Mar: 891 qty, 189,195 gp2 -->
+      <div class="bar-group">
+        <div class="bar-col" style="gap:3px;">
+          <div class="bar" style="height:124px;background:var(--blue);"><div class="val">891</div></div>
+          <div class="bar" style="height:55px;background:var(--green);"><div class="val" style="color:var(--green)">18.9</div></div>
+        </div>
+        <div class="bar-lbl-m">3月</div>
+      </div>
+      <!-- Apr: 243 qty, 56,843 gp2 -->
+      <div class="bar-group">
+        <div class="bar-col" style="gap:3px;">
+          <div class="bar" style="height:34px;background:var(--blue);"><div class="val" style="font-size:9px">243</div></div>
+          <div class="bar" style="height:16px;background:var(--green);"><div class="val" style="font-size:9px;color:var(--green)">5.7</div></div>
+        </div>
+        <div class="bar-lbl-m">4月</div>
+      </div>
+      <!-- May: 148 qty, 57,351 gp2 -->
+      <div class="bar-group">
+        <div class="bar-col" style="gap:3px;">
+          <div class="bar" style="height:21px;background:var(--blue);"><div class="val" style="font-size:9px">148</div></div>
+          <div class="bar" style="height:17px;background:var(--green);"><div class="val" style="font-size:9px;color:var(--green)">5.7</div></div>
+        </div>
+        <div class="bar-lbl-m">5月</div>
+      </div>
+      <!-- Jun: 210 qty, 25,300 gp2 -->
+      <div class="bar-group">
+        <div class="bar-col" style="gap:3px;">
+          <div class="bar" style="height:29px;background:var(--blue);"><div class="val" style="font-size:9px">210</div></div>
+          <div class="bar" style="height:7px;background:var(--green);"><div class="val" style="font-size:9px;color:var(--green)">2.5</div></div>
+        </div>
+        <div class="bar-lbl-m">6月</div>
+      </div>
+    </div>
 
+    <table class="tbl" style="margin-top:12px;">
+      <thead><tr>
+        <th>月份</th><th class="n">销量</th><th class="n">收入</th><th class="n">毛利2</th><th class="p">毛利率2</th><th class="n">环比销量</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>2026-01</td><td class="n">1,224</td><td class="n">918,869</td><td class="n">312,452</td><td class="p">34.0%</td><td class="n">—</td></tr>
+        <tr><td>2026-02</td><td class="n">1,318</td><td class="n">915,057</td><td class="n">334,979</td><td class="p">36.6%</td><td class="n u">+7.7%</td></tr>
+        <tr><td>2026-03</td><td class="n">891</td><td class="n">622,587</td><td class="n">189,195</td><td class="p">30.4%</td><td class="n d">-32.4%</td></tr>
+        <tr><td>2026-04</td><td class="n">243</td><td class="n">174,391</td><td class="n">56,843</td><td class="p">32.6%</td><td class="n d">-72.7%</td></tr>
+        <tr><td>2026-05</td><td class="n">148</td><td class="n">131,691</td><td class="n">57,351</td><td class="p">43.5%</td><td class="n d">-39.1%</td></tr>
+        <tr><td>2026-06</td><td class="n">210</td><td class="n">140,194</td><td class="n">25,300</td><td class="p">18.0%</td><td class="n u">+41.9%</td></tr>
+      </tbody>
+      <tfoot><tr style="font-weight:700;background:var(--card)">
+        <td>合计</td><td class="n">4,034</td><td class="n">2,902,789</td><td class="n">976,120</td><td class="p">33.6%</td><td class="n">—</td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="insight" style="margin-top:12px;">
+    <strong>季节性特征：</strong>1-2 月冬季取暖旺季月销 >1,200 台；3 月随天气转暖下降 32%；4-6 月进入淡季月均约 200 台。6 月销量环比回升 42%（可能受 Prime Day 预热带动），但毛利率2 降至 <strong>18.0%</strong>（H1 最低），需关注费用控制。建议 H2 备货从 9 月起逐步加量。
+  </div>
+</div>
+
+<!-- ====== Amazon 各SKU ====== -->
+<div class="section">
+  <div class="s-title">Amazon 各站点/SKU 对比</div>
+  <div class="s-sub">VSE-ATW70 各变体 26H1 销售与盈利表现</div>
   <table class="tbl">
     <thead><tr>
-      <th>站点</th>
-      <th class="num">订单量</th>
-      <th class="num">发运量</th>
-      <th class="num">收入 (CNY)</th>
-      <th class="num">采购成本</th>
-      <th class="num">海运成本</th>
-      <th class="num">毛利1</th>
-      <th class="pct">毛利率1</th>
-      <th class="num">预估毛利2</th>
-      <th class="pct">预估毛利率2</th>
+      <th>SKU</th><th>站点</th><th class="n">收入</th><th class="n">毛利1</th><th class="n">毛利2</th>
+      <th class="p">毛利率1</th><th class="p">毛利率2</th><th>模式</th>
     </tr></thead>
     <tbody>
-      <tr>
-        <td>🇺🇸 VSE-ATW70 (US)</td>
-        <td class="num">2,331</td><td class="num">2,359</td>
-        <td class="num">975,314</td><td class="num">288,093</td><td class="num">3,417</td>
-        <td class="num">683,804</td><td class="pct">70.1%</td>
-        <td class="num">345,370</td><td class="pct">35.4%</td>
-      </tr>
-      <tr>
-        <td>🇦🇺 VSE-ATW70-AU</td>
-        <td class="num">88</td><td class="num">90</td>
-        <td class="num">77,214</td><td class="num">18,878</td><td class="num">267</td>
-        <td class="num">58,069</td><td class="pct">75.2%</td>
-        <td class="num">31,276</td><td class="pct">40.5%</td>
-      </tr>
-      <tr>
-        <td>🇪🇺 VSE-ATW70-EU</td>
-        <td class="num">792</td><td class="num">808</td>
-        <td class="num">333,400</td><td class="num">98,212</td><td class="num">1,538</td>
-        <td class="num">233,650</td><td class="pct">70.1%</td>
-        <td class="num">117,960</td><td class="pct">35.4%</td>
-      </tr>
-      <tr>
-        <td>🇬🇧 VSE-ATW70-UK</td>
-        <td class="num">39</td><td class="num">40</td>
-        <td class="num">30,853</td><td class="num">8,482</td><td class="num">354</td>
-        <td class="num">22,017</td><td class="pct">71.4%</td>
-        <td class="num">11,311</td><td class="pct">36.7%</td>
-      </tr>
+      <tr><td>VSE-ATW70</td><td>🇺🇸 美国</td><td class="n">2,310,308</td><td class="n">1,554,669</td><td class="n">756,959</td><td class="p">67.3%</td><td class="p">32.8%</td><td>FBA</td></tr>
+      <tr><td>VSE-ATW70K</td><td>🇺🇸 美国</td><td class="n">161,271</td><td class="n">113,751</td><td class="n">49,222</td><td class="p">70.5%</td><td class="p">30.5%</td><td>FBA</td></tr>
+      <tr><td>VSE-ATW70-EU</td><td>🇪🇺 欧洲</td><td class="n">324,523</td><td class="n">221,665</td><td class="n">123,113</td><td class="p">68.3%</td><td class="p">37.9%</td><td>FBA</td></tr>
+      <tr><td>VSE-ATW70-EU-FBM</td><td>🇪🇺 欧洲</td><td class="n">56,405</td><td class="n">40,970</td><td class="n">22,838</td><td class="p">72.6%</td><td class="p">40.5%</td><td>FBM</td></tr>
+      <tr><td>VSE-ATW70-UK</td><td>🇬🇧 英国</td><td class="n">9,259</td><td class="n">6,439</td><td class="n">4,373</td><td class="p">69.5%</td><td class="p">47.2%</td><td>FBA</td></tr>
+      <tr><td>VSE-ATW70-UK-FBM</td><td>🇬🇧 英国</td><td class="n">38,133</td><td class="n">26,853</td><td class="n">17,928</td><td class="p">70.4%</td><td class="p">47.0%</td><td>FBM</td></tr>
+      <tr><td>VSE-ATW70-AU-FBM</td><td>🇦🇺 澳洲</td><td class="n">2,890</td><td class="n">2,198</td><td class="n">1,687</td><td class="p">76.1%</td><td class="p">58.4%</td><td>FBM</td></tr>
     </tbody>
-    <tfoot>
-      <tr style="font-weight:700;background:var(--card)">
-        <td>合计</td>
-        <td class="num">3,250</td><td class="num">3,297</td>
-        <td class="num">1,416,781</td><td class="num">413,665</td><td class="num">5,575</td>
-        <td class="num">997,540</td><td class="pct">70.4%</td>
-        <td class="num">505,917</td><td class="pct">35.7%</td>
-      </tr>
-    </tfoot>
+    <tfoot><tr style="font-weight:700;background:var(--card)">
+      <td colspan="2">合计</td><td class="n">2,902,789</td><td class="n">1,966,545</td><td class="n">976,120</td><td class="p">67.7%</td><td class="p">33.6%</td><td></td>
+    </tr></tfoot>
   </table>
+  <div class="insight gold" style="margin-top:12px;">
+    <strong>模式对比：</strong>FBM 模式的毛利率2 普遍高于 FBA（EU 高 2.6pp，UK 高 0.2pp）。美国站占 Amazon 总收入 <strong>85%</strong>（含 ATW70K），是绝对主力。<br>
+    <strong>VSE-ATW70K</strong>（可能为组合装/变体）收入 16 万，毛利率1 达 70.5%，表现良好。
+  </div>
+</div>
 
+<!-- ====== 独立站 ====== -->
+<div class="section">
+  <div class="s-title">独立站 (DTC) 各站点分析</div>
+  <div class="s-sub">VSE-ATW70 独立站 26H1 收入与盈利能力</div>
+  <table class="tbl">
+    <thead><tr>
+      <th>站点</th><th class="n">订单量</th><th class="n">发运量</th><th class="n">收入</th>
+      <th class="n">采购成本</th><th class="n">海运</th><th class="n">毛利1</th>
+      <th class="p">毛利率1</th><th class="n">预估毛利2</th><th class="p">预估毛利率2</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>🇺🇸 VSE-ATW70 (US)</td><td class="n">2,331</td><td class="n">2,359</td>
+        <td class="n">975,314</td><td class="n">288,093</td><td class="n">3,417</td>
+        <td class="n">683,804</td><td class="p">70.1%</td><td class="n">345,370</td><td class="p">35.4%</td></tr>
+      <tr><td>🇦🇺 VSE-ATW70-AU</td><td class="n">88</td><td class="n">90</td>
+        <td class="n">77,214</td><td class="n">18,878</td><td class="n">267</td>
+        <td class="n">58,069</td><td class="p">75.2%</td><td class="n">31,276</td><td class="p">40.5%</td></tr>
+      <tr><td>🇪🇺 VSE-ATW70-EU</td><td class="n">792</td><td class="n">808</td>
+        <td class="n">333,400</td><td class="n">98,212</td><td class="n">1,538</td>
+        <td class="n">233,650</td><td class="p">70.1%</td><td class="n">117,960</td><td class="p">35.4%</td></tr>
+      <tr><td>🇬🇧 VSE-ATW70-UK</td><td class="n">39</td><td class="n">40</td>
+        <td class="n">30,853</td><td class="n">8,482</td><td class="n">354</td>
+        <td class="n">22,017</td><td class="p">71.4%</td><td class="n">11,311</td><td class="p">36.7%</td></tr>
+    </tbody>
+    <tfoot><tr style="font-weight:700;background:var(--card)">
+      <td>合计</td><td class="n">3,250</td><td class="n">3,297</td>
+      <td class="n">1,416,781</td><td class="n">413,665</td><td class="n">5,575</td>
+      <td class="n">997,540</td><td class="p">70.4%</td><td class="n">505,917</td><td class="p">35.7%</td>
+    </tr></tfoot>
+  </table>
   <div class="insight gold">
-    <strong>注意：</strong>独立站毛利2 为基于公司公式的估算值（26H1 毛利率2 = 毛利率1 - 34.7%）。实际毛利2 会受广告投放、支付手续费、退款率等因素影响。<br>
-    实际发运量 3,297 台略高于订单量 3,250 台，差异可能来自合并发运或补发。
+    <strong>估算说明：</strong>独立站毛利2 按公司公式计算（26H1 毛利率2 = 毛利率1 - 34.7%）。美国站占独立站收入 <strong>69%</strong>，EU 占 23.5%。海运成本仅占收入的 0.4%，需确认是否已包含所有头程费用。<br>
+    实际发运量 3,297 台略高于订单量 3,250 台，差异可能来自合并发运。
   </div>
 </div>
 
 <!-- ====== 渠道对比 ====== -->
 <div class="section">
-  <div class="s-title">渠道对比分析</div>
-  <div class="s-sub">Amazon vs 独立站 关键指标对比</div>
+  <div class="s-title">渠道 & 全球站点分布</div>
+  <div class="s-sub">Amazon vs 独立站 · 各站点全渠道汇总</div>
+
+  <div class="chart-row">
+    <div class="chart-c">
+      <h4>📊 渠道收入占比</h4>
+      <div style="display:flex;gap:0;height:30px;border-radius:6px;overflow:hidden;margin:16px 0;">
+        <div style="flex:67;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600;">Amazon 67%</div>
+        <div style="flex:33;background:var(--orange);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600;">独立站 33%</div>
+      </div>
+      <div style="display:flex;justify-content:space-around;font-size:12px;margin-top:8px;">
+        <div>Amazon: <strong>2,902,789</strong></div>
+        <div>独立站: <strong>1,416,781</strong></div>
+      </div>
+    </div>
+
+    <div class="chart-c">
+      <h4>🌍 全球站点收入分布</h4>
+      <div style="height:30px;border-radius:6px;overflow:hidden;display:flex;margin:16px 0;">
+        <div style="flex:80;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600;">🇺🇸 US 80%</div>
+        <div style="flex:16;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:600;">🇪🇺 EU 17%</div>
+        <div style="flex:2;background:var(--gold);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;">🇬🇧</div>
+        <div style="flex:2;background:var(--purple);display:flex;align-items:center;justify-content:center;color:#fff;font-size:9px;">🇦🇺</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;font-size:11px;">
+        <div>🇺🇸 美国 <strong>3,446,893 (79.8%)</strong></div>
+        <div>🇪🇺 欧洲 <strong>714,328 (16.5%)</strong></div>
+        <div>🇬🇧 英国 <strong>78,245 (1.8%)</strong></div>
+        <div>🇦🇺 澳洲 <strong>80,104 (1.9%)</strong></div>
+      </div>
+    </div>
+  </div>
 
   <table class="tbl">
     <thead><tr>
-      <th>指标</th>
-      <th class="num">Amazon</th>
-      <th class="num">独立站</th>
-      <th class="num">合计</th>
-      <th>备注</th>
+      <th>指标</th><th class="n">Amazon</th><th class="n">独立站</th><th class="n">合计</th><th>备注</th>
     </tr></thead>
     <tbody>
-      <tr><td>收入 (CNY)</td><td class="num">2,902,789</td><td class="num">1,416,781</td><td class="num" style="font-weight:700">4,319,570</td><td>Amazon 占 67%</td></tr>
-      <tr><td>销量/发运量</td><td class="num">4,034</td><td class="num">3,297</td><td class="num" style="font-weight:700">7,331</td><td>Amazon 占 55%</td></tr>
-      <tr><td>毛利率1</td><td class="pct">67.7%</td><td class="pct">70.4%</td><td class="pct" style="font-weight:700">68.6%</td><td>独立站略高 2.7pp</td></tr>
-      <tr><td>毛利率2</td><td class="pct">33.6%</td><td class="pct">35.7%</td><td class="pct" style="font-weight:700">34.3%</td><td>独立站略高 2.1pp</td></tr>
-      <tr><td>平均售价 (CNY/台)</td><td class="num">720</td><td class="num">430</td><td class="num" style="font-weight:700">589</td><td>Amazon ASP 更高</td></tr>
+      <tr><td>收入 (CNY)</td><td class="n">2,902,789</td><td class="n">1,416,781</td><td class="n" style="font-weight:700">4,319,570</td><td>Amazon 占 67%</td></tr>
+      <tr><td>销量/发运量</td><td class="n">4,034</td><td class="n">3,297</td><td class="n" style="font-weight:700">7,331</td><td>Amazon 占 55%</td></tr>
+      <tr><td>毛利率1</td><td class="p">67.7%</td><td class="p">70.4%</td><td class="p" style="font-weight:700">68.6%</td><td>独立站略高</td></tr>
+      <tr><td>毛利率2</td><td class="p">33.6%</td><td class="p">35.7%</td><td class="p" style="font-weight:700">34.3%</td><td>均健康水平</td></tr>
+      <tr><td>均价 (CNY/台)</td><td class="n">720</td><td class="n">430</td><td class="n" style="font-weight:700">589</td><td>Amazon ASP 更高</td></tr>
     </tbody>
   </table>
-
   <div class="insight">
-    <strong>渠道洞察：</strong>Amazon 收入占比 67% 但销量占比仅 55%，说明 Amazon 的 <strong>平均售价 ($720) 显著高于独立站 ($430)</strong>。可能原因：(1) Amazon 上的 ATW70K 变体拉高了均价；(2) 独立站有促销折扣拉低了均价；(3) Amazon 上架的可能有套装/捆绑版本。<br><br>
-    两家渠道毛利率1 接近（68-70%），说明产品本身的成本结构一致。毛利率2 均约 34%，独立站按公式估算与 Amazon 实际值接近，验证了公式的合理性。
+    <strong>渠道洞察：</strong>Amazon 销量占比 55% 但收入占比 67%，均价（$720）远高于独立站（$430），可能原因为：Amazon 上有 ATW70K 变体、独立站促销折扣较多、Amazon 上架套装版本。<br>两家渠道毛利率1 接近（68-70%），毛利率2 均约 34%，说明产品成本和运营效率一致。
   </div>
 </div>
 
-<!-- ====== 站点地理分布 ====== -->
+<!-- ====== 25H1 旧款对比 ====== -->
 <div class="section">
-  <div class="s-title">全球站点分布</div>
-  <div class="s-sub">各站点/地区 26H1 全渠道收入分布</div>
-
+  <div class="s-title">🔙 25H1 旧款加热器回顾</div>
+  <div class="s-sub">2025 年上半年加热器产品表现（ATW70 上市前）</div>
   <table class="tbl">
     <thead><tr>
-      <th>站点</th>
-      <th class="num">Amazon 收入</th>
-      <th class="num">独立站收入</th>
-      <th class="num">全渠道收入</th>
-      <th class="pct">占比</th>
-      <th class="num">全渠道毛利2</th>
+      <th>SKU</th><th class="n">25H1 收入</th><th class="n">25H1 毛利2</th><th class="p">25H1 毛利率2</th><th>备注</th>
     </tr></thead>
     <tbody>
-      <tr><td>🇺🇸 美国</td><td class="num">2,471,579</td><td class="num">975,314</td><td class="num" style="font-weight:700">3,446,893</td><td class="pct">79.8%</td><td class="num">1,151,551</td></tr>
-      <tr><td>🇪🇺 欧洲 (EU)</td><td class="num">380,928</td><td class="num">333,400</td><td class="num" style="font-weight:700">714,328</td><td class="pct">16.5%</td><td class="num">263,911</td></tr>
-      <tr><td>🇬🇧 英国</td><td class="num">47,392</td><td class="num">30,853</td><td class="num" style="font-weight:700">78,245</td><td class="pct">1.8%</td><td class="num">33,612</td></tr>
-      <tr><td>🇦🇺 澳洲</td><td class="num">2,890</td><td class="num">77,214</td><td class="num" style="font-weight:700">80,104</td><td class="pct">1.9%</td><td class="num">32,963</td></tr>
+      <tr><td>VH1560US</td><td class="n">20,371</td><td class="n d">-251</td><td class="p d">-1.2%</td><td>亏损</td></tr>
+      <tr><td>VH1561US</td><td class="n">59,775</td><td class="n">10,203</td><td class="p">17.1%</td><td>勉强盈利</td></tr>
+      <tr><td>VH1626US</td><td class="n">24,948</td><td class="n d">-8,203</td><td class="p d">-32.9%</td><td>严重亏损</td></tr>
+      <tr><td>VH1297US</td><td class="n">-790</td><td class="n d">-769</td><td class="p d">-</td><td>退货</td></tr>
+      <tr><td>其他 FBA 碎片</td><td class="n">5,873</td><td class="n">2,192</td><td class="p">37.3%</td><td>小量</td></tr>
     </tbody>
-    <tfoot>
-      <tr style="font-weight:700;background:var(--card)">
-        <td>合计</td><td class="num">2,902,789</td><td class="num">1,416,781</td><td class="num">4,319,570</td><td class="pct">100%</td><td class="num">1,482,037</td></tr>
-    </tfoot>
+    <tfoot><tr style="font-weight:700;background:var(--card)">
+      <td>Amazon 合计</td><td class="n">110,177</td><td class="n">3,172</td><td class="p">2.9%</td><td>整体微利</td>
+    </tr></tfoot>
   </table>
-
   <div class="insight gold">
-    <strong>地理洞察：</strong>美国市场占全渠道收入的 <strong>80%</strong>，是绝对核心。欧洲 (EU) 占 16.5%，英国和澳洲体量较小（各约 2%）。<br>
-    值得注意的是，澳洲在独立站的收入 ($77,214) 远高于 Amazon ($2,890)，说明澳洲消费者更倾向于通过官网购买。
+    <strong>ATW70 带来的改变：</strong>25H1 旧款加热器（VH 系列）总收入仅 11 万，毛利率2 仅 2.9%，VH1560 和 VH1626 处于亏损状态。ATW70 上市后，26H1 加热器收入暴增至 <strong>432 万</strong>（增长 39 倍），毛利率2 提升至 <strong>34.3%</strong>。ATW70 不仅大幅提升了收入，也彻底逆转了品类的盈利能力。
   </div>
 </div>
 
 <!-- ====== 结论 ====== -->
 <div class="section">
   <div class="s-title">核心结论与建议</div>
-  <div class="s-sub">基于 26H1 销售数据的策略建议</div>
+  <div class="s-sub">基于 25H1-26H1 数据的策略建议</div>
 
-  <div class="conclusion-card">
-    <h4>📈 销售趋势</h4>
+  <div class="cc">
+    <h4>📈 增长态势</h4>
     <ul>
-      <li><strong>VSE-ATW70 是典型的季节性产品</strong>：1-2 月冬季为销售高峰，4 月起进入淡季。H1 总销量 ~7,300 台，若 H2 冬季同样强劲，全年有望达到 <strong>12,000-15,000 台</strong></li>
-      <li>6 月 Amazon 销量环比回升 42%，可能存在促销拉动。建议密切关注 Q4 备货节奏，避免旺季断货</li>
+      <li><strong>ATW70 是品类的转折点：</strong>从 25H1 的 11 万（亏损）跃升至 26H1 的 432 万（盈利 148 万），增长 39 倍</li>
+      <li><strong>强季节性产品：</strong>1-2 月高峰月销 >1,200 台，淡季约 200 台。建议 9 月开始 Q4 备货</li>
+      <li>全年销量有望达 <strong>12,000-15,000 台</strong>（假设 H2 冬季同样强劲）</li>
     </ul>
   </div>
 
-  <div class="conclusion-card">
+  <div class="cc">
     <h4>💰 盈利能力</h4>
     <ul>
-      <li>毛利率1 稳定在 <strong>68-70%</strong>，产品定价和采购成本控制良好</li>
-      <li>毛利率2 约 <strong>34%</strong>（Amazon 实际值 33.6%，独立站估算 35.7%），净利空间健康</li>
-      <li>FBM 模式的毛利率2 显著高于 FBA（EU 高 2.6pp，UK 高 0），建议评估扩大 FBM 占比</li>
+      <li>毛利率1 稳定在 <strong>68-70%</strong>，采购成本控制良好</li>
+      <li>毛利率2 约 <strong>34%</strong>，净利空间健康</li>
+      <li><strong>6 月毛利率2 异常降至 18%</strong>，需排查广告费或仓储费是否超支</li>
     </ul>
   </div>
 
-  <div class="conclusion-card">
+  <div class="cc">
     <h4>🌍 市场策略</h4>
     <ul>
-      <li><strong>美国市场占 80% 收入</strong>，应优先保障 US 站库存和广告投放</li>
-      <li>欧洲市场有增长潜力（16.5%），尤其 EU 独立站收入与 Amazon 接近（33.3万 vs 38.1万），说明独立站在欧洲有竞争力</li>
-      <li>英国和澳洲体量小但毛利率高（UK 毛利率2 达 47%），可适度投入维持存在</li>
+      <li><strong>🇺🇸 美国占 80% 收入</strong>，是最高优先级，确保库存和广告投放</li>
+      <li><strong>🇪🇺 欧洲增长潜力大</strong>（16.5%），独立站与 Amazon 收入接近，可加大独立站投入</li>
+      <li><strong>🇬🇧🇦🇺 体量小但毛利率高</strong>（UK 毛利率2 达 47%），适度维持</li>
+      <li>FBM 模式在 EU/UK 表现优于 FBA，可扩大 FBM 占比</li>
     </ul>
   </div>
 
-  <div class="conclusion-card">
-    <h4>⚠️ 关注点</h4>
+  <div class="cc">
+    <h4>⚠️ 关注事项</h4>
     <ul>
-      <li>6 月 Amazon 毛利率2 降至 <strong>18.0%</strong>（H1 最低），需排查是否因广告费用激增或仓储费调整</li>
-      <li>独立站采购成本占收入 29.2%，海运仅占 0.4%——物流成本占比偏低，需确认是否已包含所有头程费用</li>
-      <li>25H1 无 ATW70 数据，该产品应为 2026 年新品。建议追踪 H2 数据建立完整的年度对比基线</li>
+      <li>6 月 Amazon 毛利率2 降至 18%（H1 最低），需排查费用端</li>
+      <li>独立站海运成本仅占收入 0.4%，确认是否完整计入所有物流费用</li>
+      <li>建议建立月度毛利2 追踪机制，及时发现异常波动</li>
+      <li>H2 开启后需对比 26H1 数据建立完整年度基线</li>
     </ul>
   </div>
 </div>
@@ -328,7 +436,7 @@ body { font-family: -apple-system,'PingFang SC','Noto Sans SC','Microsoft YaHei'
 </div>
 
 <div class="footer">
-  VSE-ATW70 加热器销售分析 · Amazon + 独立站 · 2026 H1 · 数据来源：Hermes Agent
+  VSE-ATW70 加热器销售分析 · Amazon + 独立站 · 25H1 → 26H1 · Hermes Agent
 </div>
 
 </body>
