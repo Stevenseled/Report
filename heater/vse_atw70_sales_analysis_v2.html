@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSE-ATW70 加热器 销售数据分析报告</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root { --bg:#fff; --text:#1a1b26; --t2:#6b7280; --t3:#9ca3af; --border:#e5e7eb; --blue:#1a6bb0; --green:#1a8a4a; --orange:#c96a0e; --gold:#b8860b; --card:#f8f9fb; --red:#c0392b; }
+body { font-family:-apple-system,'PingFang SC','Noto Sans SC','Microsoft YaHei',sans-serif; background:var(--bg); color:var(--text); line-height:1.7; font-size:14px; }
+.container { max-width:960px; margin:0 auto; padding:20px 16px 60px; }
+.hero { text-align:center; padding:40px 16px 28px; border-bottom:1px solid var(--border); margin-bottom:24px; }
+.hero h1 { font-size:26px; font-weight:800; margin-bottom:4px; }
+.hero h1 span { color:var(--orange); }
+.hero .sub { color:var(--t2); font-size:13px; margin-bottom:6px; }
+.hero .meta { font-size:12px; color:var(--t3); }
+.section { margin-bottom:40px; }
+.s-title { font-size:20px; font-weight:700; margin-bottom:2px; }
+.s-sub { font-size:13px; color:var(--t2); margin-bottom:16px; }
+.stats { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+.stat-c { flex:1; min-width:130px; background:var(--card); border-radius:8px; padding:16px; text-align:center; }
+.stat-num { font-size:24px; font-weight:700; }
+.stat-num.b { color:var(--blue); }
+.stat-num.g { color:var(--green); }
+.stat-num.o { color:var(--orange); }
+.stat-lbl { font-size:11px; color:var(--t2); margin-top:2px; }
+.chart-wrap { display:flex; align-items:flex-end; gap:8px; height:220px; padding:0 4px; margin-bottom:8px; }
+.bar-group { display:flex; flex-direction:column; align-items:center; flex:1; height:100%; justify-content:flex-end; }
+.bar-col { display:flex; gap:3px; align-items:flex-end; height:200px; }
+.bar { width:20px; border-radius:4px 4px 0 0; min-height:2px; position:relative; }
+.bar .val { position:absolute; top:-16px; left:50%; transform:translateX(-50%); font-size:9px; font-weight:600; white-space:nowrap; }
+.bar-lbl-m { font-size:9px; color:var(--t2); margin-top:4px; text-align:center; }
+.legend { display:flex; gap:16px; justify-content:center; margin-bottom:12px; flex-wrap:wrap; }
+.legend-item { display:flex; align-items:center; gap:4px; font-size:11px; }
+.legend-dot { width:10px; height:10px; border-radius:2px; }
+.tbl { width:100%; border-collapse:collapse; font-size:12px; }
+.tbl th { text-align:left; padding:8px 6px; border-bottom:2px solid var(--border); font-weight:600; color:var(--t2); font-size:11px; }
+.tbl td { padding:7px 6px; border-bottom:1px solid var(--border); }
+.tbl tr:hover td { background:#f0f4f8; }
+.tbl .n { text-align:right; font-variant-numeric:tabular-nums; }
+.tbl .p { text-align:center; font-weight:600; }
+.tbl .d { color:var(--orange); }
+.tbl .u { color:var(--green); }
+.insight { background:#e8f0fe; border-left:3px solid var(--blue); padding:12px 16px; border-radius:0 6px 6px 0; margin:12px 0; font-size:13px; line-height:1.7; }
+.insight.gold { background:#fef3c7; border-color:var(--gold); }
+.insight.gold strong { color:#92400e; }
+.insight.green { background:#e8f5e9; border-color:var(--green); }
+.insight strong { color:var(--blue); }
+.chart-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+@media (max-width:640px) { .chart-row { grid-template-columns:1fr; } }
+.chart-c { background:var(--card); border-radius:8px; padding:16px; }
+.cc { background:var(--card); border-radius:10px; padding:20px; margin-bottom:14px; border:1px solid var(--border); }
+.cc h4 { font-size:15px; font-weight:700; margin-bottom:6px; }
+.cc ul { padding-left:18px; margin-top:6px; }
+.cc li { margin-bottom:3px; font-size:13px; line-height:1.7; }
+.footer { text-align:center; padding:30px 16px; font-size:11px; color:var(--t3); border-top:1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🔥 <span>VSE-ATW70</span> 加热器销售数据分析</h1>
+  <p class="sub">独立站 2025.10 上市 → Amazon 2025.11 上线 → 26H1 全渠道</p>
+  <p class="meta">2026-07-21 · 数据来源：订单收入成本明细 + Amazon利润报表</p>
+</div>
+
+<div class="container">
+
+<!-- ====== 概览 ====== -->
+<div class="section">
+  <div class="s-title">产品生命周期概览</div>
+  <div class="s-sub">VSE-ATW70 上市以来累计表现</div>
+
+  <div class="stats">
+    <div class="stat-c"><div class="stat-num b">6,004,293</div><div class="stat-lbl">累计收入 (CNY)</div></div>
+    <div class="stat-c"><div class="stat-num g">5,023</div><div class="stat-lbl">Amazon 累计销量</div></div>
+    <div class="stat-c"><div class="stat-num o">~4,632</div><div class="stat-lbl">独立站累计发运</div></div>
+    <div class="stat-c"><div class="stat-num b">~9,655</div><div class="stat-lbl">全渠道累计销量</div></div>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>阶段</th><th class="n">独立站发运</th><th class="n">独立站收入</th><th class="n">Amazon销量</th><th class="n">Amazon收入</th><th class="n">全渠道收入</th><th>备注</th></tr></thead>
+    <tbody>
+      <tr><td>🚀 2025 Q4 (10-12月)</td><td class="n">1,335</td><td class="n">938,010</td><td class="n">989</td><td class="n">746,713</td><td class="n" style="font-weight:700">1,684,723</td><td>独立站首发 · Amazon 11月上线</td></tr>
+      <tr><td>📈 2026 H1 (1-6月)</td><td class="n">3,297</td><td class="n">1,416,781</td><td class="n">4,034</td><td class="n">2,902,789</td><td class="n" style="font-weight:700">4,319,570</td><td>Amazon 全面放量</td></tr>
+    </tbody>
+    <tfoot><tr style="font-weight:700;background:var(--card)">
+      <td>累计至 26H1</td><td class="n">4,632</td><td class="n">2,354,791</td><td class="n">5,023</td><td class="n">3,649,502</td><td class="n">6,004,293</td><td></td>
+    </tr></tfoot>
+  </table>
+
+  <div class="insight">
+    <strong>关键发现：</strong>VSE-ATW70 于 2025年10月 独立站首发，11月 Amazon 上线，12月全渠道月收入达 130 万。上市 9 个月累计收入 <strong>600.4 万</strong>，Amazon 贡献 61%，独立站 39%。
+  </div>
+</div>
+
+<!-- ====== 月度趋势 ====== -->
+<div class="section">
+  <div class="s-title">📈 月度销售趋势</div>
+  <div class="s-sub">独立站 2025.10-2026.06 + Amazon 2025.11-2026.06</div>
+
+  <div class="chart-c">
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--orange)"></span>独立站收入</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--blue)"></span>Amazon收入</div>
+    </div>
+    <div class="chart-wrap">
+      <div class="bar-group">
+        <div class="bar-col">
+          <div class="bar" style="height:2px;background:var(--orange);"><div class="val" style="font-size:8px">0</div></div>
+        </div>
+        <div class="bar-lbl-m">10月</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-col">
+          <div class="bar" style="height:19px;background:var(--orange);"><div class="val" style="font-size:8px">19.2万</div></div>
+          <div class="bar" style="height:31px;background:var(--blue);"><div class="val" style="font-size:8px">19.6万</div></div>
+        </div>
+        <div class="bar-lbl-m">11月</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-col">
+          <div class="bar" style="height:120px;background:var(--orange);"><div class="val" style="font-size:8px">74.6万</div></div>
+          <div class="bar" style="height:88px;background:var(--blue);"><div class="val" style="font-size:8px">55.1万</div></div>
+        </div>
+        <div class="bar-lbl-m">12月</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-col">
+          <div class="bar" style="height:69px;background:var(--orange);"><div class="val" style="font-size:8px">43.0万</div></div>
+          <div class="bar" style="height:162px;background:var(--blue);"><div class="val" style="font-size:8px">91.9万</div></div>
+        </div>
+        <div class="bar-lbl-m">1月</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-col">
+          <div class="bar" style="height:54px;background:var(--orange);"><div class="val" style="font-size:8px">33.8万</div></div>
+          <div class="bar" style="height:162px;background:var(--blue);"><div class="val" style="font-size:8px">91.5万</div></div>
+        </div>
+        <div class="bar-lbl-m">2月</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-col">
+          <div class="bar" style="height:24px;background:var(--orange);"><div class="val" style="font-size:8px">14.8万</div></div>
+          <div class="bar" style="height:110px;background:var(--blue);"><div class="val" style="font-size:8px">62.3万</div></div>
+        </div>
+        <div class="bar-lbl-m">3月</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-col">
+          <div class="bar" style="height:33px;background:var(--orange);"><div class="val" style="font-size:8px">20.6万</div></div>
+          <div class="bar" style="height:31px;background:var(--blue);"><div class="val" style="font-size:8px">17.4万</div></div>
+        </div>
+        <div class="bar-lbl-m">4月</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-col">
+          <div class="bar" style="height:19px;background:var(--orange);"><div class="val" style="font-size:8px">11.7万</div></div>
+          <div class="bar" style="height:23px;background:var(--blue);"><div class="val" style="font-size:8px">13.2万</div></div>
+        </div>
+        <div class="bar-lbl-m">5月</div>
+      </div>
+      <div class="bar-group">
+        <div class="bar-col">
+          <div class="bar" style="height:11px;background:var(--orange);"><div class="val" style="font-size:8px">7.0万</div></div>
+          <div class="bar" style="height:25px;background:var(--blue);"><div class="val" style="font-size:8px">14.0万</div></div>
+        </div>
+        <div class="bar-lbl-m">6月</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--t3);padding:0 4px;">
+      <span>🚀 2025.10 独立站上市</span>
+      <span>📦 2025.11 Amazon 上线</span>
+      <span>⬇️ 淡季</span>
+    </div>
+  </div>
+
+  <div class="insight" style="margin-top:12px;">
+    <strong>趋势解读：</strong>2025年12月为全渠道峰值（独立站74.6万 + Amazon 55.1万 = 129.7万）。Amazon 从11月起步即快速放量，1-2月达月均91万峰值。3月起随天气转暖进入淡季，Amazon+独立站合计月收入维持在 20-35 万区间。
+  </div>
+</div>
+
+<!-- ====== Amazon 月度 ====== -->
+<div class="section">
+  <div class="s-title">Amazon 月度明细</div>
+  <div class="s-sub">2025年11月上线以来各月表现</div>
+  <table class="tbl">
+    <thead><tr>
+      <th>月份</th><th class="n">销量</th><th class="n">收入</th><th class="n">毛利1</th><th class="n">毛利2</th>
+      <th class="p">毛利率1</th><th class="p">毛利率2</th><th class="n">环比</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>2025-11</td><td class="n">241</td><td class="n">195,974</td><td class="n">145,634</td><td class="n">45,775</td><td class="p">74.3%</td><td class="p">23.4%</td><td class="n">—</td></tr>
+      <tr><td>2025-12</td><td class="n">748</td><td class="n">550,739</td><td class="n">395,009</td><td class="n">173,476</td><td class="p">71.7%</td><td class="p">31.5%</td><td class="n u">+210%</td></tr>
+      <tr><td>2026-01</td><td class="n">1,224</td><td class="n">918,869</td><td class="n">633,032</td><td class="n">312,452</td><td class="p">68.9%</td><td class="p">34.0%</td><td class="n u">+66.8%</td></tr>
+      <tr><td>2026-02</td><td class="n">1,318</td><td class="n">915,057</td><td class="n">614,114</td><td class="n">334,979</td><td class="p">67.1%</td><td class="p">36.6%</td><td class="n u">+7.7%</td></tr>
+      <tr><td>2026-03</td><td class="n">891</td><td class="n">622,587</td><td class="n">413,404</td><td class="n">189,195</td><td class="p">66.4%</td><td class="p">30.4%</td><td class="n d">-32.4%</td></tr>
+      <tr><td>2026-04</td><td class="n">243</td><td class="n">174,391</td><td class="n">117,696</td><td class="n">56,843</td><td class="p">67.5%</td><td class="p">32.6%</td><td class="n d">-72.7%</td></tr>
+      <tr><td>2026-05</td><td class="n">148</td><td class="n">131,691</td><td class="n">96,345</td><td class="n">57,351</td><td class="p">73.2%</td><td class="p">43.5%</td><td class="n d">-39.1%</td></tr>
+      <tr><td>2026-06</td><td class="n">210</td><td class="n">140,194</td><td class="n">91,954</td><td class="n">25,300</td><td class="p">65.6%</td><td class="p">18.0%</td><td class="n u">+41.9%</td></tr>
+    </tbody>
+    <tfoot><tr style="font-weight:700;background:var(--card)">
+      <td>合计</td><td class="n">5,023</td><td class="n">3,649,502</td><td class="n">2,507,187</td><td class="n">1,189,203</td><td class="p">68.7%</td><td class="p">32.6%</td><td class="n">—</td></tr>
+    </tfoot>
+  </table>
+  <div class="insight" style="margin-top:12px;">
+    11月上线即取得 241单/19.6万，12月旺季翻倍至 748单/55.1万。1-2月达峰值月均 91.7万。6月毛利率2 降至 18.0%，需关注费用端变化。
+  </div>
+</div>
+
+<!-- ====== 独立站月度 ====== -->
+<div class="section">
+  <div class="s-title">独立站月度明细</div>
+  <div class="s-sub">上市以来各月收入与发运量</div>
+  <table class="tbl">
+    <thead><tr>
+      <th>月份</th><th class="n">发运量</th><th class="n">收入 (CNY)</th><th>站点分布</th>
+    </tr></thead>
+    <tbody>
+      <tr style="background:#fef3c7;"><td>🚀 2025-10 (上市)</td><td class="n">3</td><td class="n">0</td><td>样品/测试</td></tr>
+      <tr style="background:#fef3c7;"><td>2025-11</td><td class="n">273</td><td class="n">192,140</td><td>🇺🇸 US</td></tr>
+      <tr style="background:#fef3c7;"><td>2025-12</td><td class="n">1,059</td><td class="n">745,870</td><td>🇺🇸 US + 🇪🇺 EU</td></tr>
+      <tr><td>2026-01</td><td class="n">625</td><td class="n">429,677</td><td>🇺🇸+🇪🇺+🇬🇧</td></tr>
+      <tr><td>2026-02</td><td class="n">484</td><td class="n">337,600</td><td>🇺🇸+🇪🇺+🇦🇺+🇬🇧</td></tr>
+      <tr><td>2026-03</td><td class="n">203</td><td class="n">148,110</td><td>🇺🇸+🇪🇺+🇦🇺</td></tr>
+      <tr><td>2026-04</td><td class="n">271</td><td class="n">206,407</td><td>🇺🇸+🇪🇺+🇦🇺</td></tr>
+      <tr><td>2026-05</td><td class="n">157</td><td class="n">116,692</td><td>🇺🇸+🇪🇺+🇦🇺</td></tr>
+      <tr><td>2026-06</td><td class="n">92</td><td class="n">70,228</td><td>🇺🇸+🇪🇺+🇦🇺</td></tr>
+    </tbody>
+    <tfoot><tr style="font-weight:700;background:var(--card)">
+      <td>合计</td><td class="n">3,167</td><td class="n">2,246,724</td><td>（含退货调整后财务数为 235.5万）</td>
+    </tr></tfoot>
+  </table>
+  <div class="insight gold" style="margin-top:12px;">
+    2025年12月为独立站销售峰值（74.6万），26H1 月均 23.6 万。独立站 25年10-12月期间字段已全部补全。
+  </div>
+</div>
+
+<!-- ====== Amazon各SKU ====== -->
+<div class="section">
+  <div class="s-title">Amazon 各SKU / 站点</div>
+  <div class="s-sub">累计（2025.11-2026.06）各变体销售与盈利</div>
+  <table class="tbl">
+    <thead><tr><th>SKU</th><th>站点</th><th class="n">销量</th><th class="n">收入</th><th class="n">毛利2</th><th class="p">毛利率2</th></tr></thead>
+    <tbody>
+      <tr><td>VSE-ATW70</td><td>🇺🇸 US + 🇨🇦 CA + 🇲🇽 MX</td><td class="n">4,392</td><td class="n">3,169,411</td><td class="n">952,026</td><td class="p">30.0%</td></tr>
+      <tr><td>VSE-ATW70-EU</td><td>🇪🇺 欧洲多国</td><td class="n">597</td><td class="n">489,496</td><td class="n">166,713</td><td class="p">34.1%</td></tr>
+      <tr><td>VSE-ATW70-UK-FBM</td><td>🇬🇧 英国</td><td class="n">60</td><td class="n">51,718</td><td class="n">22,300</td><td class="p">43.1%</td></tr>
+      <tr><td>VSE-ATW70-AU-FBM</td><td>🇦🇺 澳洲</td><td class="n">3</td><td class="n">2,890</td><td class="n">1,687</td><td class="p">58.4%</td></tr>
+    </tbody>
+    <tfoot><tr style="font-weight:700;background:var(--card)">
+      <td colspan="2">合计</td><td class="n">5,023</td><td class="n">3,649,502</td><td class="n">1,189,203</td><td class="p">32.6%</td>
+    </tr></tfoot>
+  </table>
+</div>
+
+<!-- ====== 区域分析 ====== -->
+<div class="section">
+  <div class="s-title">🌏 区域市场深度分析</div>
+  <div class="s-sub">按区域拆分 Amazon 与独立站</div>
+
+  <div style="background:var(--card);border-radius:10px;padding:20px;margin-bottom:16px;border:1px solid var(--border);">
+    <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">🇺🇸 美国市场</h4>
+    <div class="stats" style="margin-bottom:12px;">
+      <div class="stat-c"><div class="stat-num b">~4,787,039</div><div class="stat-lbl">累计收入</div></div>
+      <div class="stat-c"><div class="stat-num g">80%</div><div class="stat-lbl">全渠道占比</div></div>
+      <div class="stat-c"><div class="stat-num o">Amazon 66%</div><div class="stat-lbl">渠道分布</div></div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>时间段</th><th>渠道</th><th class="n">销量</th><th class="n">收入</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>2025 Q4</td><td>独立站 US</td><td class="n">~1,335</td><td class="n">~938,010</td><td>首发</td></tr>
+        <tr><td>2025.11-12</td><td>Amazon US+CA</td><td class="n">906</td><td class="n">701,661</td><td>首发</td></tr>
+        <tr><td>2026 H1</td><td>Amazon US+CA</td><td class="n">3,486</td><td class="n">2,467,750</td><td></td></tr>
+        <tr><td>2026 H1</td><td>独立站 US</td><td class="n">~699</td><td class="n">~679,618</td><td></td></tr>
+      </tbody>
+      <tfoot><tr style="font-weight:700;background:var(--card)">
+        <td colspan="2">美国合计</td><td class="n">~6,426</td><td class="n">~4,787,039</td><td>占累计收入 80%</td>
+      </tr></tfoot>
+    </table>
+    <div class="insight" style="margin:8px 0 0;"><strong>策略：</strong>美国是绝对核心，独立站首发成功后 Amazon 快速接棒。建议独立站 2026年冬季前提前备货。</div>
+  </div>
+
+  <div style="background:var(--card);border-radius:10px;padding:20px;margin-bottom:16px;border:1px solid var(--border);">
+    <h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">🇪🇺 欧洲市场</h4>
+    <div class="stats" style="margin-bottom:12px;">
+      <div class="stat-c"><div class="stat-num b">~1,089,873</div><div class="stat-lbl">累计收入</div></div>
+      <div class="stat-c"><div class="stat-num g">18%</div><div class="stat-lbl">全渠道占比</div></div>
+      <div class="stat-c"><div class="stat-num o">Amazon 45%</div><div class="stat-lbl">渠道分布</div></div>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>时间段</th><th>渠道</th><th class="n">收入</th><th>备注</th></tr></thead>
+      <tbody>
+        <tr><td>2025-12</td><td>独立站 EU</td><td class="n">243,655</td><td>首发</td></tr>
+        <tr><td>2025-12</td><td>Amazon EU</td><td class="n">69,037</td><td>首发 DE+ES+IT</td></tr>
+        <tr><td>2026 H1</td><td>Amazon EU</td><td class="n">420,459</td><td></td></tr>
+        <tr><td>2026 H1</td><td>独立站 EU</td><td class="n">333,599</td><td></td></tr>
+      </tbody>
+      <tfoot><tr style="font-weight:700;background:var(--card)">
+        <td colspan="2">欧洲合计</td><td class="n">~1,089,873</td><td></td>
+      </tr></tfoot>
+    </table>
+    <div class="insight gold" style="margin:8px 0 0;"><strong>策略：</strong>渠道相对均衡（Amazon 45% / 独立站 55%），Amazon EU 毛利率2 约 34% 表现健康。</div>
+  </div>
+
+  <div class="chart-row">
+    <div style="background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--border);">
+      <h4 style="font-size:15px;font-weight:700;margin-bottom:6px;">🇬🇧 英国</h4>
+      <div class="stats">
+        <div class="stat-c" style="min-width:80px;"><div class="stat-num b" style="font-size:18px;">93k</div><div class="stat-lbl">累计收入</div></div>
+        <div class="stat-c" style="min-width:80px;"><div class="stat-num g" style="font-size:18px;">32%</div><div class="stat-lbl">毛利率2</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--t2);">Amazon+独立站合计。FBM 为主，盈利健康。</div>
+    </div>
+    <div style="background:var(--card);border-radius:10px;padding:20px;border:1px solid var(--border);">
+      <h4 style="font-size:15px;font-weight:700;margin-bottom:6px;">🇦🇺 澳洲</h4>
+      <div class="stats">
+        <div class="stat-c" style="min-width:80px;"><div class="stat-num b" style="font-size:18px;">80k</div><div class="stat-lbl">累计收入</div></div>
+        <div class="stat-c" style="min-width:80px;"><div class="stat-num g" style="font-size:18px;">41%</div><div class="stat-lbl">毛利率2</div></div>
+      </div>
+      <div style="font-size:12px;color:var(--t2);">独立站为主，Amazon 仅 3单。建议加大独立站投入。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ====== 渠道对比 ====== -->
+<div class="section">
+  <div class="s-title">渠道对比</div>
+  <div class="s-sub">Amazon 累计（2025.11-2026.06）vs 独立站累计</div>
+  <table class="tbl">
+    <thead><tr><th>指标</th><th class="n">Amazon</th><th class="n">独立站</th><th class="n">合计</th></tr></thead>
+    <tbody>
+      <tr><td>收入</td><td class="n">3,649,502</td><td class="n">2,354,791</td><td class="n" style="font-weight:700">6,004,293</td></tr>
+      <tr><td>销量/发运</td><td class="n">5,023</td><td class="n">4,632</td><td class="n" style="font-weight:700">9,655</td></tr>
+      <tr><td>毛利率1</td><td class="p">68.7%</td><td class="p">~67.7%</td><td class="p">—</td></tr>
+      <tr><td>毛利率2</td><td class="p">32.6%</td><td class="p">~36%</td><td class="p">—</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ====== 结论 ====== -->
+<div class="section">
+  <div class="s-title">核心结论与建议</div>
+
+  <div class="cc">
+    <h4>🚀 产品上市回顾</h4>
+    <ul>
+      <li>2025年10月独立站首发 → 11月 Amazon 上线 → 12月全渠道爆发（130万/月）</li>
+      <li>上市 9 个月累计收入 <strong>600 万</strong>，Amazon 占比 61%，独立站占比 39%</li>
+      <li>2026年预计全年可达 <strong>900-1,100 万</strong>（H2 冬季旺季 + 圣诞季）</li>
+    </ul>
+  </div>
+
+  <div class="cc">
+    <h4>💰 盈利能力</h4>
+    <ul>
+      <li>Amazon 毛利率1 约 68.7%，毛利率2 约 32.6%，盈利健康</li>
+      <li>⚠️ 6月 Amazon 毛利率2 降至 18.0%，需排查费用端</li>
+      <li>非美市场（EU/UK/AU）毛利率2 均高于美国（34-58% vs 30%）</li>
+    </ul>
+  </div>
+
+  <div class="cc">
+    <h4>🌍 市场策略</h4>
+    <ul>
+      <li><strong>🇺🇸 美国（80% 收入）</strong>：巩固 Amazon 优势，独立站冬季前备货</li>
+      <li><strong>🇪🇺 欧洲（18% 收入）</strong>：Amazon+独立站同步推进，扩大 EU 占比</li>
+      <li><strong>🇬🇧+🇦🇺</strong>：维持 FBM，盈利佳但扩张谨慎</li>
+    </ul>
+  </div>
+
+  <div class="cc">
+    <h4>⏰ 上市时间线</h4>
+    <ul>
+      <li><strong>独立站：</strong>2025年10月 首发上市</li>
+      <li><strong>Amazon：</strong>2025年11月 US 率先上线 → 12月 EU 上线 → 2026年1月全面放量</li>
+      <li>2025年12月全渠道月收入 130 万为上市以来峰值</li>
+    </ul>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  VSE-ATW70 加热器销售分析 · 独立站 2025.10-2026.06 + Amazon 2025.11-2026.06 · Hermes Agent
+</div>
+
+</body>
+</html>
