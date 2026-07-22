@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reddit 用户吐槽报告 — Gardyn &amp; Lettuce Grow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-page: #f5f5f0;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f8f8f4;
+  --border: #e0ddd5;
+  --text-primary: #2c2c28;
+  --text-secondary: #6b6b63;
+  --text-muted: #a09e96;
+  --shadow: rgba(0,0,0,0.06);
+  --accent-red: #c62828;
+  --accent-orange: #e65100;
+  --accent-green: #2e7d32;
+  --red-bg: #fce4ec;
+  --orange-bg: #fff3e0;
+  --green-bg: #e8f5e9;
+  --quote-border: #c62828;
+  --border-light: rgba(0,0,0,0.04);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.cover {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 60px 40px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+.cover .tag { font-style: italic; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; }
+.cover h1 { font-family: 'Noto Serif SC', serif; font-size: 2.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+.cover h1 span { display: block; font-size: 1.8rem; font-weight: 400; color: var(--text-secondary); margin-top: 4px; }
+.cover .sub { font-size: 1rem; color: var(--text-secondary); margin-bottom: 24px; }
+.cover .meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; }
+.cover .footnote { font-size: 0.75rem; color: var(--text-muted); max-width: 500px; line-height: 1.6; margin-top: 16px; }
+.container { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+.section-block { margin-bottom: 56px; }
+.section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+.section-title { font-family: 'Noto Serif SC', serif; font-size: 1.6rem; font-weight: 600; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+.section-desc { color: var(--text-secondary); margin-bottom: 24px; font-size: 0.92rem; }
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+@media (max-width:600px) { .summary-grid { grid-template-columns: 1fr; } }
+.stat-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 24px; box-shadow: 0 2px 8px var(--shadow); text-align: center; }
+.stat-card .num { font-size: 2.4rem; font-weight: 700; }
+.stat-card .num.red { color: var(--accent-red); }
+.stat-card .num.orange { color: var(--accent-orange); }
+.stat-card .num.green { color: var(--accent-green); }
+.stat-card .label { font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px; }
+.pain-group { margin-bottom: 36px; }
+.pain-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.pain-icon { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 8px; font-size: 0.85rem; font-weight: 700; }
+.pain-icon.red { background: var(--red-bg); color: var(--accent-red); }
+.pain-icon.orange { background: var(--orange-bg); color: var(--accent-orange); }
+.pain-title { font-size: 1.15rem; font-weight: 600; }
+.quote-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--quote-border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 4px var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.quote-card:hover { transform: translateY(-1px); box-shadow: 0 4px 12px var(--shadow); }
+.quote-card .quote-text { font-size: 0.95rem; line-height: 1.7; color: var(--text-primary); margin-bottom: 8px; }
+.quote-card .quote-text::before { content: '\201C'; font-size: 1.2rem; color: var(--text-muted); margin-right: 2px; }
+.quote-card .quote-text::after { content: '\201D'; font-size: 1.2rem; color: var(--text-muted); margin-left: 2px; }
+.quote-card .quote-meta { font-size: 0.78rem; color: var(--text-muted); }
+.quote-card .quote-meta .source { color: var(--text-secondary); font-weight: 500; }
+.tag { display: inline-block; padding: 2px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 500; }
+.tag.red { background: var(--red-bg); color: var(--accent-red); }
+.tag.orange { background: var(--orange-bg); color: var(--accent-orange); }
+.tag.green { background: #e8f5e9; color: #2e7d32; }
+.cmp-table-wrap { overflow-x: auto; margin: 24px 0; }
+table.cmp { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: var(--bg-card); border-radius: 14px; overflow: hidden; border: 1px solid var(--border); }
+table.cmp th { background: var(--bg-card-alt); font-weight: 600; text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+table.cmp td { padding: 10px 16px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+table.cmp tr:last-child td { border-bottom: none; }
+.cmp-label { font-weight: 500; color: var(--text-secondary); white-space: nowrap; }
+.verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; }
+@media (max-width:600px) { .verdict-grid { grid-template-columns: 1fr; } }
+.verdict-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; box-shadow: 0 2px 8px var(--shadow); }
+.verdict-card .v-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 12px; }
+.verdict-card ul { list-style: none; padding: 0; font-size: 0.9rem; line-height: 1.8; }
+.verdict-card ul li { padding: 4px 0; border-bottom: 1px solid var(--border-light); }
+.verdict-card ul li:last-child { border-bottom: none; }
+.section-sep { height: 1px; background: var(--border); margin: 48px 0; }
+.source-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 36px; padding: 16px 20px; background: var(--bg-card-alt); border-radius: 14px; border: 1px solid var(--border); line-height: 1.6; }
+.source-note strong { color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="tag">Reddit Community Research</div>
+  <h1>
+    Gardyn &amp; Lettuce Grow
+    <span>Reddit 用户吐槽与痛点分析</span>
+  </h1>
+  <p class="sub">基于 r/Gardyn · r/Lettuce_Grow · r/Hydroponics · r/IndoorGarden 等多社区帖子与评论</p>
+  <p class="meta">数据来源：pullpush.io + Tavily Reddit Search | 采集日期：2026-07-22</p>
+  <p class="footnote">共采集 150+ 条帖子与评论，覆盖 2020 年至 2025 年讨论。部分最新内容因 Reddit API 限制可能未覆盖。</p>
+</section>
+
+<div class="container">
+
+  <!-- Overview -->
+  <div class="section-block">
+    <div class="section-label">Overview</div>
+    <h2 class="section-title">总览</h2>
+    <p class="section-desc">从 Reddit 用户的真实反馈来看，Gardyn 的泵体故障与会员绑定是最激烈的吐槽焦点，而 Lettuce Grow 的泵体寿命与 App 停滞是用户的持续担忧。</p>
+    <div class="summary-grid">
+      <div class="stat-card">
+        <div class="num red">53</div>
+        <div class="label">Gardyn 最高赞吐槽帖 "Why I Sold My Gardyn 4.0" 的 Upvotes</div>
+      </div>
+      <div class="stat-card">
+        <div class="num orange">35</div>
+        <div class="label">同帖评论数，用户逐条分享"劝退"理由</div>
+      </div>
+      <div class="stat-card">
+        <div class="num red">~$550</div>
+        <div class="label">用户亏损：$1000 买入 → $450 卖出</div>
+      </div>
+      <div class="stat-card">
+        <div class="num orange">$190</div>
+        <div class="label">Gardyn 泵体替换官方报价（用户自费）</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-sep"></div>
+
+  <!-- Gardyn -->
+  <div class="section-block">
+    <div class="section-label">Part 1</div>
+    <h2 class="section-title"><span style="color:var(--accent-red)">Gardyn</span> 用户吐槽摘录</h2>
+
+    <div class="pain-group">
+      <div class="pain-header">
+        <span class="pain-icon red">⚠</span>
+        <span class="pain-title">水泵频繁死亡 + 导线腐蚀</span>
+        <span class="tag red">最高频</span>
+      </div>
+      <p class="section-desc" style="margin-bottom:12px">泵体在 6-12 个月内反复失效，根本原因是 lid 处导线接触水汽后腐蚀。</p>
+
+      <div class="quote-card"><div class="quote-text">My Gardyn 3.0 pump failed after 10 months due to a problem with the lid which led to my pump failing due to corrosion.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · Water pump broken</div></div>
+      <div class="quote-card"><div class="quote-text">In January 2025, my pump has died yet again and my plants are wilting as I write this. I've lost my patience with Gardyn and all my faith in their product.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · My Gardyn is dead again</div></div>
+      <div class="quote-card"><div class="quote-text">The power supply died in August 2021... Then the water pump died in January 2022... the smart lid/pump failed again in April 2023, but this time Gardyn support was less generous. I paid out of pocket for a new smart lid/pump.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · 同一用户三次泵故障</div></div>
+      <div class="quote-card"><div class="quote-text">The light bar and camera had issues, The pump died a few weeks later. Their support is horrible.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · What is going on with Gardyn support</div></div>
+      <div class="quote-card"><div class="quote-text">Many of us have experienced corrosion of the wires on the underside of the lid.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · pump died — 社区共识：导线腐蚀是通病</div></div>
+      <div class="quote-card"><div class="quote-text">The pump connection is corroded away so there's no connection to it. Gardyn said it's $190 for a replacement.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · Lights and pump don't turn on</div></div>
+      <div class="quote-card"><div class="quote-text">Our 1-month old Gardyn 3.0 died... I tried rebooting it several times but it's dead. Support said we need to replace the lid. So now we get to wait and manually water our plants, hoping they don't die.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · 第一次换水即死机</div></div>
+    </div>
+
+    <div class="section-sep"></div>
+
+    <div class="pain-group">
+      <div class="pain-header">
+        <span class="pain-icon red">!</span>
+        <span class="pain-title">系统设计缺陷 — "Why I Sold My Gardyn 4.0"</span>
+        <span class="tag red">53 upvotes</span>
+      </div>
+      <p class="section-desc" style="margin-bottom:12px">社区最有影响力的吐槽帖，用户详尽列举七个设计问题，最终半价贱卖。</p>
+
+      <div class="quote-card"><div class="quote-text">Gardyn only provides a tiny bit of space in their cups for root development. That quickly becomes insufficient and requires constant maintenance in the form of trimming. Some plants like mint or bok choy require to trim their roots weekly.</div><div class="quote-meta"><span class="source">r/Gardyn</span> — 根空间极小</div></div>
+      <div class="quote-card"><div class="quote-text">Cleaning water container is inconvenient. You have to lift the entire top of the Gardyn system and place it on something soft like a towel to avoid damaging the pump/computer underneath.</div><div class="quote-meta"><span class="source">r/Gardyn</span> — 清洗不便</div></div>
+      <div class="quote-card"><div class="quote-text">Even if you trim your roots in a timely manner some will still make their way and get into the pipes. You will have to disassemble the pipes and clean each one on its own.</div><div class="quote-meta"><span class="source">r/Gardyn</span> — 管道积根需逐个清理</div></div>
+      <div class="quote-card"><div class="quote-text">With Gardyn I had to take out every single cup (a total of 30) and check and trim roots weekly.</div><div class="quote-meta"><span class="source">r/Gardyn</span> — 每周30杯逐个修根</div></div>
+      <div class="quote-card"><div class="quote-text">Water tank is ONLY 5 gallons. Once my plants grew bigger they started consuming that water in a matter of a few days.</div><div class="quote-meta"><span class="source">r/Gardyn</span> — 5加仑水箱太小</div></div>
+      <div class="quote-card"><div class="quote-text">There is space for 30 pods but realistically many of the plants will grow big and with that take space away from other plants. The system really cannot allow for proper growth of 30 plants.</div><div class="quote-meta"><span class="source">r/Gardyn</span> — 30个位置形同虚设</div></div>
+      <div class="quote-card"><div class="quote-text">Altogether Gardyn works but it is so inconvenient that I sold a $1k system (system + many add-ons from Etsy) for $450. I wish I had somebody share the above with me before making my choice. Unfortunately by the time I figured all of these I was outside of the return period.</div><div class="quote-meta"><span class="source">r/Gardyn</span> — $1000买入$450卖出</div></div>
+    </div>
+
+    <div class="section-sep"></div>
+
+    <div class="pain-group">
+      <div class="pain-header">
+        <span class="pain-icon red">$</span>
+        <span class="pain-title">会员订阅 / Kelby AI</span>
+        <span class="tag red">争议点</span>
+      </div>
+      <div class="quote-card"><div class="quote-text">The membership is a scam because it can't even detect what you're actually growing.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · Overpriced novelty</div></div>
+      <div class="quote-card"><div class="quote-text">After having two Gardyns for over a year, I found that it's really just a novelty and not worth purchasing.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · Overpriced novelty</div></div>
+      <div class="quote-card"><div class="quote-text">The AI crap is garbage — You don't need AI to know your plants need trimming. If you do, you shouldn't be growing.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · Overpriced novelty</div></div>
+      <div class="quote-card"><div class="quote-text">Gardyn app changed so no subscription means no reminders. Waiting for my water pump to break from no reminders to top off tank.</div><div class="quote-meta"><span class="source">r/Gardyn</span> — 不续费就没有提醒</div></div>
+      <div class="quote-card"><div class="quote-text">I've found that it's best to check all of the roots and do some general maintenance such as pruning, etc. on a weekly basis. The Kelby doesn't remind you nearly often enough to maintain the plants — one of the reasons I think it's basically useless.</div><div class="quote-meta"><span class="source">r/Gardyn</span> comment</div></div>
+      <div class="quote-card"><div class="quote-text">When I complained that that wasn't stated anywhere, they offered to refund me the $170 difference as a gift card. Unfortunately you cannot use gift cards...</div><div class="quote-meta"><span class="source">r/Gardyn</span> · Serious Misgivings</div></div>
+    </div>
+
+    <div class="section-sep"></div>
+
+    <div class="pain-group">
+      <div class="pain-header">
+        <span class="pain-icon orange">~</span>
+        <span class="pain-title">发霉、虫害、营养液被批"垃圾"</span>
+      </div>
+      <div class="quote-card"><div class="quote-text">I keep seeing mold growing either on the bottom or sides of the rockwool. I only started noticing mold after Kelby started its 3x a day watering schedule. My rockwool for all my plants is constantly drenched.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · Advice on mold growth</div></div>
+      <div class="quote-card"><div class="quote-text">I own a Gardyn system... I pulled the pod out to look at the root when a bunch of gnats flew out.</div><div class="quote-meta"><span class="source">r/Hydroponics</span> · Gnats in Gardyn</div></div>
+      <div class="quote-card"><div class="quote-text">The Gardyn 'plant food' is garbage (when compared to Veg+Bloom). The Gardyn 'plant food' is a watered-down...</div><div class="quote-meta"><span class="source">r/Gardyn</span> — 配套营养液被批稀释版垃圾</div></div>
+      <div class="quote-card"><div class="quote-text">The basin was covered in dirt, the PVC pipes were dirty, and the wooden top had noticeable dents. It genuinely felt like we were sent a used return. But customer service insisted it was new.</div><div class="quote-meta"><span class="source">r/Gardyn</span> · Shipping — 疑似翻新机发货</div></div>
+    </div>
+
+  </div>
+
+  <div class="section-sep"></div>
+
+  <!-- Lettuce Grow -->
+  <div class="section-block">
+    <div class="section-label">Part 2</div>
+    <h2 class="section-title"><span style="color:var(--accent-orange)">Lettuce Grow</span> 用户吐槽摘录</h2>
+
+    <div class="pain-group">
+      <div class="pain-header">
+        <span class="pain-icon orange">⚠</span>
+        <span class="pain-title">水泵故障</span>
+        <span class="tag orange">最高频</span>
+      </div>
+      <div class="quote-card"><div class="quote-text">Replacing a pump in less than a year. This is the 2nd pump replacement. The pump wasn't able to get water up the column without a jump start.</div><div class="quote-meta"><span class="source">r/Lettuce_Grow</span> · Replacing a pump in less than a year — 一年换两次</div></div>
+      <div class="quote-card"><div class="quote-text">My lettuce grow pump was dead in a week.</div><div class="quote-meta"><span class="source">r/Lettuce_Grow</span> — 一周就坏</div></div>
+      <div class="quote-card"><div class="quote-text">My pump currently turns on, makes noise, but no water comes up. I pour water at the top of the tower and it started working.</div><div class="quote-meta"><span class="source">r/Lettuce_Grow</span> · Pump issues</div></div>
+      <div class="quote-card"><div class="quote-text">Pump is still making a bit of noise — has anyone opened theirs up before to see if something is clogged?</div><div class="quote-meta"><span class="source">r/Hydroponics</span> · LG pump upgrade</div></div>
+    </div>
+
+    <div class="section-sep"></div>
+
+    <div class="pain-group">
+      <div class="pain-header">
+        <span class="pain-icon orange">!</span>
+        <span class="pain-title">App 停滞 / 公司前景不明</span>
+        <span class="tag orange">核心担忧</span>
+      </div>
+      <div class="quote-card"><div class="quote-text">Is Lettuce Grow dead/dying? I noticed that the app hasn't been updated in a year. Just want to make sure I don't invest into a system that's going to be useless in a year because they no longer sell the seedlings for my farmstand.</div><div class="quote-meta"><span class="source">r/Lettuce_Grow</span> — App一年没更新</div></div>
+      <div class="quote-card"><div class="quote-text">The app is probably the worst part about the product if that tells you anything.</div><div class="quote-meta"><span class="source">r/Lettuce_Grow</span> comment</div></div>
+      <div class="quote-card"><div class="quote-text">I'd rather set that up with my native alarm app than have an entirely separate app just for LettuceGrow reminders.</div><div class="quote-meta"><span class="source">r/Lettuce_Grow</span> comment — App不如系统闹钟</div></div>
+    </div>
+
+    <div class="section-sep"></div>
+
+    <div class="pain-group">
+      <div class="pain-header">
+        <span class="pain-icon orange">~</span>
+        <span class="pain-title">客服慢、漏水、LED故障、噪音</span>
+      </div>
+      <div class="quote-card"><div class="quote-text">Customer service is not too great, they are very slow.</div><div class="quote-meta"><span class="source">r/Hydroponics</span></div></div>
+      <div class="quote-card"><div class="quote-text">Customer service told me to open up the top and manually dump water over the plants. This just ends up being a pretty expensive piece of PVC.</div><div class="quote-meta"><span class="source">r/Hydroponics</span></div></div>
+      <div class="quote-card"><div class="quote-text">My Lettuce Grow system leaks water from the seams of the rubber gasket where the little door is.</div><div class="quote-meta"><span class="source">r/Hydroponics</span> · Leaking LG</div></div>
+      <div class="quote-card"><div class="quote-text">One of my Lettucegrow Farmstand LED rings has been progressively glitching, until it recently took out the entire tower.</div><div class="quote-meta"><span class="source">r/Hydroponics</span> — LED环故障导致整机瘫痪</div></div>
+      <div class="quote-card"><div class="quote-text">The Farmstand's water pump is much louder than my other indoor gardens, so at first it took me by surprise.</div><div class="quote-meta"><span class="source">第三方评测</span> — 水泵噪音显著</div></div>
+      <div class="quote-card"><div class="quote-text">If left to continue to grow, the leaves start to grow into the glow rings and get light burn.</div><div class="quote-meta"><span class="source">第三方评测</span> — Glow Rings灼伤叶片</div></div>
+    </div>
+
+  </div>
+
+  <div class="section-sep"></div>
+
+  <!-- Comparison -->
+  <div class="section-block">
+    <div class="section-label">Part 3</div>
+    <h2 class="section-title">核心痛点对比</h2>
+
+    <div class="cmp-table-wrap">
+      <table class="cmp">
+        <tr><th style="width:18%">维度</th><th style="width:41%"><span style="color:var(--accent-red)">Gardyn</span></th><th style="width:41%"><span style="color:var(--accent-orange)">Lettuce Grow</span></th></tr>
+        <tr><td class="cmp-label">泵体寿命</td><td><span class="tag red">极差</span> 导线腐蚀通病，$190替换费</td><td><span class="tag orange">一般</span> 常见1年内坏，Amazon $15可买</td></tr>
+        <tr><td class="cmp-label">会员/AI</td><td><span class="tag red">"Scam"级不满</span> 取消即失提醒功能</td><td><span class="tag green">无</span> 无需订阅</td></tr>
+        <tr><td class="cmp-label">App体验</td><td><span class="tag orange">可用</span> 加会员有提醒</td><td><span class="tag red">停滞</span> 一年未更新</td></tr>
+        <tr><td class="cmp-label">根系空间</td><td><span class="tag red">极小</span> 每周30杯修根</td><td><span class="tag green">足够</span> 偶尔修根即可</td></tr>
+        <tr><td class="cmp-label">水箱容量</td><td><span class="tag red">5加仑</span></td><td><span class="tag green">20加仑</span></td></tr>
+        <tr><td class="cmp-label">清洗难度</td><td><span class="tag red">极麻烦</span> 抬顶部+拆30杯+逐管清理</td><td><span class="tag orange">中等</span> 每3月reset</td></tr>
+        <tr><td class="cmp-label">室内灯光</td><td><span class="tag green">自带</span></td><td><span class="tag red">额外$250-500</span></td></tr>
+        <tr><td class="cmp-label">幼苗供应</td><td><span class="tag orange">发芽率低</span></td><td><span class="tag green">育好苗</span> 但可能带虫卵</td></tr>
+        <tr><td class="cmp-label">发霉/虫害</td><td><span class="tag orange">常见</span></td><td><span class="tag orange">有风险</span></td></tr>
+        <tr><td class="cmp-label">客服</td><td><span class="tag red">"Horrible"</span></td><td><span class="tag orange">"Slow"</span></td></tr>
+        <tr><td class="cmp-label">公司前景</td><td><span class="tag green">运营中</span></td><td><span class="tag orange">"死/将死？"</span></td></tr>
+        <tr><td class="cmp-label">噪音</td><td><span class="tag green">尚可</span></td><td><span class="tag orange">显著</span></td></tr>
+        <tr><td class="cmp-label">价格</td><td>$449-849</td><td>$499-749 + 灯光另购</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-sep"></div>
+
+  <!-- Insights -->
+  <div class="section-block">
+    <div class="section-label">Insight</div>
+    <h2 class="section-title">关键洞察与对 V30 的启示</h2>
+
+    <div class="verdict-grid">
+      <div class="verdict-card" style="border-left:3px solid var(--accent-red)">
+        <div class="v-title" style="color:var(--accent-red)">Gardyn 核心问题</div>
+        <ul>
+          <li>泵体导线腐蚀是系统性缺陷，非个例</li>
+          <li>根空间/水箱/清洗结构设计不合理</li>
+          <li>会员绑定模式引发强烈反感</li>
+          <li>高阶用户普遍劝退，社区共识偏负面</li>
+        </ul>
+      </div>
+      <div class="verdict-card" style="border-left:3px solid var(--accent-orange)">
+        <div class="v-title" style="color:var(--accent-orange)">Lettuce Grow 核心问题</div>
+        <ul>
+          <li>泵体寿命和质量一致性存疑</li>
+          <li>App 停更暗示公司资源不足</li>
+          <li>室内需额外$250-500买灯光</li>
+          <li>水泵噪音和LED故障也是常见投诉</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="verdict-card" style="border-left:3px solid #5e35b1;margin-top:20px">
+      <div class="v-title" style="color:#5e35b1">对 V30（MayGrove）的启示</div>
+      <ul>
+        <li><strong>泵体可靠性是生命线</strong>：Gardyn 和 LG 最大的共同槽点是泵常坏。V30 的泵需选择工业级可靠方案，且必须考虑导线防水防腐蚀</li>
+        <li><strong>不要绑定会员</strong>：Gardyn 的会员模式是 Reddit 最强烈的负面情绪来源之一。没有会员 = 竞争优势</li>
+        <li><strong>水箱要够大</strong>：Gardyn 5加仑被骂惨，LG 20加仑好评。V30 建议≥15加仑</li>
+        <li><strong>清洗设计要易操作</strong>：Gardyn 每次清洗要拆30个杯子是用户退坑的直接原因</li>
+        <li><strong>室内灯光标配</strong>：LG 额外买灯被吐槽"隐性成本"，V30 应标配</li>
+        <li><strong>社区对"智商税"敏感</strong>：合理定价+透明价值传递，避免被贴 "expensive PVC" 标签</li>
+        <li><strong>App 不能停更</strong>：LG 用户因 App 一年不更新而担心公司快倒闭了</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="source-note">
+    <strong>数据来源</strong> · pullpush.io Reddit 存档 API + Tavily Reddit 搜索，覆盖 r/Gardyn、r/Lettuce_Grow、r/Hydroponics、r/IndoorGarden。<br>
+    搜索关键词含 pump failure、corrosion、mold、subscription、AI scam、root space 等。时间跨度 2020–2025。<br>
+    引用保留用户原话。部分最新内容因 API 限制可能未覆盖。本报告仅供参考，不构成购买建议。
+  </div>
+
+</div>
+
+</body>
+</html>
