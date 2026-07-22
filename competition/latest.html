@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>竞品动态速报 — 2026年7月</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-page: #f5f5f0;
+  --bg-card: #ffffff;
+  --bg-card-alt: #f8f8f4;
+  --border: #e0ddd5;
+  --text-primary: #2c2c28;
+  --text-secondary: #6b6b63;
+  --text-muted: #a09e96;
+  --shadow: rgba(0,0,0,0.06);
+  --accent-blue: #1565c0;
+  --accent-green: #2e7d32;
+  --accent-orange: #e65100;
+  --accent-red: #c62828;
+  --accent-purple: #5e35b1;
+  --blue-bg: #e3f2fd;
+  --green-bg: #e8f5e9;
+  --orange-bg: #fff3e0;
+  --red-bg: #fce4ec;
+  --purple-bg: #ede7f6;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { font-size: 16px; }
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+.cover {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; padding: 60px 40px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+.cover .tag { font-style: italic; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px; }
+.cover h1 { font-family: 'Noto Serif SC', serif; font-size: 2.8rem; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+.cover h1 span { display: block; font-size: 1.8rem; font-weight: 400; color: var(--text-secondary); margin-top: 4px; }
+.cover .sub { font-size: 1rem; color: var(--text-secondary); margin-bottom: 16px; }
+.cover .meta { font-size: 0.85rem; color: var(--text-muted); }
+.container { max-width: 960px; margin: 0 auto; padding: 48px 24px; }
+.section-block { margin-bottom: 48px; }
+.section-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 8px; font-weight: 500; }
+.section-title { font-family: 'Noto Serif SC', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+.br-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px var(--shadow);
+}
+.br-card:hover { box-shadow: 0 4px 12px var(--shadow); }
+.br-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.br-name {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.br-link { font-size: 0.78rem; margin-left: auto; }
+.br-link a { color: var(--accent-blue); text-decoration: none; }
+.br-link a:hover { text-decoration: underline; }
+.br-item {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.br-item:last-child { border-bottom: none; }
+.br-item .badge { display: inline-block; padding: 1px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 600; margin-right: 6px; }
+.badge-new { background: var(--blue-bg); color: var(--accent-blue); }
+.badge-news { background: var(--green-bg); color: var(--accent-green); }
+.badge-opinion { background: var(--orange-bg); color: var(--accent-orange); }
+.badge-critical { background: var(--red-bg); color: var(--accent-red); }
+.br-item a { color: var(--accent-blue); text-decoration: none; word-break: break-all; }
+.br-item a:hover { text-decoration: underline; }
+.summary-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-purple);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: 0 2px 8px var(--shadow);
+}
+.summary-card li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 0.92rem;
+  list-style: none;
+}
+.summary-card li:last-child { border-bottom: none; }
+.summary-card li::before { content: '• '; color: var(--accent-purple); font-weight: bold; }
+.source-note { font-size: 0.78rem; color: var(--text-muted); margin-top: 36px; padding: 16px 20px; background: var(--bg-card-alt); border-radius: 14px; border: 1px solid var(--border); line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<section class="cover">
+  <div class="tag">Competitor Watch · Weekly</div>
+  <h1>
+    竞品动态速报
+    <span>2026年7月</span>
+  </h1>
+  <p class="sub">AC Infinity · Spider Farmer · Mars Hydro · Gardyn · Lettuce Grow</p>
+  <p class="meta">自动采集 · 新品/动态/舆情三类追踪</p>
+</section>
+
+<div class="container">
+
+  <div class="br-card">
+  <div class="br-header">
+    <span class="br-name">AC Infinity</span>
+    <span class="br-link"><a href="https://acinfinity.com/" target="_blank">官网 →</a></span>
+  </div>
+  <div class="br-item">[新品/动态/舆情标题 — 链接]</div>
+  <div class="br-item">[新品/动态/舆情标题 — 链接]</div>
+</div>
+<div class="br-card">
+  <div class="br-header">
+    <span class="br-name">Spider Farmer</span>
+  </div>
+  <div class="br-item">...</div>
+</div>
+<div class="br-card">
+  <div class="br-header">
+    <span class="br-name">Mars Hydro</span>
+  </div>
+  <div class="br-item">...</div>
+</div>
+<div class="br-card">
+  <div class="br-header">
+    <span class="br-name">Gardyn</span>
+  </div>
+  <div class="br-item">...</div>
+</div>
+<div class="br-card">
+  <div class="br-header">
+    <span class="br-name">Lettuce Grow</span>
+  </div>
+  <div class="br-item">...</div>
+</div>
+<div class="br-card">
+  <div class="br-header">
+    <span class="br-name">AC Infinity</span>
+    <span class="br-link"><a href="https://acinfinity.com/" target="_blank">官网 →</a></span>
+  </div>
+  <div class="br-item"><span class="badge badge-new">新品</span>推出6款2026年UIS生态系统新品：CLOUDFORGE T5加湿器、SPECTRON 3智能4K植物监测摄像头、AI监测系统等 — <a href="https://www.growtent.eu/AC-Infinity-introduces-6-new-products-for-2026-expansion-of-the-UIS-ecosystem-blog-eng-1778344981.html" target="_blank">https://www.growtent.eu/AC-Infinity-introduces-6-new-products-for-2026-expansion-of-the-UIS-ecosystem-blog-eng-1778344981.html</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>发布AI智能家居空调（5合1冷暖除湿风扇，12,000 BTU） — <a href="https://acinfinity.com/ai-portable-air-conditioner-5-in-1-smart-home-ac-12-000-btu" target="_blank">https://acinfinity.com/ai-portable-air-conditioner-5-in-1-smart-home-ac-12-000-btu</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>AI Grow Tent System全系列上新（含自学习AI控制器、LM301H EVO灯珠） — <a href="https://acinfinity.com/shop-all" target="_blank">https://acinfinity.com/shop-all</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>Hydrone 7园艺专用除湿机（预告） — <a href="https://hytechydroponics.com/blogs/news/spring-2026-the-latest-indoor-growing-products" target="_blank">https://hytechydroponics.com/blogs/news/spring-2026-the-latest-indoor-growing-products</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>BBB累计6起投诉（近3年），最近12个月5起已关闭 — <a href="https://www.bbb.org/us/ca/city-of-industry/profile/electronics-and-technology/ac-infinity-inc-1216-1000041022/complaints" target="_blank">https://www.bbb.org/us/ca/city-of-industry/profile/electronics-and-technology/ac-infinity-inc-1216-1000041022/complaints</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>Trustpilot评分4星（522条评价），整体口碑正面 — <a href="https://www.trustpilot.com/review/www.acinfinity.com" target="_blank">https://www.trustpilot.com/review/www.acinfinity.com</a></div>
+</div>
+<div class="br-card">
+  <div class="br-header">
+    <span class="br-name">Spider Farmer</span>
+    <span class="br-link"><a href="https://www.spider-farmer.com/" target="_blank">官网 →</a></span>
+  </div>
+  <div class="br-item"><span class="badge badge-new">新品</span>2026新版SF1000 100W灯：升级Bridgelux灯珠+智能调光 — <a href="https://www.youtube.com/watch?v=0Q-hLXCyTjQ" target="_blank">https://www.youtube.com/watch?v=0Q-hLXCyTjQ</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>2026新版SF2000Pro 200W灯：Bridgelux升级版（2.7 µmol/J） — <a href="https://www.spider-farmer.com/products/spider-farmer-upgraded-se7000-730w-commercial-led-grow-light" target="_blank">https://www.spider-farmer.com/products/spider-farmer-upgraded-se7000-730w-commercial-led-grow-light</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>2026 Master Series种植帐篷（3×3、2.3×4.6、4×2规格） — <a href="https://www.spider-farmer.com/product-tag/new-arrival" target="_blank">https://www.spider-farmer.com/product-tag/new-arrival</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>2026 SE7000 730W商业级LED生长灯 — <a href="https://www.spider-farmer.com/products/spider-farmer-upgraded-se7000-730w-commercial-led-grow-light" target="_blank">https://www.spider-farmer.com/products/spider-farmer-upgraded-se7000-730w-commercial-led-grow-light</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>4层植物架带6个生长灯（2026新版） — <a href="https://www.amazon.com/Spider-Farmer-Spectrum-Greenhouse-28Lx14Dx59H/dp/B0DJ26K938" target="_blank">https://www.amazon.com/Spider-Farmer-Spectrum-Greenhouse-28Lx14Dx59H/dp/B0DJ26K938</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>卷入Mars Hydro 27亿条IoT数据泄露事件（Spider Farmer数据同库暴露） — <a href="https://www.secrss.com/articles/75618" target="_blank">https://www.secrss.com/articles/75618</a></div>
+</div>
+<div class="br-card">
+  <div class="br-header">
+    <span class="br-name">Mars Hydro</span>
+    <span class="br-link"><a href="https://www.mars-hydro.com/" target="_blank">官网 →</a></span>
+  </div>
+  <div class="br-item"><span class="badge badge-new">新品</span>2026新版FC-E3000 300W Bridgelux智能调光灯（7月20-30日发货预售） — <a href="https://www.mars-hydro.com/catalogsearch/result?q=mars+hydro+2026+300w+15kg+1000+240v" target="_blank">https://www.mars-hydro.com/catalogsearch/result?q=mars+hydro+2026+300w+15kg+1000+240v</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>2026新版iControl智能控制器（与FC-E3000套装预售） — 同上</div>
+  <div class="br-item"><span class="badge badge-new">新品</span>6层植物架带10个全光谱灯（225W） — <a href="https://www.amazon.com/MARS-HYDRO-Spectrum-Vegetables-Seedlings/dp/B0FC68HXQD" target="_blank">https://www.amazon.com/MARS-HYDRO-Spectrum-Vegetables-Seedlings/dp/B0FC68HXQD</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>自动补水加湿器套件 — <a href="https://www.mars-hydro.com/info/category/new-product" target="_blank">https://www.mars-hydro.com/info/category/new-product</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>【严重】27亿条IoT数据泄露（含Wi-Fi密码、IP、设备ID），涉及Mars Hydro Mars Pro App — <a href="https://www.secrss.com/articles/75618" target="_blank">https://www.secrss.com/articles/75618</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>UK产品安全报告：FC-E3000存在严重电击风险（2022年，仍被引用） — <a href="https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-mars-hydro-led-grow-light-2209-0236" target="_blank">https://www.gov.uk/product-safety-alerts-reports-recalls/product-safety-report-mars-hydro-led-grow-light-2209-0236</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>Reddit社区长期口碑争议（品质/售后负面讨论） — <a href="https://www.reddit.com/r/Hydroponics/comments/gkvfcv/mars_hydro_why_the_bad_rep_here" target="_blank">https://www.reddit.com/r/Hydroponics/comments/gkvfcv/mars_hydro_why_the_bad_rep_here</a></div>
+</div>
+<div class="br-card">
+  <div class="br-header">
+    <span class="br-name">Gardyn</span>
+    <span class="br-link"><a href="https://mygardyn.com/" target="_blank">官网 →</a></span>
+  </div>
+  <div class="br-item"><span class="badge badge-new">新品</span>Gardyn Studio 2荣获CES 2026创新奖（Food Tech类） — <a href="https://www.ces.tech/ces-innovation-awards/2026/gardyn-studio-2" target="_blank">https://www.ces.tech/ces-innovation-awards/2026/gardyn-studio-2</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>Gardyn Home Kit 2.0正式发布 — <a href="https://mygardyn.com/blog/gardyn-home-kit-2-0-unveiled" target="_blank">https://mygardyn.com/blog/gardyn-home-kit-2-0-unveiled</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>【严重安全漏洞】CISA发布ICS安全公告ICSA-26-055-03：Gardyn Home Kit存在7个CVE漏洞，CVSS 9.3级，包括CVE-2026-28766（信息泄露，无需认证即可获取全部用户账户信息）、CVE-2025-1242（命令注入）、CVE-2026-25197（认证绕过）等 — <a href="https://www.cisa.gov/news-events/ics-advisories/icsa-26-055-03" target="_blank">https://www.cisa.gov/news-events/ics-advisories/icsa-26-055-03</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>CVE-2026-28766详情：未认证API端点暴露所有用户账户信息 — <a href="https://www.sentinelone.com/vulnerability-database/cve-2026-28766" target="_blank">https://www.sentinelone.com/vulnerability-database/cve-2026-28766</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>Reddit社区讨论：Gardyn IoT Hub CVSS 10分严重漏洞，可远程控制设备 — <a href="https://www.reddit.com/r/pwnhub/comments/1rgkold/critical_flaws_in_gardyn_smart_gardens_enable" target="_blank">https://www.reddit.com/r/pwnhub/comments/1rgkold/critical_flaws_in_gardyn_smart_gardens_enable</a></div>
+</div>
+<div class="br-card">
+  <div class="br-header">
+    <span class="br-name">Lettuce Grow</span>
+    <span class="br-link"><a href="https://www.lettucegrow.com/" target="_blank">官网 →</a></span>
+  </div>
+  <div class="br-item"><span class="badge badge-new">新品</span>The Counterstand桌面水培花瓶（$149，无需水泵）获Good Housekeeping 2026厨房大奖 — <a href="https://www.lettucegrow.com/collections/counterstand" target="_blank">https://www.lettucegrow.com/collections/counterstand</a></div>
+  <div class="br-item"><span class="badge badge-new">新品</span>Glow Lamp生长灯配件（Counterstand可选） — <a href="https://designawards.core77.com/home-living/143390/Counterstand-and-Glow-Lamp-by-Lettuce-Grow" target="_blank">https://designawards.core77.com/home-living/143390/Counterstand-and-Glow-Lamp-by-Lettuce-Grow</a></div>
+  <div class="br-item"><span class="badge badge-news">动态</span>与Costco Wholesale合作扩展：活体幼苗进Costco门店 + Farmstand Nook在Costco促销$150 off — <a href="https://www.verticalfarmdaily.com/article/9686618/us-lettuce-grow-expanding-its-relationship-with-costco" target="_blank">https://www.verticalfarmdaily.com/article/9686618/us-lettuce-grow-expanding-its-relationship-with-costco</a></div>
+  <div class="br-item"><span class="badge badge-news">动态</span>2026母亲节促销（全场20% off） — <a href="https://www.wired.com/story/lettuce-grow-mothers-day-sale-2026" target="_blank">https://www.wired.com/story/lettuce-grow-mothers-day-sale-2026</a></div>
+  <div class="br-item"><span class="badge badge-opinion">舆情</span>Instagram上零星用户投诉幼苗配送数量短缺问题 — <a href="https://www.instagram.com/p/DGRhz5-ypHe" target="_blank">https://www.instagram.com/p/DGRhz5-ypHe</a></div>
+</div>
+
+  <div class="source-note">
+    <strong>数据来源</strong> · 搜索引擎 + Reddit + 官方渠道 + CISA/BBB 等第三方平台自动采集。<br>
+    各条目链接以原文为准。本报告为自动生成，仅供参考。
+  </div>
+</div>
+
+</body>
+</html>
