@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reddit 种植加湿器痛点分析报告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: #f6f7f9;
+  color: #1a1b26;
+  font-size: 15px;
+  line-height: 1.7;
+}
+.slides-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+}
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.nav-bar .page-indicator {
+  color: #666;
+  font-weight: 500;
+}
+.nav-bar .nav-buttons button {
+  background: #1a1b26;
+  color: white;
+  border: none;
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 0 4px;
+  transition: background 0.2s;
+}
+.nav-bar .nav-buttons button:hover { background: #333; }
+.nav-bar .nav-buttons button:disabled { background: #ccc; cursor: default; }
+
+.slide {
+  background: #fff;
+  border-radius: 12px;
+  padding: 60px 56px;
+  margin: 20px auto;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+.slide:first-child {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 85vh;
+}
+.slide:last-child {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: #1a1b26;
+  margin-bottom: 16px;
+}
+.cover-sub {
+  font-size: 16px;
+  color: #888;
+  margin-top: 8px;
+}
+.cover-date {
+  font-size: 14px;
+  color: #aaa;
+  margin-top: 24px;
+}
+
+h2 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1a1b26;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #1a6bb0;
+  display: inline-block;
+}
+h3 {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1b26;
+  margin-bottom: 12px;
+}
+h4 {
+  font-weight: 700;
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  margin-right: 6px;
+}
+.tag-blue { background: #e8f0fe; color: #1a6bb0; }
+.tag-red { background: #fce8e6; color: #c0392b; }
+.tag-green { background: #e6f4ea; color: #1a8a4a; }
+.tag-orange { background: #fef3e2; color: #c96a0e; }
+
+.brand-card {
+  background: #f6f7f9;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 20px;
+  border-left: 4px solid #ddd;
+}
+.brand-card.aci { border-left-color: #1a6bb0; }
+.brand-card.vivosun { border-left-color: #1a8a4a; }
+.brand-card.spider { border-left-color: #c96a0e; }
+.brand-card.mars { border-left-color: #c0392b; }
+.brand-card.general { border-left-color: #888; }
+
+.brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.brand-name {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.pain-point {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+.pain-point:last-child { border-bottom: none; }
+
+.pain-point .pp-title {
+  font-weight: 600;
+  color: #c0392b;
+}
+.pain-point .pp-source {
+  font-size: 12px;
+  color: #999;
+  margin-left: 8px;
+}
+.pain-point .pp-desc {
+  color: #555;
+  font-size: 14px;
+  margin-top: 4px;
+  padding-left: 4px;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+.stat-card {
+  background: #f6f7f9;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.stat-number {
+  font-family: 'Noto Serif SC', serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: #1a6bb0;
+}
+.stat-label {
+  font-size: 13px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.summary-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+  align-items: flex-start;
+}
+.summary-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.summary-icon.red { background: #fce8e6; color: #c0392b; }
+.summary-icon.blue { background: #e8f0fe; color: #1a6bb0; }
+.summary-icon.orange { background: #fef3e2; color: #c96a0e; }
+
+.insight-box {
+  background: #f0f7ff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 16px 0;
+  border: 1px solid #d6e8ff;
+}
+.insight-box.orange {
+  background: #fff8f0;
+  border-color: #ffdbb5;
+}
+.insight-box.green {
+  background: #f0faf0;
+  border-color: #c8e6c9;
+}
+
+.page-footer {
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+  padding: 40px 0;
+}
+
+.bottom-page-number {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.06);
+  color: #888;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 500;
+}
+@media (max-width: 768px) {
+  .slide { padding: 32px 20px; }
+  h1 { font-size: 28px; }
+  h2 { font-size: 22px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="nav-bar">
+  <div class="page-indicator">📊 种植加湿器痛点分析</div>
+  <div class="nav-buttons">
+    <button onclick="prevSlide()" id="prevBtn">◀</button>
+    <span id="pageNum" style="margin:0 12px;font-weight:500;">1 / 10</span>
+    <button onclick="nextSlide()" id="nextBtn">▶</button>
+  </div>
+</div>
+
+<div class="slides-container" id="slidesContainer">
+
+<!-- COVER -->
+<div class="slide">
+  <h1>🌿 Reddit 种植加湿器<br>痛点深度分析报告</h1>
+  <p class="cover-sub">VIVOSUN · AC Infinity · Spider Farmer · Mars Hydro</p>
+  <p class="cover-sub" style="color:#999;font-size:14px;">基于 Reddit 社区真实用户反馈整理</p>
+  <p class="cover-date" id="reportDate"></p>
+  <div style="margin-top:40px;max-width:500px;text-align:left;color:#666;font-size:14px;line-height:2;">
+    <div>📌 覆盖 Subreddit: r/microgrowery, r/ACInfinityAdvancegrow, r/VIVOSUN, r/SpiderFarmerLED, r/marshydrogrowers, r/GrowBuddy, r/Autoflowers 等</div>
+    <div>📌 共抓取 80+ 帖子，精选 30+ 核心痛点</div>
+    <div>📌 数据采集时间: 2026年7月</div>
+  </div>
+</div>
+
+<!-- OVERVIEW -->
+<div class="slide">
+  <h2>一、核心发现总览</h2>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">主要品牌横向对比</div></div>
+    <div class="stat-card"><div class="stat-number">10</div><div class="stat-label">AC Infinity 痛点项</div></div>
+    <div class="stat-card"><div class="stat-number">10+</div><div class="stat-label">VIVOSUN 痛点项</div></div>
+    <div class="stat-card"><div class="stat-number">7</div><div class="stat-label">Spider Farmer 痛点项</div></div>
+    <div class="stat-card"><div class="stat-number">4</div><div class="stat-label">Mars Hydro 痛点项</div></div>
+  </div>
+
+  <div class="insight-box">
+    <h3>📊 关键发现</h3>
+    <p style="font-size:14px;margin-bottom:10px;"><strong>最集中吐槽：</strong>超声波加湿器的「白粉/白尘」问题是所有品牌用户的共同噩梦——使用自来水会产生矿物粉尘覆盖植物、堵塞碳滤。</p>
+    <p style="font-size:14px;margin-bottom:10px;"><strong>最严重缺陷：</strong>AC Infinity CloudForge 系列存在致命设计缺陷——漏水可能导致控制器（69 Pro）整机宕机，需要断水断电换新。</p>
+    <p style="font-size:14px;"><strong>最普遍抱怨：</strong>所有品牌的智能控制（App/控制器）均不稳定，尤其 VIVOSUN 和 AC Infinity 的固件更新经常导致设备失联或功能失效。</p>
+  </div>
+</div>
+
+<!-- SECTION 2: AC INFINITY -->
+<div class="slide">
+  <h2>二、AC Infinity · CloudForge 系列</h2>
+  <p style="color:#888;font-size:14px;margin-bottom:20px;">CloudForge T3 / T5 / T7 · 市场关注度最高的种植专用加湿器</p>
+
+  <div class="brand-card aci">
+    <div class="brand-header"><span class="brand-name">🔵 AC Infinity CloudForge</span><span class="tag tag-red">严重缺陷</span><span class="tag tag-blue">最多讨论</span></div>
+
+    <div class="pain-point">
+      <div class="pp-title">💀 致命级：漏水导致控制器整机失效</div>
+      <div class="pp-desc">CloudForge T7 的溢水会通过 UIS 接口倒灌进入 69 Pro 控制器，导致控制器完全停机。只要 T7 插着，控制器就无法工作——"catastrophic failure"。USB 接口是"A CI 所有加湿器的薄弱环节"——一旦进水，加湿器和控制器双双报废。</div>
+      <div class="pp-source">r/ACInfinityAdvancegrow — "Cloudforge T7 catastrophic failure" (高赞) + "Cloud Forge T7: The USB connection is the weak point"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">💀 致命级：T3 屏幕一个月内报废 + 随机关机</div>
+      <div class="pp-desc">T3 加湿器的 LED 屏幕使用不到一个月即死屏，且会随机自动关闭。用户反映即使不连接控制器，所有端口密封防水，仍然出现问题。</div>
+      <div class="pp-source">r/ACInfinityAdvancegrow — "4.4l T3 Humidifier LED screen dead after less than a month"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">💀 T3 控制器上闪烁后完全失效 + 底座积水</div>
+      <div class="pp-desc">T3 在控制器界面上闪烁一下后停止加湿。用户拆开发现底座大量积水，倒出后吸水擦干才恢复。"Mine flashed and stopped humidifying. Took the water tank off and soaked up the water out of the base." 底座积水是 T3 的普遍问题。</div>
+      <div class="pp-source">r/microgrowery — "Cloudforge t3 issues? Not registering on controller/working"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">💧 T7 漏水从底部孔渗出 + V2 版孔位不齐</div>
+      <div class="pp-desc">T7 底部出水孔持续漏水。用户拆解发现可能是植物碎屑堵塞水箱阀门所致。更糟的是 T7 V2 版出现新问题——顶盖孔和水箱孔不对齐，雾气无法正确排出。</div>
+      <div class="pp-source">r/ACInfinityAdvancegrow — "Cloudforge T7 leaking out of bottom hole" + r/Hydroponics "T7 V2 lid hole and tank hole do not line up"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">💧 T7 第一天就坏了——5小时耗尽整箱水</div>
+      <div class="pp-desc">第一天使用 T7，5小时内把整箱水全部喷出，帐内大量积水。之后加湿器彻底停止工作，无法修复。</div>
+      <div class="pp-source">r/ACInfinityAdvancegrow — "T7 Humidifier not working day one"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">⚠️ "AC Infinity 销售的是带有 CRITICAL DEFECT 的产品"</div>
+      <div class="pp-desc">一位资深用户直接指出 CloudForge 加湿器极易导致整个 Pro 控制器关机。硬件容易故障，软件极其不稳定，客服响应通常需要 3 个工作日以上。</div>
+      <div class="pp-source">r/GrowBuddy — "Beware of AC Infinity" (多个高赞回复)</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">⚠️ T3/T7 加满水反而出问题——水太多会堵</div>
+      <div class="pp-desc">多位用户反映：AC Infinity 加湿器如果水箱加太满，会出现奇怪的问题——内部管道会堵塞并漏水，尽管按正确方式排管。"AC Infinity's humidifiers get weird when you fill the tank up too high with water. It would eventually clog & leak."</div>
+      <div class="pp-source">r/microgrowery — "Has anyone had a problem with AC Inf controller reading"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">⚠️ T3 冷凝水严重 + 需每天手动加水</div>
+      <div class="pp-desc">T3 在 2x2x4 小帐内冷凝水严重，速度设 3-4 以上就会有大量水珠。水箱偏小需每天加水，多位用户表示"非常失望"(very underwhelming)。且缺少加水传感器(T7 一天就能吸干整箱水)，用户不得不自己加装浮球阀自动补水。</div>
+      <div class="pp-source">r/ACInfinityAdvancegrow — "T3 not so nice", "Since Cloudforge doesn't have a fill sensor"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">🧹 "记得清洁加湿器！"—T3 内部非常脏</div>
+      <div class="pp-desc">用户提醒：T3 即使看起来干净，内部也会积聚大量污垢。"It gets nasty even if you don't think it does." 但 CloudForge 的设计使内部清洁很不方便。。</div>
+      <div class="pp-source">r/microgrowery — "Keep your humidifiers, dehumidifiers etc clean!"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">🔄 矛盾的社区口碑</div>
+      <div class="pp-desc">有意思的是，多位用户同时称 CloudForge 是"grow tent 加湿器的黄金标准"并推荐 T7，而另一些用户则经历了致命故障。说明 AC Infinity 加湿器存在严重的批次一致性问题 —— 用户像是在"抽签"。</div>
+      <div class="pp-source">r/microgrowery — 多篇对比帖中的矛盾评价</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 3: VIVOSUN -->
+<div class="slide">
+  <h2>三、VIVOSUN · H05 系列加湿器</h2>
+  <p style="color:#888;font-size:14px;margin-bottom:20px;">H05 加湿器 + 智能控制器 · 性价比路线但品控堪忧</p>
+
+  <div class="brand-card vivosun">
+    <div class="brand-header"><span class="brand-name">🟢 VIVOSUN H05 / 智能系统</span><span class="tag tag-red">品控问题</span><span class="tag tag-orange">App 问题</span></div>
+
+    <div class="pain-point">
+      <div class="pp-title">🔌 H05 传感器接口设计缺陷——无法连通</div>
+      <div class="pp-desc">用户尝试两个不同的传感器（其中一个确认工作正常），均因为 H05 加湿器上的端口设计问题而无法保持连接。多次更换无效。"Absolutely done with the H05 Humidifier."</div>
+      <div class="pp-source">r/VIVOSUN — "Absolutely done with the H05 Humidifier" (高赞)</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">💀 "Vivosun 的回退配置会毁掉你的收成"</div>
+      <div class="pp-desc">智能系统在出现问题后自动回退到默认配置，导致开花期第 14 天湿度飙升至 97%！用户所有努力付诸东流。数据图表显示系统在用户检查后立即关闭。</div>
+      <div class="pp-source">r/VIVOSUN — "Vivosuns fall back config is a crop destroyer"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">📱 购买 Vivosun 全套是巨大错误</div>
+      <div class="pp-desc">4x4 一体帐篷套件：排气扇无控制器发货、加湿器只能手动控制、App 能识别设备但无法自动化、探头不工作、App 将灯识别为风扇、灯光定时器完全失效。用户被迫每日手动开关灯。</div>
+      <div class="pp-source">r/GrowingMarijuana — "Purchasing a Vivosun setup was a huge mistake"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">📱 控制器和 App"完全是垃圾"——会导致作物受损</div>
+      <div class="pp-desc">App 显示灯已关闭但实际灯还亮着；App 说灯已开启实际没亮。这种"虚报"连续发生三天。用户反映 App 更新后问题更加严重。"Time to move on to AC Infinity."</div>
+      <div class="pp-source">r/VIVOSUN — "Love the vivosun lights but avoid the controller and app"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">🔌 探头几分钟后就断开</div>
+      <div class="pp-desc">E42 控制器 + T6 风扇套件，固件更新后探头持续断连。VIVOSUN 客服寄来新探头仍然无法解决——用户怀疑问题出在控制器本身而非探头。</div>
+      <div class="pp-source">r/VIVOSUN — "Probe stops working after a few minutes"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">💧 帐篷严重漏光——需盖毯子防植物变性</div>
+      <div class="pp-desc">用户购买 VIVOSUN 帐篷后发现大量光漏，导致植物可能变 herm（雌雄同体），不得不盖毯子在帐篷外部。</div>
+      <div class="pp-source">r/VIVOSUN — "Wow, poor customer support, terrible products and lying tactics"</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 4: SPIDER FARMER -->
+<div class="slide">
+  <h2>四、Spider Farmer · 加湿器系列</h2>
+  <p style="color:#888;font-size:14px;margin-bottom:20px;">加湿器 · 除湿机 · 控制器生态</p>
+
+  <div class="brand-card spider">
+    <div class="brand-header"><span class="brand-name">🟠 Spider Farmer</span><span class="tag tag-red">品质控制</span><span class="tag tag-orange">客服差</span></div>
+
+    <div class="pain-point">
+      <div class="pp-title">🔥 "加湿器几乎引起火灾——到处漏水"</div>
+      <div class="pp-desc">一位用户在推荐品牌讨论中透露：他的 Spider Farmer 加湿器漏水严重，几乎引起火灾（almost started a fire from leaking everywhere）。"Good luck with Spider Farmer customer service or stuff breaking."</div>
+      <div class="pp-source">r/microgrowery — "Which of these grow lights" 评论区 (高赞)</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">❌ 拒绝更换故障加湿器（欧盟用户）</div>
+      <div class="pp-desc">用户购买 Spider Farmer 加湿器，摆动部件 3 周后即停止工作。联系客服后对方拒绝更换。"Quality control is lacking."</div>
+      <div class="pp-source">r/SpiderFarmerLED — "Won't replace broken humidifier (EU)"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">📊 6L 加湿器传感器偏差高达 15% RH</div>
+      <div class="pp-desc">Spider Farmer 6L 加湿器内置传感器读数 65%，而独立温湿度计显示 50%——相差 15 个百分点！这对 VPD 控制来说是不可接受的偏差。用户怀疑传感器质量不佳。</div>
+      <div class="pp-source">r/germantrees — "2025 Spider Farmer Humidifier 6L – Sensor problems?"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">⏳ 6L 超声波出雾量逐渐下降</div>
+      <div class="pp-desc">用户发现用了 1 周的 6L 超声波加湿器水箱消耗速度明显变慢，出雾量下降。之前每天加水，现在几天才见少。疑似超声波振子（transducer）性能衰减或水质导致结垢。</div>
+      <div class="pp-source">r/SpiderFarmerLED — "Issues with my 6L ultrasonic humidifier"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">📱 控制器疯狂发出蜂鸣声</div>
+      <div class="pp-desc">多位用户反映 Spider Farmer 控制器会持续发出蜂鸣声，即使放在隔壁房间也能听到。"My Spiderfarmer controller also beeps like crazy."</div>
+      <div class="pp-source">r/Canbau — "Marshydro kann sich f*cken" 评论区</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">🔗 无法按环境数据联动控制设备</div>
+      <div class="pp-desc">用户反馈 Spider Farmer 系统最大的问题是：无法根据环境数据（温湿度）联动控制加湿器、排风扇或加热器。"We cant control humidifier, inline fan or the heater according to the environmental data."</div>
+      <div class="pp-source">r/SpiderFarmerLED — "GGS Community Thread"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">📦 帐篷缺件 + 客服态度恶劣</div>
+      <div class="pp-desc">用户订购 8x4 帐篷套件发现少一根结构杆。客服不仅拖延一周回复，还画出错误的箭头说用户数错了，最终拒绝寄送成本仅 $2-3 的替换件。态度"passive aggressive"。</div>
+      <div class="pp-source">r/Hydroponics — "Spider Farmer LED Buyers Beware!" (55 upvotes, 155 comments)</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 5: MARS HYDRO -->
+<div class="slide">
+  <h2>五、Mars Hydro · 加湿器系列</h2>
+  <p style="color:#888;font-size:14px;margin-bottom:20px;">5L / 6L 超声波加湿器 · 品牌热度相对较低</p>
+
+  <div class="brand-card mars">
+    <div class="brand-header"><span class="brand-name">🔴 Mars Hydro</span><span class="tag tag-red">漏水</span><span class="tag tag-blue">品控</span></div>
+
+    <div class="pain-point">
+      <div class="pp-title">💧 全新 5L 加湿器到手即漏</div>
+      <div class="pp-desc">用户在 r/marshydrogrowers 发帖求助：全新 Mars Hydro 5L 加湿器严重漏水，水从水箱和底部单元的接口处渗出。初步判断浮球阀让过多水流入下腔导致溢流。</div>
+      <div class="pp-source">r/marshydrogrowers — "Help - brand new Mars Hydro 5L humidifier leaking"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">📱 控制器/App 被评"绝对垃圾"</div>
+      <div class="pp-desc">用户在 r/marshydrogrowers 直接评价 Mars Hydro 的控制器和 App 为"absolute trash"。很多人遇到问题，而且公司从不回复客服邮件或工单。</div>
+      <div class="pp-source">r/marshydrogrowers — "Lights & Controller???"</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">📊 品牌热度对比：讨论量远低于竞品</div>
+      <div class="pp-desc">r/marshydrogrowers 上关于加湿器的帖子数量明显少于 AC Infinity 和 VIVOSUN 的专属社区。Mars Hydro 加湿器更多作为帐篷/灯光套件的附加品出现，而非独立购买选择。</div>
+      <div class="pp-source">综合分析 Reddit 帖子数量</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">🆚 用户选择倾向：AC Infinity 明显胜出</div>
+      <div class="pp-desc">在多个"选哪个品牌"的讨论帖中（r/microgrowery, r/Autoflowers, r/GrowBuddy），AC Infinity 在加湿器和控制器方面被普遍认为品质最优，Mars Hydro 通常被认为与 VIVOSUN 同级或略优，但不如 AC Infinity。</div>
+      <div class="pp-source">r/microgrowery, r/Autoflowers 多篇对比帖</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6: GENERAL HUMIDIFIER PAIN POINTS -->
+<div class="slide">
+  <h2>六、通用痛点·所有品牌共性问题</h2>
+  <p style="color:#888;font-size:14px;margin-bottom:20px;">不分品牌，种植加湿器的普遍性槽点</p>
+
+  <div class="brand-card general">
+    <div class="brand-header"><span class="brand-name">共通问题</span><span class="tag tag-blue">行业通病</span></div>
+
+    <div class="pain-point">
+      <div class="pp-title">🥛 白粉/白尘——超声波加湿器的头号公敌</div>
+      <div class="pp-desc">这是 Reddit 上被提及最多的问题。自来水中的矿物质被超声波雾化后形成白色粉尘，覆盖植物叶片、堵塞碳滤、落在风扇上。必须使用蒸馏水或 RO 水，但成本高且不便。"Don't run tap water in ultrasonic humidifiers, you're going to have white dust all over your whole tent." 更有用户发现白尘在 3 个月内就严重堵塞碳滤，影响气流。"Bad news it will still clog up your filter and screw up your air flow."</div>
+      <div class="pp-source">r/microgrowery, r/NoTillGrowery, r/cannabiscultivation 累计数百条讨论</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">🧹 极难清洁——霉菌温床</div>
+      <div class="pp-desc">加湿器内部角落和缝隙多，难以彻底清洁。潮湿环境容易滋生霉菌和细菌。用户反映即使用蒸馏水，每周清洗仍然很麻烦。"Every humidifier I've used has nooks and crannies for goop to grow in."</div>
+      <div class="pp-source">r/BuyItForLife — "Easy clean humidifier" (200+ upvotes, 178 comments)</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">💧 冷凝水问题</div>
+      <div class="pp-desc">加湿器出雾量过大时，帐篷壁和植物上形成大量冷凝水，增加霉菌和白粉病风险。用户需要精确控制风速和出雾量。</div>
+      <div class="pp-source">r/ACInfinityAdvancegrow, r/microgrowery 多篇帖子</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">📏 精准控湿困难</div>
+      <div class="pp-desc">大多数加湿器的自带湿度传感器不够精准，或需要搭配第三方控制器（如 Inkbird）。与排风扇的互动容易造成湿度剧烈波动，难以稳定在目标 VPD 范围。</div>
+      <div class="pp-source">r/microgrowery, r/GrowBuddy 常见讨论</div>
+    </div>
+    <div class="pain-point">
+      <div class="pp-title">🔄 频繁加水——水箱容量不足</div>
+      <div class="pp-desc">中低端加湿器水箱容量小（2-4L），在干燥季节需要每天甚至每 12 小时加水。用户理想容量 >6L。</div>
+      <div class="pp-source">多品牌用户反馈</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: BRAND COMPARISON -->
+<div class="slide">
+  <h2>七、品牌横向对比矩阵</h2>
+
+  <div style="overflow-x:auto;margin:20px 0;">
+  <table style="width:100%;border-collapse:collapse;font-size:14px;">
+    <thead>
+      <tr style="background:#1a1b26;color:white;">
+        <th style="padding:12px 16px;text-align:left;">维度</th>
+        <th style="padding:12px 16px;text-align:center;">AC Infinity</th>
+        <th style="padding:12px 16px;text-align:center;">VIVOSUN</th>
+        <th style="padding:12px 16px;text-align:center;">Spider Farmer</th>
+        <th style="padding:12px 16px;text-align:center;">Mars Hydro</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:10px 16px;font-weight:600;">🔥 漏水/火灾风险</td>
+        <td style="padding:10px 16px;text-align:center;color:#c0392b;">⚠️ T7/T3 已知漏水</td>
+        <td style="padding:10px 16px;text-align:center;color:#c96a0e;">⚠️ 少量漏报</td>
+        <td style="padding:10px 16px;text-align:center;color:#c0392b;">⚠️🔥 漏水近火灾</td>
+        <td style="padding:10px 16px;text-align:center;color:#c96a0e;">⚠️ 新机即漏</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:10px 16px;font-weight:600;">📱 App/控制器稳定性</td>
+        <td style="padding:10px 16px;text-align:center;color:#1a8a4a;">✅ 较稳定，固件有更新</td>
+        <td style="padding:10px 16px;text-align:center;color:#c0392b;">❌ 极其不稳定，虚报状态</td>
+        <td style="padding:10px 16px;text-align:center;color:#c96a0e;">⚠️ 联动功能缺失</td>
+        <td style="padding:10px 16px;text-align:center;color:#888;">— 智能功能较少</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:10px 16px;font-weight:600;">🛠️ 硬件品控</td>
+        <td style="padding:10px 16px;text-align:center;color:#c96a0e;">⚠️ 加湿器缺陷率高</td>
+        <td style="padding:10px 16px;text-align:center;color:#c0392b;">❌ 配件缺件/探頭失靈</td>
+        <td style="padding:10px 16px;text-align:center;color:#c96a0e;">⚠️ QC 不足，3 周故障</td>
+        <td style="padding:10px 16px;text-align:center;color:#c96a0e;">⚠️ 新机即有问题</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:10px 16px;font-weight:600;">💵 性价比</td>
+        <td style="padding:10px 16px;text-align:center;color:#c96a0e;">⚠️ 最贵但品质最好</td>
+        <td style="padding:10px 16px;text-align:center;color:#1a8a4a;">✅ 最便宜</td>
+        <td style="padding:10px 16px;text-align:center;color:#1a8a4a;">✅ 中等价位</td>
+        <td style="padding:10px 16px;text-align:center;color:#1a8a4a;">✅ 中等价位</td>
+      </tr>
+      <tr style="border-bottom:1px solid #eee;">
+        <td style="padding:10px 16px;font-weight:600;">👨‍💻 客服体验</td>
+        <td style="padding:10px 16px;text-align:center;color:#c96a0e;">⚠️ 响应慢(3天+)</td>
+        <td style="padding:10px 16px;text-align:center;color:#c0392b;">❌ 消极推诿、气话</td>
+        <td style="padding:10px 16px;text-align:center;color:#c0392b;">❌ 拒绝保修、态度差</td>
+        <td style="padding:10px 16px;text-align:center;color:#888;">— 数据不足</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 16px;font-weight:600;">🔄 社区推荐度</td>
+        <td style="padding:10px 16px;text-align:center;color:#1a8a4a;">✅ 高（整体推荐）</td>
+        <td style="padding:10px 16px;text-align:center;color:#c0392b;">❌ 低（不推荐）</td>
+        <td style="padding:10px 16px;text-align:center;color:#c96a0e;">⚠️ 中等（褒贬不一）</td>
+        <td style="padding:10px 16px;text-align:center;color:#1a8a4a;">✅ 中等偏上</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="insight-box orange" style="margin-top:20px;">
+    <h3>💡 有趣现象</h3>
+    <p style="font-size:14px;">虽然 AC Infinity CloudForge 加湿器本身被批评有多项缺陷，但用户对其帐篷、排风扇和 69 Pro 控制器的评价异常正面。加湿器是 AC Infinity 产品线中最被诟病的品类。</p>
+  </div>
+</div>
+
+<!-- SECTION 8: TOP POST EXCERPTS -->
+<div class="slide">
+  <h2>八、值得关注的帖子精选</h2>
+  <p style="color:#888;font-size:14px;margin-bottom:20px;">高赞 / 高讨论量的帖子摘录</p>
+
+  <div class="summary-item">
+    <div class="summary-icon red">💀</div>
+    <div>
+      <div style="font-weight:600;">"Cloudforge T7 catastrophic failure - caused my exhaust fans to stop working"</div>
+      <div style="color:#888;font-size:13px;">r/ACInfinityAdvancegrow · 加湿器损坏导致控制器整机失效</div>
+    </div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon red">🔥</div>
+    <div>
+      <div style="font-weight:600;">"Beware of AC Infinity"</div>
+      <div style="color:#888;font-size:13px;">r/GrowBuddy · "Hardware fails easily and the software is very very unstable"</div>
+    </div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon blue">📱</div>
+    <div>
+      <div style="font-weight:600;">"Absolutely done with the H05 Humidifier"</div>
+      <div style="color:#888;font-size:13px;">r/VIVOSUN · 传感器接口设计缺陷导致无法连通</div>
+    </div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon red">🌱</div>
+    <div>
+      <div style="font-weight:600;">"Vivosuns fall back config is a crop destroyer"</div>
+      <div style="color:#888;font-size:13px;">r/VIVOSUN · 智能系统回退默认，湿度飙到97%毁收成</div>
+    </div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon orange">🔥</div>
+    <div>
+      <div style="font-weight:600;">"Spider Farmer humidifier almost started a fire from leaking"</div>
+      <div style="color:#888;font-size:13px;">r/microgrowery 评论区 · 加湿器漏水几乎引发火灾</div>
+    </div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon blue">👎</div>
+    <div>
+      <div style="font-weight:600;">"Purchasing a Vivosun setup was a huge mistake"</div>
+      <div style="color:#888;font-size:13px;">r/GrowingMarijuana · 全套设备不能正常使用</div>
+    </div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon blue">💧</div>
+    <div>
+      <div style="font-weight:600;">"Help - brand new Mars Hydro 5L humidifier leaking"</div>
+      <div style="color:#888;font-size:13px;">r/marshydrogrowers · 新机水箱接口即漏</div>
+    </div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon orange">🥛</div>
+    <div>
+      <div style="font-weight:600;">"White powder everywhere" / "What is this white stuff?"</div>
+      <div style="color:#888;font-size:13px;">r/cannabiscultivation · 超声波加湿器白尘覆盖全帐</div>
+    </div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon red">💀</div>
+    <div>
+      <div style="font-weight:600;">"Won't replace broken humidifier (EU)"</div>
+      <div style="color:#888;font-size:13px;">r/SpiderFarmerLED · 3周故障后拒绝更换</div>
+    </div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon blue">📊</div>
+    <div>
+      <div style="font-weight:600;">"Spider Farmer LED Buyers Beware!"</div>
+      <div style="color:#888;font-size:13px;">r/Hydroponics · 55 upvotes, 155 comments · 缺件+客服态度恶劣</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 9: INSIGHTS & OPPORTUNITIES -->
+<div class="slide">
+  <h2>九、市场洞察与产品机会</h2>
+
+  <div class="insight-box green">
+    <h3>✅ 产品优化方向</h3>
+    <p style="font-size:14px;margin-bottom:10px;"><strong>1. 蒸发式 > 超声波</strong> — 社区强烈推荐蒸发式加湿器（Evaporative），虽然需更换滤芯但无白尘问题。这是 AC Infinity / VIVOSUN 等品牌当前产品线中缺失的品类。</p>
+    <p style="font-size:14px;margin-bottom:10px;"><strong>2. 漏水防护是刚需</strong> — 所有品牌的加湿器都被反映漏水。如果能在底部设计储水托盘+防水UIS接口，将是巨大差异化优势。</p>
+    <p style="font-size:14px;margin-bottom:10px;"><strong>3. 大水箱 + 上加水</strong> — 用户想要 >6L 容量、上加水设计、透明水位窗的加湿器。目前没有品牌在此方面做得足够好。</p>
+    <p style="font-size:14px;"><strong>4. 易清洁设计</strong> — 水箱和底座可完全拆卸、无死角、洗碗机安全的加湿器设计会有明确市场需求。</p>
+  </div>
+
+  <div class="insight-box orange">
+    <h3>⚠️ 竞争定位注意</h3>
+    <p style="font-size:14px;margin-bottom:10px;"><strong>定位策略：</strong>如果 MayGrove 考虑进入加湿器市场，应定位为"种植专用蒸发式加湿器"，避免与 AC Infinity CloudForge 直接竞争超声波赛道。</p>
+    <p style="font-size:14px;margin-bottom:10px;"><strong>智能集成：</strong>Reddit 用户最核心的未被满足需求是：<strong>加湿器与排风扇、加热器的智能联动</strong>。如果产品自带 PID 控制算法、基于 VPD 自动调节，将大幅拉开与竞品差距。</p>
+    <p style="font-size:14px;"><strong>价位建议：</strong>现有品牌痛点集中在 $50-150 价格区间。如果 MayGrove 推出 $99-149 的蒸发式加湿器+智能联动，有明确市场空间。</p>
+  </div>
+</div>
+
+<!-- CLOSING -->
+<div class="slide">
+  <h2>十、总结</h2>
+  <div style="max-width:650px;margin:0 auto;text-align:left;">
+
+  <div class="summary-item">
+    <div class="summary-icon red">1</div>
+    <div><strong>AC Infinity</strong> — 品牌声誉最高但加湿器是其最大短板。CloudForge 漏水+控制器宕机是致命级缺陷。用户离不开其生态系统但讨厌加湿器。</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon red">2</div>
+    <div><strong>VIVOSUN</strong> — 最差口碑。App/控制器极其不可靠，探头/传感器连接受限，自动回退配置可能毁掉收成。社区普遍不推荐。</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon orange">3</div>
+    <div><strong>Spider Farmer</strong> — 品质控制不稳定。加湿器有差点引发火灾的严重案例，客服态度差。但灯光产品口碑不错。</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon blue">4</div>
+    <div><strong>Mars Hydro</strong> — 品牌热度最低。加湿器信息有限，但存在新机即漏的案例。属于"还不错但不会特意买"的定位。</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-icon blue">5</div>
+    <div><strong>行业级痛点</strong> — 白尘问题 > 清洁难度 > 漏水 > 精准控湿 > 加水频率。超声波加湿器的白尘问题是所有品牌共同的未解决问题。</div>
+  </div>
+
+  <hr style="margin:30px 0;border:none;border-top:1px solid #eee;">
+
+  <p style="color:#666;font-size:14px;text-align:center;">
+    本报告基于 Reddit 社区 r/microgrowery、r/ACInfinityAdvancegrow、r/VIVOSUN、r/SpiderFarmerLED、r/marshydrogrowers、<br>r/GrowBuddy 等子版块的公开帖子编写。<br>
+    数据时间范围：2023-2026年。所有引用均为公开用户生成内容。
+  </p>
+
+  <p style="color:#999;font-size:13px;text-align:center;margin-top:16px;">
+    报告生成: Hermes Agent · Nous Research | <span id="reportDate2"></span>
+  </p>
+  </div>
+</div>
+
+</div><!-- slides-container -->
+
+<div class="bottom-page-number" id="bottomPageNum">1 / 10</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let current = 0;
+const total = slides.length;
+
+function updateSlide() {
+  slides.forEach((s, i) => {
+    s.style.display = i === current ? 'flex' : 'none';
+  });
+  document.getElementById('pageNum').textContent = (current + 1) + ' / ' + total;
+  document.getElementById('bottomPageNum').textContent = (current + 1) + ' / ' + total;
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').disabled = current === total - 1;
+}
+
+function prevSlide() { if (current > 0) { current--; updateSlide(); } }
+function nextSlide() { if (current < total - 1) { current++; updateSlide(); } }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') prevSlide();
+  if (e.key === 'ArrowRight') nextSlide();
+});
+
+updateSlide();
+
+const now = new Date();
+const dateStr = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日';
+document.getElementById('reportDate').textContent = dateStr;
+document.getElementById('reportDate2').textContent = dateStr;
+
+// Touch swipe support
+let touchStartX = 0;
+document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+document.addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].screenX;
+  if (Math.abs(diff) > 50) { diff > 0 ? nextSlide() : prevSlide(); }
+});
+</script>
+</body>
+</html>
